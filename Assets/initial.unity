@@ -73,7 +73,6 @@ NavMeshSettings:
     minRegionArea: 2
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
-    tileSizeHint: 0
   m_NavMesh: {fileID: 0}
 --- !u!1 &346038966
 GameObject:
@@ -88,6 +87,7 @@ GameObject:
   - 124: {fileID: 346038968}
   - 81: {fileID: 346038967}
   - 114: {fileID: 346038972}
+  - 148: {fileID: 346038973}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -172,3 +172,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberOfPlayers: 2
+--- !u!148 &346038973
+NetworkView:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 346038966}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 346038971}
+  m_ViewID:
+    m_ID: 1
+    m_Type: 1
