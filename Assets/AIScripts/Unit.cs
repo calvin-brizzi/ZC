@@ -13,16 +13,52 @@ public class Unit : MonoBehaviour {
 	PathRequestController request;
 	bool gathering;
 	bool returning;
+	bool selected;
+	bool incremented;
+	bool clicked;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
+	public GameObject glowSelection;
+	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
+	public enum State{Gathering,Attacking,Moving,Idle};
 	public Type unitClass;
+	public State state;
 	void Awake(){
+		glow = null;
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
+		incremented = false;
+		state = State.Idle;
 	}
 	void Update(){
-		if (Input.GetMouseButtonDown(1))
+		if (renderer.isVisible && Input.GetMouseButton (0)) {
+			if(!clicked){
+				Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
+				cameraPosition.y=Screen.height-cameraPosition.y;
+				selected=AICamera.selectedArea.Contains (cameraPosition) && !UnitMonitor.reachedMaximum();
+			}
+//			if(selected && !incremented){
+//				incremented = true;
+//				UnitMonitor.incrementSelected();
+//			}
+//			else if(!selected && incremented){
+//				incremented=false;
+//				UnitMonitor.decrementSelected();
+//			}
+
+			if(selected && glow == null){
+				glow = (GameObject)GameObject.Instantiate(glowSelection);
+				glow.transform.parent=transform;
+				glow.transform.localPosition=new Vector3(0,-GetComponent<MeshFilter>().mesh.bounds.extents.y,0);
+			}
+			else if(!selected && glow!=null){
+				GameObject.Destroy (glow);
+				glow=null;
+			}
+		}
+
+		if (Input.GetMouseButtonDown(1) && selected)
 		{
 			path = null;
 			StopCoroutine("FollowPath");
@@ -33,6 +69,7 @@ public class Unit : MonoBehaviour {
 				mouseClick = hit.point;
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 					var gatherPoint = hit.transform.Find("GatherPoint");
+					state = State.Gathering;
 					gathering = true;
 					if(gatherPoint){
 						resourcePoint = gatherPoint.position;
@@ -47,11 +84,23 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	void OnMouseDown(){
+		clicked = true;
+		selected = true;
+	}
+
+	void OnMouseUp(){
+		if(clicked){
+			selected = true;
+		}
+		clicked = false;
+	}
+
 	public void StartGathering(){
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
 			if(!returning){
-				Debug.Log("Moving");
+				state = State.Moving;
 				PathRequestController.RequestPath(resourcePoint,returnPoint.position,OnPathFound);
 				returning=true;
 			}
@@ -64,7 +113,6 @@ public class Unit : MonoBehaviour {
 
     public void OnPathFound(Vector3[] newPath, bool success)
     {
-
         if (success)
         {
             path = newPath;
