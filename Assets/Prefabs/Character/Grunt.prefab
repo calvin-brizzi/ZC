@@ -69,7 +69,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015551792da671b4eaaff21901cfd326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glowSelection: {fileID: 172638, guid: 2b49024d879f96a458f5e86fb44114b1, type: 2}
   unitClass: 0
+  state: 3
 --- !u!136 &13693322
 CapsuleCollider:
   m_ObjectHideFlags: 1

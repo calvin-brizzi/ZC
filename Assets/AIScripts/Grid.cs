@@ -74,4 +74,8 @@ public class Grid : MonoBehaviour {
             return gridSizeX * gridSizeY;
         }
     }
+
+	void OnDrawGizmos(){
+		Gizmos.DrawWireCube (transform.position, new Vector3 (gridSize.x, 1, gridSize.y));
+	}
 }

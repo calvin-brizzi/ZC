@@ -9,6 +9,8 @@ using System.Collections;
 public class Unit : MonoBehaviour {
 	Vector3 mouseClick;
     int speed=20;
+	float duration;
+	float coolDown;//To prevent rapidly clicking the same point over and over and therefore causing issues
     Vector3[] path;
 	PathRequestController request;
 	bool gathering;
@@ -25,6 +27,7 @@ public class Unit : MonoBehaviour {
 	public Type unitClass;
 	public State state;
 	void Awake(){
+		duration = 0.4f;
 		glow = null;
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
@@ -58,8 +61,9 @@ public class Unit : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetMouseButtonDown(1) && selected)
+		if (Input.GetMouseButtonDown(1) && selected && Time.time > coolDown)
 		{
+			coolDown = Time.time + duration;
 			path = null;
 			StopCoroutine("FollowPath");
 			RaycastHit hit;

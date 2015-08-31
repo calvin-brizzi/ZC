@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glowSelection: {fileID: 172638, guid: 2b49024d879f96a458f5e86fb44114b1, type: 2}
   unitClass: 1
-  state: 0
+  state: 3
 --- !u!136 &13687698
 CapsuleCollider:
   m_ObjectHideFlags: 1
