@@ -16,7 +16,6 @@ public class AICamera : MonoBehaviour {
 			initialClick = Input.mousePosition;
 		}
 		else if(Input.GetMouseButtonUp(0)){
-
 			initialClick = - Vector3.one;
 		}
 		if(Input.GetMouseButton(0)){

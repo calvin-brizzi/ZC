@@ -2,27 +2,28 @@
 using System.Collections;
 
 public class UnitMonitor : MonoBehaviour {
-	static int selectedUnits=0;
-	static int MAX_SELECTION=10;
-
-	// Use this for initialization
-	void Start () {
-
-	}
-	
-	// Update is called once per frame
-	public static void incrementSelected(){
-		selectedUnits++;
-		Debug.Log (selectedUnits);
+	public static ArrayList selectedUnits = new ArrayList();
+	static int MAX_UNITS_SELECTED = 25; 
+	public static void RemoveUnit(GameObject unit){
+		for (int i =0; i<selectedUnits.Count; i++) {
+			GameObject unitInArrayList = selectedUnits[i] as GameObject;
+			if(unit == unitInArrayList){
+				selectedUnits.RemoveAt(i);
+			}
+		}
 	}
 
-	public static void decrementSelected(){
-		selectedUnits--;
-		Debug.Log (selectedUnits);
+	public static void AddUnit(GameObject unit){
+		if (!selectedUnits.Contains (unit)) {
+			selectedUnits.Add (unit);
+		}
 	}
 
-	public static bool reachedMaximum(){
+	public static bool LimitNotReached(){
+		return MAX_UNITS_SELECTED>selectedUnits.Count;
+	}
 
-		return selectedUnits == MAX_SELECTION;
+	public static bool isShiftPressed(){
+		return (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
 	}
 }

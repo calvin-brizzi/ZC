@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 401524}
   - 33: {fileID: 3301524}
-  - 136: {fileID: 13601524}
   - 23: {fileID: 2301524}
   - 114: {fileID: 11401524}
+  - 136: {fileID: 13623998}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 101524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.2000008, y: 1, z: -36.9000015}
+  m_LocalPosition: {x: -35.2000008, y: 1, z: -36.9000015}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   glowSelection: {fileID: 172638, guid: 2b49024d879f96a458f5e86fb44114b1, type: 2}
   unitClass: 2
   state: 3
---- !u!136 &13601524
+--- !u!136 &13623998
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

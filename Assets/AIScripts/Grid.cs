@@ -19,7 +19,11 @@ public class Grid : MonoBehaviour {
         gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
         CreateGrid();
     }
-
+	void Update(){
+		if (Input.GetKey (KeyCode.A)) {
+			CreateGrid();
+		}
+	}
     void CreateGrid()
     {
         grid = new Node[gridSizeX,gridSizeY];
@@ -77,5 +81,11 @@ public class Grid : MonoBehaviour {
 
 	void OnDrawGizmos(){
 		Gizmos.DrawWireCube (transform.position, new Vector3 (gridSize.x, 1, gridSize.y));
+		if(grid!=null){
+			foreach(Node n in grid){
+				Gizmos.color = (n.Walkable)?Color.white:Color.red;
+				Gizmos.DrawCube(n.position,Vector3.one *(nodeDiameter-.1f));
+			}
+		}
 	}
 }

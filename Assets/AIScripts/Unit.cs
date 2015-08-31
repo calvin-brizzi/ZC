@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour {
 	bool gathering;
 	bool returning;
 	bool selected;
-	bool incremented;
+	bool wasSelected;
 	bool clicked;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
@@ -31,37 +31,39 @@ public class Unit : MonoBehaviour {
 		glow = null;
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
-		incremented = false;
 		state = State.Idle;
+		wasSelected = false;
 	}
 	void Update(){
+
 		if (renderer.isVisible && Input.GetMouseButton (0)) {
 			if(!clicked){
 				Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
 				cameraPosition.y=Screen.height-cameraPosition.y;
-				selected=AICamera.selectedArea.Contains (cameraPosition) && !UnitMonitor.reachedMaximum();
+				selected=AICamera.selectedArea.Contains (cameraPosition) ;
+				if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached() ){
+					UnitMonitor.AddUnit(this.gameObject);
+					wasSelected=true;
+				}
+				//If either of the shift buttons are pushed then dont deselct it just add it
+				else if(!selected && wasSelected && !UnitMonitor.isShiftPressed()){
+					UnitMonitor.RemoveUnit(this.gameObject);
+					wasSelected=false;
+				}
 			}
-//			if(selected && !incremented){
-//				incremented = true;
-//				UnitMonitor.incrementSelected();
-//			}
-//			else if(!selected && incremented){
-//				incremented=false;
-//				UnitMonitor.decrementSelected();
-//			}
 
-			if(selected && glow == null){
+			if(wasSelected && glow == null){
 				glow = (GameObject)GameObject.Instantiate(glowSelection);
 				glow.transform.parent=transform;
 				glow.transform.localPosition=new Vector3(0,-GetComponent<MeshFilter>().mesh.bounds.extents.y,0);
 			}
-			else if(!selected && glow!=null){
+			else if(!wasSelected && glow!=null){
 				GameObject.Destroy (glow);
 				glow=null;
 			}
 		}
 
-		if (Input.GetMouseButtonDown(1) && selected && Time.time > coolDown)
+		if (Input.GetMouseButtonDown(1) && wasSelected && Time.time > coolDown)
 		{
 			coolDown = Time.time + duration;
 			path = null;
@@ -90,12 +92,12 @@ public class Unit : MonoBehaviour {
 
 	void OnMouseDown(){
 		clicked = true;
-		selected = true;
+		wasSelected = true;
 	}
 
 	void OnMouseUp(){
 		if(clicked){
-			selected = true;
+			wasSelected = true;
 		}
 		clicked = false;
 	}
@@ -128,6 +130,7 @@ public class Unit : MonoBehaviour {
     IEnumerator FollowPath()
     {
 		if (path != null && path.Length>0) {
+			path=SmoothPath(path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
 			while (true) {
@@ -139,13 +142,12 @@ public class Unit : MonoBehaviour {
 					}
 					waypoint = path [targetPosition];
 				}
-				waypoint.y = 1;
+				waypoint.y = transform.position.y;//So that the units always remain the same height
 				Debug.DrawLine (transform.position, waypoint);
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				yield return null;
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
 					if (gathering) {
-						Debug.Log ("Gathering");
 						StartGathering();
 					}
 				}
@@ -155,19 +157,19 @@ public class Unit : MonoBehaviour {
 
 
     }
-
+	//Chaikin path smoothing algorithm
 	Vector3[] SmoothPath(Vector3[] pathToSmooth){
-		Debug.Log (pathToSmooth.Length);
-		Vector3[] smoothPath = new Vector3[(pathToSmooth.Length ) * 2 - 4];
+		Vector3[] smoothPath = new Vector3[(pathToSmooth.Length - 2 ) * 2 + 2];
 		smoothPath [0] = pathToSmooth [0];
 		smoothPath [smoothPath.Length - 1] = pathToSmooth [pathToSmooth.Length - 1];//End point is the same
 		int position = 1;
 		for (int i =0; i<pathToSmooth.Length - 2; i++) {
-			smoothPath[position] = pathToSmooth[i] +(pathToSmooth[i+1]-pathToSmooth[i]);
+			smoothPath[position] = pathToSmooth[i] +(pathToSmooth[i+1]-pathToSmooth[i])*0.75f;
 			smoothPath[position+1] = pathToSmooth[i+1] + (pathToSmooth[i+2]-pathToSmooth[i+1])*0.25f;
 			position+=2;
 		}
 		return smoothPath;
 	}
+
 
 }

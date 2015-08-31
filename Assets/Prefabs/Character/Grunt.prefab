@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 493322}
   - 33: {fileID: 3393322}
-  - 136: {fileID: 13693322}
   - 23: {fileID: 2393322}
   - 114: {fileID: 11493322}
+  - 136: {fileID: 13656388}
   m_Layer: 0
   m_Name: Grunt
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 193322}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.5, y: 1, z: -41.5999985}
+  m_LocalPosition: {x: -35.5, y: 1, z: -41.5999985}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
   glowSelection: {fileID: 172638, guid: 2b49024d879f96a458f5e86fb44114b1, type: 2}
   unitClass: 0
   state: 3
---- !u!136 &13693322
+--- !u!136 &13656388
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
