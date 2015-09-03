@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-/*[TODO] Work on path smotthing
+/*
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
  *[TODO] Give each character the correct animation depending on the task assigned
@@ -75,7 +75,6 @@ public class Unit : MonoBehaviour {
 				mouseClick = hit.point;
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 					var gatherPoint = hit.transform.Find("GatherPoint");
-					state = State.Gathering;
 					gathering = true;
 					if(gatherPoint){
 						resourcePoint = gatherPoint.position;
@@ -119,13 +118,27 @@ public class Unit : MonoBehaviour {
 
     public void OnPathFound(Vector3[] newPath, bool success)
     {
-        if (success)
-        {
-            path = newPath;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
-        }
+        if (success && !gathering) {
+			path = newPath;
+			StopCoroutine ("FollowPath");
+			StartCoroutine ("FollowPath");
+		} else if (success && gathering && !returning) {
+			path=newPath;
+			StopCoroutine ("FollowPath");
+			StartCoroutine("FollowPath");
+		} else if(success && returning){
+			path=newPath;
+			Debug.Log ("Waiting");
+			StopCoroutine ("FollowPath");
+			StartCoroutine("WaitAndFollow");
+		}
     }
+
+	IEnumerator WaitAndFollow(){	
+		yield return new WaitForSeconds (2);
+		StartCoroutine ("FollowPath");
+
+	}
 
     IEnumerator FollowPath()
     {
@@ -159,16 +172,21 @@ public class Unit : MonoBehaviour {
     }
 	//Chaikin path smoothing algorithm
 	Vector3[] SmoothPath(Vector3[] pathToSmooth){
-		Vector3[] smoothPath = new Vector3[(pathToSmooth.Length - 2 ) * 2 + 2];
-		smoothPath [0] = pathToSmooth [0];
-		smoothPath [smoothPath.Length - 1] = pathToSmooth [pathToSmooth.Length - 1];//End point is the same
-		int position = 1;
-		for (int i =0; i<pathToSmooth.Length - 2; i++) {
-			smoothPath[position] = pathToSmooth[i] +(pathToSmooth[i+1]-pathToSmooth[i])*0.75f;
-			smoothPath[position+1] = pathToSmooth[i+1] + (pathToSmooth[i+2]-pathToSmooth[i+1])*0.25f;
-			position+=2;
+		Debug.Log (pathToSmooth.Length+"");
+		if (pathToSmooth.Length > 1) {
+			Vector3[] smoothPath = new Vector3[(pathToSmooth.Length - 2) * 2 + 2];
+			smoothPath [0] = pathToSmooth [0];
+			smoothPath [smoothPath.Length - 1] = pathToSmooth [pathToSmooth.Length - 1];//End point is the same
+			int position = 1;
+			for (int i =0; i<pathToSmooth.Length - 2; i++) {
+				smoothPath [position] = pathToSmooth [i] + (pathToSmooth [i + 1] - pathToSmooth [i]) * 0.75f;
+				smoothPath [position + 1] = pathToSmooth [i + 1] + (pathToSmooth [i + 2] - pathToSmooth [i + 1]) * 0.25f;
+				position += 2;
+			}
+			return smoothPath;
+		}else{
+			return pathToSmooth;
 		}
-		return smoothPath;
 	}
 
 
