@@ -9,6 +9,9 @@ using System.Collections;
 public class Unit : MonoBehaviour {
 	Vector3 mouseClick;
     int speed=20;
+	int currentLoad;
+	int MAX_LOAD;
+	int gatherSpeed;
 	float duration;
 	float coolDown;//To prevent rapidly clicking the same point over and over and therefore causing issues
     Vector3[] path;
@@ -18,6 +21,7 @@ public class Unit : MonoBehaviour {
 	bool selected;
 	bool wasSelected;
 	bool clicked;
+	bool collectGoods;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
 	public GameObject glowSelection;
@@ -28,6 +32,9 @@ public class Unit : MonoBehaviour {
 	public State state;
 	void Awake(){
 		duration = 0.4f;
+		MAX_LOAD = 300;
+		currentLoad = 0;
+		gatherSpeed = 1;
 		glow = null;
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
@@ -35,7 +42,15 @@ public class Unit : MonoBehaviour {
 		wasSelected = false;
 	}
 	void Update(){
+		if (MAX_LOAD==currentLoad) {
+			collectGoods=false;
+			currentLoad=0;
+			StartCoroutine ("WaitAndFollow");
+		}
+		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad ){
+			currentLoad+=gatherSpeed;
 
+		}
 		if (renderer.isVisible && Input.GetMouseButton (0)) {
 			if(!clicked){
 				Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
@@ -77,12 +92,16 @@ public class Unit : MonoBehaviour {
 					var gatherPoint = hit.transform.Find("GatherPoint");
 					gathering = true;
 					if(gatherPoint){
+						collectGoods=false;
+						returning = false;
+						Debug.Log(currentLoad+"");
 						resourcePoint = gatherPoint.position;
 						PathRequestController.RequestPath(transform.position,gatherPoint.position,OnPathFound);
 					}
 				}
 				else{
 					gathering=false;
+					returning = false;
 					PathRequestController.RequestPath(transform.position,mouseClick,OnPathFound);
 				}
 			}
@@ -105,13 +124,14 @@ public class Unit : MonoBehaviour {
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
 			if(!returning){
-				state = State.Moving;
+				Debug.Log("1");
 				PathRequestController.RequestPath(resourcePoint,returnPoint.position,OnPathFound);
 				returning=true;
 			}
 			else{
 				PathRequestController.RequestPath(returnPoint.position,resourcePoint,OnPathFound);
 				returning = false;
+				Debug.Log("2");
 			}
 		}
 	}
@@ -128,21 +148,21 @@ public class Unit : MonoBehaviour {
 			StartCoroutine("FollowPath");
 		} else if(success && returning){
 			path=newPath;
-			Debug.Log ("Waiting");
 			StopCoroutine ("FollowPath");
-			StartCoroutine("WaitAndFollow");
+			collectGoods=true;
+			state=State.Gathering;
 		}
     }
 
 	IEnumerator WaitAndFollow(){	
-		yield return new WaitForSeconds (2);
-		StartCoroutine ("FollowPath");
-
+		yield return null;
+		StartCoroutine("FollowPath");
 	}
 
     IEnumerator FollowPath()
     {
 		if (path != null && path.Length>0) {
+			state=State.Moving;
 			path=SmoothPath(path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
@@ -163,6 +183,9 @@ public class Unit : MonoBehaviour {
 					if (gathering) {
 						StartGathering();
 					}
+					else{
+						state=State.Idle;
+					}
 				}
 			}
 
@@ -172,7 +195,6 @@ public class Unit : MonoBehaviour {
     }
 	//Chaikin path smoothing algorithm
 	Vector3[] SmoothPath(Vector3[] pathToSmooth){
-		Debug.Log (pathToSmooth.Length+"");
 		if (pathToSmooth.Length > 1) {
 			Vector3[] smoothPath = new Vector3[(pathToSmooth.Length - 2) * 2 + 2];
 			smoothPath [0] = pathToSmooth [0];

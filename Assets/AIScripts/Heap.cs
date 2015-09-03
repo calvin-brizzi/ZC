@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 //Optimization for large number of units
-public class Heap<T> where T: HeapItem<T>
+public class Heap<T> where T: IHeapItem<T>
 {
     T[] items;
     int count;
@@ -110,7 +110,7 @@ public class Heap<T> where T: HeapItem<T>
     }
 }
 
-public interface HeapItem<T> : IComparable<T>
+public interface IHeapItem<T> : IComparable<T>
 {
     int Index
     {

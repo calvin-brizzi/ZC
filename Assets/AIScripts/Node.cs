@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Node : HeapItem<Node>{
+public class Node : IHeapItem<Node>{
     bool walkable;
     public Vector3 position;
 	public bool Resource;

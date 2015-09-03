@@ -49,6 +49,7 @@
      <Compile Include="Assets\AIScripts\AICamera.cs" />
      <Compile Include="Assets\AIScripts\A_Pathfinding.cs" />
      <Compile Include="Assets\AIScripts\Grid.cs" />
+     <Compile Include="Assets\AIScripts\Grunt.cs" />
      <Compile Include="Assets\AIScripts\Heap.cs" />
      <Compile Include="Assets\AIScripts\Node.cs" />
      <Compile Include="Assets\AIScripts\PathRequestController.cs" />
