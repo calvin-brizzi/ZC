@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-/*
+/*[TODO] Add what type of material it is carrying
+ *[TODO] Add move command capability
+ *[TODO] Add attack ability
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
  *[TODO] Give each character the correct animation depending on the task assigned
- *[TODO] Delay Grunts at resource to allow for gathering animation
+ *[TODO] Make it so when you right click on a town hall it goes and deposits the collected goods
 */
 public class Unit : MonoBehaviour {
 	Vector3 mouseClick;
@@ -32,7 +34,7 @@ public class Unit : MonoBehaviour {
 	public State state;
 	void Awake(){
 		duration = 0.4f;
-		MAX_LOAD = 300;
+		MAX_LOAD = 20;
 		currentLoad = 0;
 		gatherSpeed = 1;
 		glow = null;
@@ -45,7 +47,7 @@ public class Unit : MonoBehaviour {
 		if (MAX_LOAD==currentLoad) {
 			collectGoods=false;
 			currentLoad=0;
-			StartCoroutine ("WaitAndFollow");
+			StartCoroutine("FollowPath");
 		}
 		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad ){
 			currentLoad+=gatherSpeed;
@@ -124,14 +126,12 @@ public class Unit : MonoBehaviour {
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
 			if(!returning){
-				Debug.Log("1");
 				PathRequestController.RequestPath(resourcePoint,returnPoint.position,OnPathFound);
 				returning=true;
 			}
 			else{
 				PathRequestController.RequestPath(returnPoint.position,resourcePoint,OnPathFound);
 				returning = false;
-				Debug.Log("2");
 			}
 		}
 	}
@@ -154,16 +154,11 @@ public class Unit : MonoBehaviour {
 		}
     }
 
-	IEnumerator WaitAndFollow(){	
-		yield return null;
-		StartCoroutine("FollowPath");
-	}
-
     IEnumerator FollowPath()
     {
 		if (path != null && path.Length>0) {
 			state=State.Moving;
-			path=SmoothPath(path);
+			path = SmoothPath(path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
 			while (true) {
