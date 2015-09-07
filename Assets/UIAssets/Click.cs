@@ -43,6 +43,24 @@ public class Click : MonoBehaviour {
 
 	public void loveHotel(){
 		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
+		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+		print (temp.transform.name);
+		temp.transform.SendMessage ("set",0,SendMessageOptions.DontRequireReceiver);;
+
+	}
+	public void zombieSchool(){
+		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
+		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+		print (temp.transform.name);
+		temp.transform.SendMessage ("set",2,SendMessageOptions.DontRequireReceiver);;
+		
+	}
+	public void graveyard(){
+		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
+		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+		print (temp.transform.name);
+		temp.transform.SendMessage ("set",1,SendMessageOptions.DontRequireReceiver);;
+		
 	}
 
 
@@ -54,7 +72,7 @@ public class Click : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			Debug.DrawRay (ray.origin,ray.direction*100,Color.yellow);
-			if(Physics.Raycast (ray,out hit,400)){
+			if(Physics.Raycast (ray,out hit,1700)){
 				//print("AHH");
 				if(hit.transform.tag == "Axeman" || hit.transform.tag == "Archer"){
 					print("RUNS");
