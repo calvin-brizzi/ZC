@@ -10,10 +10,11 @@ using System.Collections;
 */
 public class Unit : MonoBehaviour {
 	Vector3 mouseClick;
-    int speed=20;
+    int speed;
 	int currentLoad;
 	int MAX_LOAD;
 	int gatherSpeed;
+	int collectedAmount;
 	float duration;
 	float coolDown;//To prevent rapidly clicking the same point over and over and therefore causing issues
     Vector3[] path;
@@ -21,6 +22,7 @@ public class Unit : MonoBehaviour {
 	bool gathering;
 	bool returning;
 	bool selected;
+	bool depositing;
 	bool wasSelected;
 	bool clicked;
 	bool collectGoods;
@@ -33,8 +35,10 @@ public class Unit : MonoBehaviour {
 	public Type unitClass;
 	public State state;
 	void Awake(){
+		collectedAmount = 0;
 		duration = 0.4f;
-		MAX_LOAD = 20;
+		speed = 20;
+		MAX_LOAD = 100;
 		currentLoad = 0;
 		gatherSpeed = 1;
 		glow = null;
@@ -44,16 +48,19 @@ public class Unit : MonoBehaviour {
 		wasSelected = false;
 	}
 	void Update(){
-		if (MAX_LOAD==currentLoad) {
+		Debug.Log (collectedAmount);
+		Debug.Log (currentLoad);
+		if (MAX_LOAD==currentLoad) { // If the unit has reached its max load return to base
 			collectGoods=false;
+			collectedAmount=currentLoad;
 			currentLoad=0;
 			StartCoroutine("FollowPath");
 		}
-		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad ){
+		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad ){// While gathering goods increase current load
 			currentLoad+=gatherSpeed;
-
+			collectedAmount=currentLoad;
 		}
-		if (renderer.isVisible && Input.GetMouseButton (0)) {
+		if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
 			if(!clicked){
 				Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
 				cameraPosition.y=Screen.height-cameraPosition.y;
@@ -62,6 +69,7 @@ public class Unit : MonoBehaviour {
 					UnitMonitor.AddUnit(this.gameObject);
 					wasSelected=true;
 				}
+
 				//If either of the shift buttons are pushed then dont deselct it just add it
 				else if(!selected && wasSelected && !UnitMonitor.isShiftPressed()){
 					UnitMonitor.RemoveUnit(this.gameObject);
@@ -80,7 +88,7 @@ public class Unit : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetMouseButtonDown(1) && wasSelected && Time.time > coolDown)
+		if (Input.GetMouseButtonDown(1) && wasSelected && Time.time > coolDown) // Detects a players right click  and moves the selected troops top that position
 		{
 			coolDown = Time.time + duration;
 			path = null;
@@ -101,9 +109,18 @@ public class Unit : MonoBehaviour {
 						PathRequestController.RequestPath(transform.position,gatherPoint.position,OnPathFound);
 					}
 				}
+				else if(hit.collider.gameObject.tag=="Home Base"){
+					var returnPoint = hit.transform.Find("ReturnPoint");
+					if(unitClass.Equals(Type.Grunt)){
+						depositing =true;
+						PathRequestController.RequestPath(transform.position,returnPoint.position,OnPathFound);
+					}
+				}
 				else{
 					gathering=false;
 					returning = false;
+					collectGoods=false;
+					currentLoad = 0;
 					PathRequestController.RequestPath(transform.position,mouseClick,OnPathFound);
 				}
 			}
@@ -125,12 +142,13 @@ public class Unit : MonoBehaviour {
 	public void StartGathering(){
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
-			if(!returning){
+			if(!returning){//While the unit is collecting goods
 				PathRequestController.RequestPath(resourcePoint,returnPoint.position,OnPathFound);
 				returning=true;
 			}
-			else{
+			else{//When gathering and the unit has reached the home base to return the collected goods
 				PathRequestController.RequestPath(returnPoint.position,resourcePoint,OnPathFound);
+				collectedAmount=0;
 				returning = false;
 			}
 		}
@@ -175,8 +193,12 @@ public class Unit : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				yield return null;
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
-					if (gathering) {
+					if (gathering) { //So that the gathering movement happens automatically
 						StartGathering();
+					}
+					else if(depositing){ // This is for when a grunt is carrying good and the player deposits it manuallly
+						depositing =false;
+						collectedAmount=0;
 					}
 					else{
 						state=State.Idle;
