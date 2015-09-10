@@ -11,7 +11,8 @@ GameObject:
   - 33: {fileID: 3323170}
   - 23: {fileID: 2323170}
   - 95: {fileID: 9523170}
-  m_Layer: 0
+  - 64: {fileID: 6477398}
+  m_Layer: 8
   m_Name: Zombie School Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,8 +26,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123170}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 105.400002, y: 9.19999981, z: 384.5}
-  m_LocalScale: {x: 23.8750629, y: 21.0912628, z: 16.1315308}
+  m_LocalPosition: {x: -2.5999999, y: 0, z: -42.5999985}
+  m_LocalScale: {x: 31.2300797, y: 13.2349501, z: 34.8174782}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,6 +57,19 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123170}
+  m_Mesh: {fileID: 4300000, guid: a1f7c7444d798154bb80f7b7472ceade, type: 3}
+--- !u!64 &6477398
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: a1f7c7444d798154bb80f7b7472ceade, type: 3}
 --- !u!95 &9523170
 Animator:

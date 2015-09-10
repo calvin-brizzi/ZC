@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3379472}
   - 23: {fileID: 2379472}
   - 95: {fileID: 9579472}
+  - 64: {fileID: 6464800}
   m_Layer: 0
   m_Name: Graveyard_PREFAB
   m_TagString: Untagged
@@ -56,6 +57,19 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179472}
+  m_Mesh: {fileID: 4300000, guid: c9d9b9c1de1c3c34f9f39bd87587f899, type: 3}
+--- !u!64 &6464800
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: c9d9b9c1de1c3c34f9f39bd87587f899, type: 3}
 --- !u!95 &9579472
 Animator:
