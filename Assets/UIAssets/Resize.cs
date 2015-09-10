@@ -20,8 +20,10 @@ public class Resize : MonoBehaviour {
 
 		Vector3 tempP = HUD.transform.position;
 		Vector3 tempS = HUD.transform.localScale;
-		tempP.x = Screen.width * 0.54f;
+		tempP.x = Screen.width * 0.475f;
 		tempP.y = Screen.height * 0.102f;
+		//tempP.x = Screen.width * 0.54f;
+		//tempP.y = Screen.height * 0.102f;
 		tempS.x = 9.670751f * (Screen.width / 942f);
 		tempS.y = 4.038905f * (Screen.height / 497f);
 

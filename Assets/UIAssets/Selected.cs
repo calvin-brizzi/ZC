@@ -4,12 +4,17 @@ using System.Collections;
 public class Selected : MonoBehaviour {
 	bool sel = true;
 	bool colide = false;
+	int current = 0;
+	public GameObject[] buildings;
 
 	// Use this for initialization
 	void Start () {
 
 	}
-	
+	public void set(int x){
+		current = x;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (sel) {
@@ -24,8 +29,15 @@ public class Selected : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButton (0)) {
+			if(!colide){
+				sel = false;
+				Instantiate (buildings[current],this.transform.position,Quaternion.identity);
+				Destroy (this.gameObject);
+			}
 
-			sel = false;
+		}
+		if (Input.GetMouseButton (1)) {
+			Destroy (this.gameObject);
 		}
 
 
@@ -37,13 +49,26 @@ public class Selected : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision coll){
+	
 		if (coll.gameObject.name == "Terrain") {
 
 		} else {
-			print(coll.gameObject == null);
+		
+			colide = true;
 			
 		}
 	
+	}
+	void OnCollisionExit(Collision coll){
+	
+		if (coll.gameObject.name == "Terrain") {
+			
+		} else {
+
+			colide = false;
+			
+		}
+		
 	}
 
 
