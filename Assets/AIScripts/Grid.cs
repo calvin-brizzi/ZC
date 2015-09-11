@@ -24,8 +24,14 @@ public class Grid : MonoBehaviour {
 			CreateGrid();
 		}
 	}
-    void CreateGrid()
+	public void ReCreateGrid()
+	{
+		Debug.Log ("ReCreate Grid");
+		Invoke ("CreateGrid",0.3f);
+	}
+    public void CreateGrid()
     {
+		Debug.Log ("Create Grid");
         grid = new Node[gridSizeX,gridSizeY];
         Vector3 bottomLeft = transform.position - Vector3.right*gridSize.x/2 - Vector3.forward*gridSize.y/2;
         for (int x = 0; x < gridSizeX; x++)

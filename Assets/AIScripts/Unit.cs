@@ -5,7 +5,7 @@ using System.Collections;
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
  *[TODO] Give each character the correct animation depending on the task assigned
- *[TODO] Add a script to the reources that just store how much the resource has and its type
+ *[TODO] Make grunt check if the second resource is the same as the one it current holds if so just add else remove
  *[TODO] Add a rally point marker
 */
 public class Unit : MonoBehaviour {
@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour {
 	float coolDown;//To prevent rapidly clicking the same point over and over and therefore causing issues
     Vector3[] path;
 	PathRequestController request;
+	GameObject currentResource;
 	bool gathering;
 	bool returning;
 	bool selected;
@@ -56,9 +57,16 @@ public class Unit : MonoBehaviour {
 			currentLoad=0;
 			StartCoroutine("FollowPath");
 		}
-		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad ){// While gathering goods increase current load
+		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad && currentResource!=null){// While gathering goods increase current load
 			currentLoad+=gatherSpeed;
+			currentResource.GetComponent<Resource>().ReduceAmountOfMaterial(gatherSpeed);
 			collectedAmount=currentLoad;
+		}
+		if (collectGoods && gathering && currentResource == null) {
+			collectGoods=false;
+			collectedAmount=currentLoad;
+			currentLoad=0;
+			StartCoroutine("FollowPath");
 		}
 		if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
 			if(!clicked){
@@ -99,12 +107,12 @@ public class Unit : MonoBehaviour {
 			{
 				mouseClick = hit.point;
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
+					currentResource = hit.transform.gameObject;
 					var gatherPoint = hit.transform.Find("GatherPoint");
 					gathering = true;
 					if(gatherPoint){
 						collectGoods=false;
 						returning = false;
-						Debug.Log(currentLoad+"");
 						resourcePoint = gatherPoint.position;
 						MoveUnit(transform.position,gatherPoint.position);
 					}
@@ -164,11 +172,14 @@ public class Unit : MonoBehaviour {
 			path = newPath;
 			StopCoroutine ("FollowPath");
 			StartCoroutine ("FollowPath");
-		} else if (success && gathering && !returning) {
+		} else if (success && gathering && !returning ) {
 			path=newPath;
+			if(currentResource==null){
+				gathering = false;
+			}
 			StopCoroutine ("FollowPath");
 			StartCoroutine("FollowPath");
-		} else if(success && returning){
+		} else if(success && returning && currentResource!=null){
 			path=newPath;
 			StopCoroutine ("FollowPath");
 			collectGoods=true;
