@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Resource : MonoBehaviour {
 	public int amountOfMaterial;
-	public enum Type {Lava, Stone};
-	public Type type;
+	public enum ResourceType {Nothing, Lava, Stone};
+	public ResourceType type;
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (amountOfMaterial <= 0 && this.gameObject!=null) {
 			Debug.Log (amountOfMaterial<=0 && this.gameObject!=null);
 			Destroy (this.gameObject);

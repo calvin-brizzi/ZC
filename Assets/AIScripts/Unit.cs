@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-/*[TODO] Add what type of material it is carrying
+/*
  *[TODO] Add attack ability
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
@@ -33,7 +33,7 @@ public class Unit : MonoBehaviour {
 	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
 	public enum State{Gathering,Attacking,Moving,Idle};
-	public enum ResourceType{Lava,Rock};
+	public Resource.ResourceType resourceType;
 	public Type unitClass;
 	public State state;
 	void Awake(){
@@ -103,6 +103,11 @@ public class Unit : MonoBehaviour {
 				mouseClick = hit.point;
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 					currentResource = hit.transform.gameObject;
+					if(resourceType!=Resource.ResourceType.Nothing){
+						collectedAmount=0;
+						currentLoad=0;
+					}
+					resourceType = currentResource.GetComponent<Resource>().type;
 					var gatherPoint = hit.transform.Find("GatherPoint");
 					gathering = true;
 					if(gatherPoint){
