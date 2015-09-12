@@ -1322,7 +1322,7 @@ GameObject:
   - 33: {fileID: 481643269}
   - 23: {fileID: 481643268}
   - 95: {fileID: 481643267}
-  - 64: {fileID: 481643266}
+  - 65: {fileID: 481643266}
   m_Layer: 8
   m_Name: Zombie School Prefab
   m_TagString: Untagged
@@ -1330,10 +1330,10 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &481643266
-MeshCollider:
+--- !u!65 &481643266
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6477398, guid: 748e194667b37eb4f9248237ade52d1a,
+  m_PrefabParentObject: {fileID: 6559938, guid: 748e194667b37eb4f9248237ade52d1a,
     type: 2}
   m_PrefabInternal: {fileID: 1713662029}
   m_GameObject: {fileID: 481643265}
@@ -1341,9 +1341,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: a1f7c7444d798154bb80f7b7472ceade, type: 3}
+  m_Size: {x: 2.49000001, y: 1.19000006, z: 5.38999987}
+  m_Center: {x: -9.53674316e-07, y: .5, z: 0}
 --- !u!95 &481643267
 Animator:
   serializedVersion: 3
@@ -1651,9 +1650,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 2.3599999
-  m_Height: 21.5999985
+  m_Height: 13.71
   m_Direction: 1
-  m_Center: {x: -2.13000011, y: -3.48000002, z: 0}
+  m_Center: {x: -2.13000011, y: -6.07000017, z: 0}
 --- !u!212 &542491560
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3154,7 +3153,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 479472, guid: e52a77a8cb108ad4b85500a70d9e701a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 479472, guid: e52a77a8cb108ad4b85500a70d9e701a, type: 2}
       propertyPath: m_LocalScale.x
@@ -4041,7 +4040,7 @@ GameObject:
   - 33: {fileID: 1494626014}
   - 23: {fileID: 1494626013}
   - 95: {fileID: 1494626012}
-  - 64: {fileID: 1494626011}
+  - 65: {fileID: 1494626011}
   m_Layer: 8
   m_Name: Graveyard_PREFAB
   m_TagString: Untagged
@@ -4049,10 +4048,10 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1494626011
-MeshCollider:
+--- !u!65 &1494626011
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6464800, guid: e52a77a8cb108ad4b85500a70d9e701a,
+  m_PrefabParentObject: {fileID: 6526280, guid: e52a77a8cb108ad4b85500a70d9e701a,
     type: 2}
   m_PrefabInternal: {fileID: 1222390673}
   m_GameObject: {fileID: 1494626010}
@@ -4060,9 +4059,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: c9d9b9c1de1c3c34f9f39bd87587f899, type: 3}
+  m_Size: {x: 4.61999989, y: 1.67655861, z: 2.66000009}
+  m_Center: {x: -2.38418579e-07, y: .0900000036, z: -5.96046448e-08}
 --- !u!95 &1494626012
 Animator:
   serializedVersion: 3
@@ -5294,7 +5292,7 @@ GameObject:
   - 33: {fileID: 1887424214}
   - 23: {fileID: 1887424213}
   - 95: {fileID: 1887424212}
-  - 64: {fileID: 1887424211}
+  - 65: {fileID: 1887424211}
   m_Layer: 8
   m_Name: Love Hotel Prefab
   m_TagString: Untagged
@@ -5302,10 +5300,10 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1887424211
-MeshCollider:
+--- !u!65 &1887424211
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6474668, guid: 0d8b12b3e1491c34e8b9a8ef572fe0df,
+  m_PrefabParentObject: {fileID: 6517242, guid: 0d8b12b3e1491c34e8b9a8ef572fe0df,
     type: 2}
   m_PrefabInternal: {fileID: 1053532112}
   m_GameObject: {fileID: 1887424210}
@@ -5313,9 +5311,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 42c5bd7da38a5d24eaa0a612826ef99e, type: 3}
+  m_Size: {x: 2.95000005, y: 5.96032572, z: 2.52999997}
+  m_Center: {x: 0, y: 1.59000003, z: -2.98023224e-08}
 --- !u!95 &1887424212
 Animator:
   serializedVersion: 3
