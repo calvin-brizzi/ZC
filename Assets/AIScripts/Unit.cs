@@ -9,6 +9,10 @@ using System.Collections;
  *[TODO] Add a rally point marker
 */
 public class Unit : MonoBehaviour {
+	int idleStateHash;
+	int runStateHash;
+	int attackStateHash; 
+	int gatherStateHash; 
 	Vector3 mouseClick;
     int speed;
 	int currentLoad;
@@ -29,6 +33,7 @@ public class Unit : MonoBehaviour {
 	bool collectGoods;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
+	Animator anim;
 	public GameObject glowSelection;
 	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
@@ -37,6 +42,13 @@ public class Unit : MonoBehaviour {
 	public Type unitClass;
 	public State state;
 	void Awake(){
+		if(unitClass == Type.Grunt){
+			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
+		}
+		attackStateHash = Animator.StringToHash("Base Laye.Attack");
+		idleStateHash = Animator.StringToHash("Base Layer.Idle");
+		runStateHash = Animator.StringToHash("Base Layer.Run");
+		anim = GetComponent<Animator>();
 		collectedAmount = 0;
 		duration = 0.4f;
 		speed = 20;
@@ -51,6 +63,8 @@ public class Unit : MonoBehaviour {
 		wasSelected = false;
 	}
 	void FixedUpdate(){
+		CheckState ();
+
 		if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
 			collectGoods=false;
 			collectedAmount=currentLoad;
@@ -135,6 +149,17 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	void CheckState(){
+		if (state == State.Moving) {
+			anim.Play(runStateHash);
+		}else if (state == State.Attacking) {
+			anim.Play(attackStateHash);
+		}else if (state == State.Gathering) {
+			anim.Play(gatherStateHash);
+		}else if (state == State.Idle) {
+			anim.Play(idleStateHash);
+		}
+	}
 	//Handles selection of the troops
 	void OnMouseDown(){
 		clicked = true;
@@ -214,6 +239,7 @@ public class Unit : MonoBehaviour {
 				waypoint.y = transform.position.y;//So that the units always remain the same height
 				Debug.DrawLine (transform.position, waypoint);
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
+				transform.LookAt(waypoint);
 				yield return null;
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
 					if (gathering) { //So that the gathering movement happens automatically
@@ -231,8 +257,6 @@ public class Unit : MonoBehaviour {
 
 		}
     }
-
-
 
 	//Chaikin path smoothing algorithm
 	Vector3[] SmoothPath(Vector3[] pathToSmooth){
