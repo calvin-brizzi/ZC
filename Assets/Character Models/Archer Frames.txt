@@ -1,0 +1,6 @@
+T-pose - Frames(0-1) 
+Idle - Frames(2-60)
+Run - Frames(61-77)
+Attack - Frames(78-92)
+Death - Frames(93-99)
+
