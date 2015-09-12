@@ -9,6 +9,7 @@ using System.Collections;
  *[TODO] Add a rally point marker
 */
 public class Unit : MonoBehaviour {
+	public GameObject marker;
 	int idleStateHash;
 	int runStateHash;
 	int attackStateHash; 
@@ -50,7 +51,7 @@ public class Unit : MonoBehaviour {
 		runStateHash = Animator.StringToHash("Base Layer.Run");
 		anim = GetComponent<Animator>();
 		collectedAmount = 0;
-		duration = 0.4f;
+		duration = 0.2f;
 		speed = 20;
 		MAX_LOAD = 100;
 		currentLoad = 0;
@@ -59,12 +60,10 @@ public class Unit : MonoBehaviour {
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
 		state = State.Idle;
-		//Play idle animation
 		wasSelected = false;
 	}
 	void FixedUpdate(){
 		CheckState ();
-
 		if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
 			collectGoods=false;
 			collectedAmount=currentLoad;
@@ -115,6 +114,7 @@ public class Unit : MonoBehaviour {
 			if (Physics.Raycast(ray, out hit))
 			{
 				mouseClick = hit.point;
+				Instantiate(marker,mouseClick,transform.rotation);
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 					currentResource = hit.transform.gameObject;
 					if(resourceType!=Resource.ResourceType.Nothing){
