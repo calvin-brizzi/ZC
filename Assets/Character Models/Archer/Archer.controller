@@ -94,7 +94,7 @@ State:
   m_Position: {x: 618, y: 95, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
-  m_Tag: 
+  m_Tag: 2
 --- !u!1102 &110210342
 State:
   m_ObjectHideFlags: 3
