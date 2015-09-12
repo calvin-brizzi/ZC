@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-/*[TODO] Add what type of material it is carrying
- *[TODO] Add move command capability
+/*
  *[TODO] Add attack ability
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
  *[TODO] Give each character the correct animation depending on the task assigned
- *[TODO] Make it so when you right click on a town hall it goes and deposits the collected goods
+ *[TODO] Make grunt check if the second resource is the same as the one it current holds if so just add else remove
+ *[TODO] Add a rally point marker
 */
 public class Unit : MonoBehaviour {
 	Vector3 mouseClick;
@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour {
 	float coolDown;//To prevent rapidly clicking the same point over and over and therefore causing issues
     Vector3[] path;
 	PathRequestController request;
+	GameObject currentResource;
 	bool gathering;
 	bool returning;
 	bool selected;
@@ -32,6 +33,7 @@ public class Unit : MonoBehaviour {
 	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
 	public enum State{Gathering,Attacking,Moving,Idle};
+	public Resource.ResourceType resourceType;
 	public Type unitClass;
 	public State state;
 	void Awake(){
@@ -45,21 +47,22 @@ public class Unit : MonoBehaviour {
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
 		state = State.Idle;
+		//Play idle animation
 		wasSelected = false;
 	}
-	void Update(){
-		Debug.Log (collectedAmount);
-		Debug.Log (currentLoad);
-		if (MAX_LOAD==currentLoad) { // If the unit has reached its max load return to base
+	void FixedUpdate(){
+		if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
 			collectGoods=false;
 			collectedAmount=currentLoad;
 			currentLoad=0;
 			StartCoroutine("FollowPath");
 		}
-		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad ){// While gathering goods increase current load
+		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad && currentResource!=null){// While gathering goods increase current load
 			currentLoad+=gatherSpeed;
+			currentResource.GetComponent<Resource>().ReduceAmountOfMaterial(gatherSpeed);
 			collectedAmount=currentLoad;
 		}
+
 		if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
 			if(!clicked){
 				Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
@@ -99,21 +102,26 @@ public class Unit : MonoBehaviour {
 			{
 				mouseClick = hit.point;
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
+					currentResource = hit.transform.gameObject;
+					if(resourceType!=Resource.ResourceType.Nothing){
+						collectedAmount=0;
+						currentLoad=0;
+					}
+					resourceType = currentResource.GetComponent<Resource>().type;
 					var gatherPoint = hit.transform.Find("GatherPoint");
 					gathering = true;
 					if(gatherPoint){
 						collectGoods=false;
 						returning = false;
-						Debug.Log(currentLoad+"");
 						resourcePoint = gatherPoint.position;
-						PathRequestController.RequestPath(transform.position,gatherPoint.position,OnPathFound);
+						MoveUnit(transform.position,gatherPoint.position);
 					}
 				}
 				else if(hit.collider.gameObject.tag=="Home Base"){
 					var returnPoint = hit.transform.Find("ReturnPoint");
 					if(unitClass.Equals(Type.Grunt)){
 						depositing =true;
-						PathRequestController.RequestPath(transform.position,returnPoint.position,OnPathFound);
+						MoveUnit(transform.position,returnPoint.position);
 					}
 				}
 				else{
@@ -121,12 +129,13 @@ public class Unit : MonoBehaviour {
 					returning = false;
 					collectGoods=false;
 					currentLoad = 0;
-					PathRequestController.RequestPath(transform.position,mouseClick,OnPathFound);
+					MoveUnit(transform.position,mouseClick);
 				}
 			}
 		}
 	}
 
+	//Handles selection of the troops
 	void OnMouseDown(){
 		clicked = true;
 		wasSelected = true;
@@ -138,20 +147,29 @@ public class Unit : MonoBehaviour {
 		}
 		clicked = false;
 	}
-
-	public void StartGathering(){
+	//Starts the gathering movement of the grunt
+	public void Gather(){
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
 			if(!returning){//While the unit is collecting goods
-				PathRequestController.RequestPath(resourcePoint,returnPoint.position,OnPathFound);
+				MoveUnit(resourcePoint,returnPoint.position);
 				returning=true;
 			}
 			else{//When gathering and the unit has reached the home base to return the collected goods
-				PathRequestController.RequestPath(returnPoint.position,resourcePoint,OnPathFound);
+				MoveUnit(returnPoint.position,resourcePoint);
 				collectedAmount=0;
 				returning = false;
 			}
 		}
+	}
+
+	void Attack(Vector3 point){
+		state = State.Attacking;
+	}
+	
+	//Moves the unit from one point to another
+	void MoveUnit(Vector3 from, Vector3 to){
+		PathRequestController.RequestPath(from,to,OnPathFound);
 	}
 
     public void OnPathFound(Vector3[] newPath, bool success)
@@ -160,15 +178,19 @@ public class Unit : MonoBehaviour {
 			path = newPath;
 			StopCoroutine ("FollowPath");
 			StartCoroutine ("FollowPath");
-		} else if (success && gathering && !returning) {
+		} else if (success && gathering && !returning ) {
 			path=newPath;
+			if(currentResource==null){
+				gathering = false;
+			}
 			StopCoroutine ("FollowPath");
 			StartCoroutine("FollowPath");
-		} else if(success && returning){
+		} else if(success && returning && currentResource!=null){
 			path=newPath;
 			StopCoroutine ("FollowPath");
 			collectGoods=true;
 			state=State.Gathering;
+			//Play gathering animation
 		}
     }
 
@@ -176,6 +198,7 @@ public class Unit : MonoBehaviour {
     {
 		if (path != null && path.Length>0) {
 			state=State.Moving;
+			//Play moving animation
 			path = SmoothPath(path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
@@ -194,7 +217,7 @@ public class Unit : MonoBehaviour {
 				yield return null;
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
 					if (gathering) { //So that the gathering movement happens automatically
-						StartGathering();
+						Gather();
 					}
 					else if(depositing){ // This is for when a grunt is carrying good and the player deposits it manuallly
 						depositing =false;
@@ -207,9 +230,10 @@ public class Unit : MonoBehaviour {
 			}
 
 		}
-
-
     }
+
+
+
 	//Chaikin path smoothing algorithm
 	Vector3[] SmoothPath(Vector3[] pathToSmooth){
 		if (pathToSmooth.Length > 1) {

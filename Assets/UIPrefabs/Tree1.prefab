@@ -9,7 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 421776}
   - 212: {fileID: 21221776}
-  m_Layer: 0
+  - 136: {fileID: 13686330}
+  m_Layer: 8
   m_Name: Tree1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22,12 +23,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121776}
-  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 122.199997, y: 50, z: 327.799988}
-  m_LocalScale: {x: 2.00271893, y: 1.73731005, z: 1}
+  m_LocalRotation: {x: 0, y: .0169244464, z: 0, w: .99985683}
+  m_LocalPosition: {x: 2.70000005, y: 12.5, z: -27.7000008}
+  m_LocalScale: {x: 1.44720459, y: 1.19963562, z: .271410316}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!136 &13686330
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.3599999
+  m_Height: 21.5999985
+  m_Direction: 1
+  m_Center: {x: -2.13000011, y: -3.48000002, z: 0}
 --- !u!212 &21221776
 SpriteRenderer:
   m_ObjectHideFlags: 1
