@@ -1135,9 +1135,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 2.3599999
-  m_Height: 21.5999985
+  m_Height: 13.71
   m_Direction: 1
-  m_Center: {x: -2.13000011, y: -3.48000002, z: 0}
+  m_Center: {x: -2.13000011, y: -6.07000017, z: 0}
 --- !u!1 &582140191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,7 +1504,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.5, y: 1.67655861, z: 2.66000009}
+  m_Size: {x: 4.61999989, y: 1.67655861, z: 2.66000009}
   m_Center: {x: -2.38418579e-07, y: .0900000036, z: -5.96046448e-08}
 --- !u!1 &641532754
 GameObject:
@@ -2408,7 +2408,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1317876303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1000, y: 0, z: -1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1671780605}
@@ -3040,10 +3040,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75440723a156324c8d4a5733c974ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startX: 10
-  endX: 2000
-  startZ: 10
-  endZ: 2000
+  startX: -990
+  endX: 980
+  startZ: -990
+  endZ: 980
   y: 17
   quantity: 100
   obj: {fileID: 421776, guid: 47f25a430f2357342b947a805f60b5c6, type: 2}
@@ -3058,10 +3058,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75440723a156324c8d4a5733c974ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startX: 50
-  endX: 1950
-  startZ: 10
-  endZ: 2000
+  startX: -950
+  endX: 950
+  startZ: -1000
+  endZ: 1000
   y: 66
   quantity: 20
   obj: {fileID: 442830, guid: ae5b3746b4d85e742b7827026bb04fcb, type: 2}
@@ -3076,10 +3076,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75440723a156324c8d4a5733c974ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startX: 50
-  endX: 1950
-  startZ: 0
-  endZ: 2000
+  startX: -950
+  endX: 950
+  startZ: -1000
+  endZ: 1000
   y: 66
   quantity: 20
   obj: {fileID: 499532, guid: dd68c4c5f66cbce49938ce791055d3fd, type: 2}
@@ -3094,10 +3094,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75440723a156324c8d4a5733c974ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startX: 10
-  endX: 2000
-  startZ: 10
-  endZ: 2000
+  startX: -990
+  endX: 980
+  startZ: -990
+  endZ: 980
   y: 23
   quantity: 20
   obj: {fileID: 412348, guid: 552cb130ecf29194bae7d6d47b682ee8, type: 2}
@@ -3112,10 +3112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75440723a156324c8d4a5733c974ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startX: 10
-  endX: 2000
-  startZ: 10
-  endZ: 2000
+  startX: -990
+  endX: 980
+  startZ: -990
+  endZ: 980
   y: 23
   quantity: 20
   obj: {fileID: 471648, guid: 37137c94d7aa7c54b8dab5b6d6c98526, type: 2}
@@ -3130,10 +3130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75440723a156324c8d4a5733c974ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startX: 10
-  endX: 2000
-  startZ: 10
-  endZ: 2000
+  startX: -990
+  endX: 980
+  startZ: -990
+  endZ: 980
   y: 17
   quantity: 50
   obj: {fileID: 421776, guid: 47f25a430f2357342b947a805f60b5c6, type: 2}
