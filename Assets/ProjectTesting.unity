@@ -309,6 +309,22 @@ Prefab:
       propertyPath: loveHotel
       value: 
       objectReference: {fileID: 181998, guid: 0d8b12b3e1491c34e8b9a8ef572fe0df, type: 2}
+    - target: {fileID: 6500244, guid: f2ff473e0e61d9c4594d158aad139b2d, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500246, guid: f2ff473e0e61d9c4594d158aad139b2d, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500242, guid: f2ff473e0e61d9c4594d158aad139b2d, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6500240, guid: f2ff473e0e61d9c4594d158aad139b2d, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2ff473e0e61d9c4594d158aad139b2d, type: 2}
   m_RootGameObject: {fileID: 1601489024}
@@ -360,7 +376,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282880819}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: .5
   m_Height: 2
@@ -717,7 +733,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 400451843}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1132,7 +1148,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 2139364289}
   m_GameObject: {fileID: 541862625}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 2.3599999
   m_Height: 13.71
@@ -2706,7 +2722,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1555444802}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
@@ -2778,7 +2794,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 229295753}
   m_GameObject: {fileID: 1601489024}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .650979578, y: -2.20793152, z: .3990058}
@@ -2791,7 +2807,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 229295753}
   m_GameObject: {fileID: 1601489024}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .659421384, y: -2.19363403, z: .386733651}
@@ -2804,7 +2820,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 229295753}
   m_GameObject: {fileID: 1601489024}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .388698697, y: 2.18927002, z: 1}
@@ -2817,7 +2833,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 229295753}
   m_GameObject: {fileID: 1601489024}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .33571282, y: -2.20598984, z: 1}
@@ -3046,7 +3062,7 @@ MonoBehaviour:
   endZ: 980
   y: 17
   quantity: 100
-  obj: {fileID: 421776, guid: 47f25a430f2357342b947a805f60b5c6, type: 2}
+  obj: {fileID: 541862627}
 --- !u!114 &1671780607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3136,7 +3152,7 @@ MonoBehaviour:
   endZ: 980
   y: 17
   quantity: 50
-  obj: {fileID: 421776, guid: 47f25a430f2357342b947a805f60b5c6, type: 2}
+  obj: {fileID: 541862627}
 --- !u!1001 &1697112361
 Prefab:
   m_ObjectHideFlags: 0

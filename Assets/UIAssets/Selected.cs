@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Selected : MonoBehaviour {
 	bool sel = true;
 	bool colide = false;
 	int current = 0;
+	List<GameObject> objects = new List<GameObject> ();
 	public GameObject[] buildings;
 
 	// Use this for initialization
@@ -30,9 +32,12 @@ public class Selected : MonoBehaviour {
 
 		if (Input.GetMouseButton (0)) {
 			if(!colide){
+				print ("THIS MANY"+objects.Count);
 				sel = false;
 				Instantiate (buildings[current],this.transform.position,Quaternion.identity);
 				Destroy (this.gameObject);
+			}else{
+				print (objects.Count);
 			}
 
 		}
@@ -48,23 +53,25 @@ public class Selected : MonoBehaviour {
 
 	}
 
-	void OnCollisionEnter(Collision coll){
-	
+	void OnTriggerEnter(Collision coll){
+		print ("TRIGGERED");
 		if (coll.gameObject.name == "Terrain") {
 
 		} else {
-		
+			print ("added");
+			objects.Add (coll.gameObject);
 			colide = true;
 			
 		}
 	
 	}
-	void OnCollisionExit(Collision coll){
+	void OnTriggerExit(Collision coll){
 	
 		if (coll.gameObject.name == "Terrain") {
 			
 		} else {
-
+			print ("removed");
+			objects.Remove(coll.gameObject);
 			colide = false;
 			
 		}
