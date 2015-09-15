@@ -66,6 +66,7 @@
      <Compile Include="Assets\NetScripts\NoCommand.cs" />
      <Compile Include="Assets\NetScripts\PendingCommands.cs" />
      <Compile Include="Assets\NetScripts\SceneMan.cs" />
+     <Compile Include="Assets\Resources.cs" />
      <Compile Include="Assets\UIAssets\CamerControl.cs" />
      <Compile Include="Assets\UIAssets\Click.cs" />
      <Compile Include="Assets\UIAssets\NewBehaviourScript.cs" />

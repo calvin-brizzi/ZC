@@ -31,7 +31,28 @@ public class Selected : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButton (0)) {
+			colide = false;
+			if(objects.Count >0){
+				for(int i = 0;i<objects.Count;i++){
+					if(objects[i].tag =="Prop"){
+					}else{
+						colide = true; 
+					}
+
+				}
+
+			}
 			if(!colide){
+				print ("THIS MANY"+objects.Count);
+				if(objects.Count >0){
+					for(int i = 0;i<objects.Count;i++){
+						print ("DESTROY");
+						GameObject temp = objects[i];
+						Destroy (temp);
+						
+					}
+					
+				}
 				print ("THIS MANY"+objects.Count);
 				sel = false;
 				Instantiate (buildings[current],this.transform.position,Quaternion.identity);
@@ -52,8 +73,11 @@ public class Selected : MonoBehaviour {
 		sel = true;
 
 	}
+	void OnCollisionEnter(Collision coll){
+		print ("works here tho");
+	}
 
-	void OnTriggerEnter(Collision coll){
+	void OnTriggerEnter(Collider coll){
 		print ("TRIGGERED");
 		if (coll.gameObject.name == "Terrain") {
 
@@ -65,7 +89,7 @@ public class Selected : MonoBehaviour {
 		}
 	
 	}
-	void OnTriggerExit(Collision coll){
+	void OnTriggerExit(Collider coll){
 	
 		if (coll.gameObject.name == "Terrain") {
 			
