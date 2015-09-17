@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{8F86F0F1-EE9C-C41C-5C5D-BA4001315531}</ProjectGuid>
+	<ProjectGuid>{A82F04ED-1BD5-BDFA-AD90-7C4E31C92627}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -66,6 +66,7 @@
      <Compile Include="Assets\NetScripts\NoCommand.cs" />
      <Compile Include="Assets\NetScripts\PendingCommands.cs" />
      <Compile Include="Assets\NetScripts\SceneMan.cs" />
+     <Compile Include="Assets\Resources.cs" />
      <Compile Include="Assets\UIAssets\CamerControl.cs" />
      <Compile Include="Assets\UIAssets\Click.cs" />
      <Compile Include="Assets\UIAssets\NewBehaviourScript.cs" />

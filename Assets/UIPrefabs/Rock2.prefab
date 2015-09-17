@@ -9,9 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 471648}
   - 212: {fileID: 21271648}
+  - 136: {fileID: 13614162}
   m_Layer: 0
   m_Name: Rock2
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23,11 +24,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171648}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 1034.40002, y: 23.8999996, z: 858.200012}
+  m_LocalPosition: {x: 33.5999985, y: 38.7000008, z: -868.599976}
   m_LocalScale: {x: 2.95011067, y: 2.6300292, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!136 &13614162
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 3.5372932
+  m_Height: 9.56560802
+  m_Direction: 1
+  m_Center: {x: 0, y: -5, z: 0}
 --- !u!212 &21271648
 SpriteRenderer:
   m_ObjectHideFlags: 1

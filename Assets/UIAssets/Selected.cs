@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Selected : MonoBehaviour {
 	bool sel = true;
 	bool colide = false;
 	int current = 0;
+	List<GameObject> objects = new List<GameObject> ();
 	public GameObject[] buildings;
 
 	// Use this for initialization
@@ -29,10 +31,34 @@ public class Selected : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButton (0)) {
+			colide = false;
+			if(objects.Count >0){
+				for(int i = 0;i<objects.Count;i++){
+					if(objects[i].tag =="Prop"){
+					}else{
+						colide = true; 
+					}
+
+				}
+
+			}
 			if(!colide){
+				print ("THIS MANY"+objects.Count);
+				if(objects.Count >0){
+					for(int i = 0;i<objects.Count;i++){
+						print ("DESTROY");
+						GameObject temp = objects[i];
+						Destroy (temp);
+						
+					}
+					
+				}
+				print ("THIS MANY"+objects.Count);
 				sel = false;
 				Instantiate (buildings[current],this.transform.position,Quaternion.identity);
 				Destroy (this.gameObject);
+			}else{
+				print (objects.Count);
 			}
 
 		}
@@ -47,24 +73,29 @@ public class Selected : MonoBehaviour {
 		sel = true;
 
 	}
-
 	void OnCollisionEnter(Collision coll){
-	
+		print ("works here tho");
+	}
+
+	void OnTriggerEnter(Collider coll){
+		print ("TRIGGERED");
 		if (coll.gameObject.name == "Terrain") {
 
 		} else {
-		
+			print ("added");
+			objects.Add (coll.gameObject);
 			colide = true;
 			
 		}
 	
 	}
-	void OnCollisionExit(Collision coll){
+	void OnTriggerExit(Collider coll){
 	
 		if (coll.gameObject.name == "Terrain") {
 			
 		} else {
-
+			print ("removed");
+			objects.Remove(coll.gameObject);
 			colide = false;
 			
 		}

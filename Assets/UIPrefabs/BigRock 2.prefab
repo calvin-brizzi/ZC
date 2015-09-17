@@ -9,9 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 499532}
   - 212: {fileID: 21299532}
+  - 136: {fileID: 13608104}
   m_Layer: 0
   m_Name: BigRock 2
-  m_TagString: Untagged
+  m_TagString: Prop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23,11 +24,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199532}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 1060.09998, y: 67.8000031, z: 1123.90002}
+  m_LocalPosition: {x: 73.8000031, y: 63.2000008, z: -821.700012}
   m_LocalScale: {x: 9.44375324, y: 8.36653519, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!136 &13608104
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199532}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 4.33904934
+  m_Height: 1.55507231
+  m_Direction: 1
+  m_Center: {x: -2, y: -4, z: 0}
 --- !u!212 &21299532
 SpriteRenderer:
   m_ObjectHideFlags: 1
