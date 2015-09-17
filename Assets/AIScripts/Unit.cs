@@ -5,8 +5,9 @@ using System.Collections;
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
  *[TODO] Give each character the correct animation depending on the task assigned
- *[TODO] Add a rally point marker
+ *[TODO] Change the colour of the glow depending on team
  *[TODO] Stop the units from attacking when out of range
+ *[TODO] Stop the units on the other team from being able to be selected
 */
 public class Unit : MonoBehaviour {
 	public GameObject marker;
@@ -35,6 +36,7 @@ public class Unit : MonoBehaviour {
 	bool clicked;
 	bool collectGoods;
 	bool attacking;
+	int NumberOfEnemies=0;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
 	Animator anim;
@@ -52,7 +54,7 @@ public class Unit : MonoBehaviour {
 	int layerMask;
 	void Awake(){
 		health = 100;
-
+		attacking = false;
 		gameObject.renderer.material.mainTexture = textures [team-1];
 		if(unitClass == Type.Grunt){
 			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
@@ -62,7 +64,7 @@ public class Unit : MonoBehaviour {
 		runStateHash = Animator.StringToHash("Base Layer.Run");
 		anim = GetComponent<Animator>();
 		collectedAmount = 0;
-		duration = 0.2f;
+		duration = 0.01f;
 		speed = 20;
 		MAX_LOAD = 100;
 		currentLoad = 0;
@@ -72,26 +74,25 @@ public class Unit : MonoBehaviour {
 		gathering = false;
 		state = State.Idle;
 		wasSelected = false;
+		layerMask=1<<10;
 
 	}
 	void FixedUpdate(){
 		CheckState ();
-		layerMask=1<<9;
-		/*
-		if (!attacking) {
-			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange + 4,layerMask);
-			print (nearbyEnemy.Length);
-			for (var i =0; i< nearbyEnemy.Length; i++) {
-				Unit unit;
-				unit = nearbyEnemy [i].GetComponent<Unit> () as Unit;
-				if (unit != null && unit.team != this.team) {
-					Attack (nearbyEnemy [i].gameObject);
-				}
+		if (attacking && target != null) {
+			transform.LookAt(target.transform);
+		}
+
+
+		int number = CheckForEnemies ();
+		if (target != null &&Vector3.Distance(target.transform.position,transform.position)>=((float)attackRange+4)) {
+			print (team+"To Far");
+			target = null;
+			attacking =false;
+			if(state!=State.Moving){
+				state=State.Idle;
 			}
 		}
-		if (!attacking && state != State.Moving) {
-			state=State.Idle;
-		}*/
 		if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
 			collectGoods=false;
 			collectedAmount=currentLoad;
@@ -131,27 +132,28 @@ public class Unit : MonoBehaviour {
 				glow=null;
 			}
 		}
-
-		if (Input.GetMouseButtonDown(1) && wasSelected && Time.time > coolDown) // Detects a players right click  and moves the selected troops top that position
+		//print (wasSelected);
+		if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 		{
-			coolDown = Time.time + duration;
+			print ("click");
 			path = null;
 			StopCoroutine("FollowPath");
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			state = State.Idle;
+
 			if (Physics.Raycast(ray, out hit))
 			{
+				print ("click");
 				mouseClick = hit.point;
-				//notOverrideable = true;
+				notOverrideable = true;
 				if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
 					//Atack
 					this.target = hit.collider.gameObject;
 					attacking = true;
-					//notOverrideable=false;
-					print ("Attacking");
+					notOverrideable=false;
+					print ("Attack unit");
 				}
-				//Instantiate(marker,mouseClick,transform.rotation);
+				Instantiate(marker,mouseClick,transform.rotation);
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 					currentResource = hit.transform.gameObject;
 					if(resourceType!=Resource.ResourceType.Nothing){
@@ -182,12 +184,30 @@ public class Unit : MonoBehaviour {
 					returning = false;
 					collectGoods=false;
 					currentLoad = 0;
+					print("Moving");
 					MoveUnit(transform.position,mouseClick);
 				}
 			}
 		}
 	}
 
+	int CheckForEnemies(){
+		int returnAmount = 0;
+		if (!attacking && state!=State.Moving) {
+			int count = 0;
+			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange,layerMask);
+			for (var i =0; i< nearbyEnemy.Length; i++) {
+				Unit unit;
+				unit = nearbyEnemy [i].GetComponent<Unit> () as Unit;
+				if (unit != null && unit.team != this.team) {
+					Attack (nearbyEnemy [i].gameObject);
+					count ++;
+				}
+			}
+			returnAmount =count;
+		}
+		return returnAmount;
+	}
 	void CheckState(){
 		if (state == State.Moving) {
 			anim.Play(runStateHash);
@@ -232,6 +252,12 @@ public class Unit : MonoBehaviour {
 		state = State.Attacking;
 		attacking = true;
 		transform.LookAt (target.transform);
+	}
+
+	void StopAttacking(){
+		this.target = null;
+		state = State.Idle;
+		attacking = false;
 	}
 	
 	//Moves the unit from one point to another
@@ -283,7 +309,7 @@ public class Unit : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				transform.LookAt(waypoint);
 				yield return null;
-				if(attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange+4){
+				if(target!= null && attacking && Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
 					print ("Attacking");
@@ -291,7 +317,7 @@ public class Unit : MonoBehaviour {
 				}
 
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
-					//notOverrideable=false;
+					notOverrideable=false;
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather();
 					}
@@ -299,9 +325,10 @@ public class Unit : MonoBehaviour {
 						depositing =false;
 						collectedAmount=0;
 					}
-					else if(attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange){
+					else if(target!=null && attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange+4&& ! notOverrideable){
 						Attack(target);
 					}
+
 					else{
 						state=State.Idle;
 
