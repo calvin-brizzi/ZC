@@ -5,13 +5,14 @@ using System.Collections;
  *[TODO] Work of flocking troops
  *[TODO] Make each character look like the correct character
  *[TODO] Give each character the correct animation depending on the task assigned
- *[TODO] Make grunt check if the second resource is the same as the one it current holds if so just add else remove
  *[TODO] Add a rally point marker
+ *[TODO] Stop the units from attacking when out of range
 */
 public class Unit : MonoBehaviour {
 	public GameObject marker;
 	int idleStateHash;
 	int runStateHash;
+	public int health;
 	int attackStateHash; 
 	int gatherStateHash; 
 	Vector3 mouseClick;
@@ -28,13 +29,19 @@ public class Unit : MonoBehaviour {
 	bool gathering;
 	bool returning;
 	bool selected;
+	bool notOverrideable;
 	bool depositing;
 	bool wasSelected;
 	bool clicked;
 	bool collectGoods;
+	bool attacking;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
 	Animator anim;
+	GameObject target;
+	public Texture[] textures;
+	public int attackRange;
+	public int team;
 	public GameObject glowSelection;
 	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
@@ -42,11 +49,15 @@ public class Unit : MonoBehaviour {
 	public Resource.ResourceType resourceType;
 	public Type unitClass;
 	public State state;
+	int layerMask;
 	void Awake(){
+		health = 100;
+
+		gameObject.renderer.material.mainTexture = textures [team-1];
 		if(unitClass == Type.Grunt){
 			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
 		}
-		attackStateHash = Animator.StringToHash("Base Laye.Attack");
+		attackStateHash = Animator.StringToHash("Base Layer.Attack");
 		idleStateHash = Animator.StringToHash("Base Layer.Idle");
 		runStateHash = Animator.StringToHash("Base Layer.Run");
 		anim = GetComponent<Animator>();
@@ -61,9 +72,26 @@ public class Unit : MonoBehaviour {
 		gathering = false;
 		state = State.Idle;
 		wasSelected = false;
+
 	}
 	void FixedUpdate(){
 		CheckState ();
+		layerMask=1<<9;
+		/*
+		if (!attacking) {
+			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange + 4,layerMask);
+			print (nearbyEnemy.Length);
+			for (var i =0; i< nearbyEnemy.Length; i++) {
+				Unit unit;
+				unit = nearbyEnemy [i].GetComponent<Unit> () as Unit;
+				if (unit != null && unit.team != this.team) {
+					Attack (nearbyEnemy [i].gameObject);
+				}
+			}
+		}
+		if (!attacking && state != State.Moving) {
+			state=State.Idle;
+		}*/
 		if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
 			collectGoods=false;
 			collectedAmount=currentLoad;
@@ -111,10 +139,19 @@ public class Unit : MonoBehaviour {
 			StopCoroutine("FollowPath");
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			state = State.Idle;
 			if (Physics.Raycast(ray, out hit))
 			{
 				mouseClick = hit.point;
-				Instantiate(marker,mouseClick,transform.rotation);
+				//notOverrideable = true;
+				if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
+					//Atack
+					this.target = hit.collider.gameObject;
+					attacking = true;
+					//notOverrideable=false;
+					print ("Attacking");
+				}
+				//Instantiate(marker,mouseClick,transform.rotation);
 				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 					currentResource = hit.transform.gameObject;
 					if(resourceType!=Resource.ResourceType.Nothing){
@@ -124,6 +161,7 @@ public class Unit : MonoBehaviour {
 					resourceType = currentResource.GetComponent<Resource>().type;
 					var gatherPoint = hit.transform.Find("GatherPoint");
 					gathering = true;
+					attacking=false;
 					if(gatherPoint){
 						collectGoods=false;
 						returning = false;
@@ -133,6 +171,7 @@ public class Unit : MonoBehaviour {
 				}
 				else if(hit.collider.gameObject.tag=="Home Base"){
 					var returnPoint = hit.transform.Find("ReturnPoint");
+					attacking=false;
 					if(unitClass.Equals(Type.Grunt)){
 						depositing =true;
 						MoveUnit(transform.position,returnPoint.position);
@@ -188,8 +227,11 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	void Attack(Vector3 point){
+	void Attack(GameObject targetObj){
+		this.target = targetObj;
 		state = State.Attacking;
+		attacking = true;
+		transform.LookAt (target.transform);
 	}
 	
 	//Moves the unit from one point to another
@@ -241,7 +283,15 @@ public class Unit : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				transform.LookAt(waypoint);
 				yield return null;
+				if(attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange+4){
+					attacking = false;
+					state = State.Attacking;
+					print ("Attacking");
+					StopCoroutine ("FollowPath");
+				}
+
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
+					//notOverrideable=false;
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather();
 					}
@@ -249,8 +299,12 @@ public class Unit : MonoBehaviour {
 						depositing =false;
 						collectedAmount=0;
 					}
+					else if(attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange){
+						Attack(target);
+					}
 					else{
 						state=State.Idle;
+
 					}
 				}
 			}
