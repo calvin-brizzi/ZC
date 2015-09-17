@@ -13,7 +13,7 @@ GameObject:
   - 95: {fileID: 9579472}
   - 65: {fileID: 6526280}
   m_Layer: 8
-  m_Name: Graveyard_PREFAB
+  m_Name: Graveyard Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
