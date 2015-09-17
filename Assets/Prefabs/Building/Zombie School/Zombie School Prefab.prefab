@@ -46,6 +46,21 @@ GameObject:
   - 65: {fileID: 6559938}
   m_Layer: 8
   m_Name: Zombie School Prefab
+  m_TagString: School
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &135080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 435080}
+  m_Layer: 0
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,8 +102,21 @@ Transform:
   m_Children:
   - {fileID: 409292}
   - {fileID: 414602}
+  - {fileID: 435080}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &435080
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135080}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: -1.73099995, y: .180000007, z: .0199999996}
+  m_LocalScale: {x: .0614181794, y: .0755575225, z: .0374906994}
+  m_Children: []
+  m_Father: {fileID: 423170}
+  m_RootOrder: 2
 --- !u!23 &2323170
 Renderer:
   m_ObjectHideFlags: 1
