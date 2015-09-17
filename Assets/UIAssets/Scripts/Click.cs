@@ -8,6 +8,7 @@ public class Click : MonoBehaviour {
 	public GameObject [] buildings;
 	public GameObject [] builder;
 	public GameObject obj;
+	GameObject currentSchool;
 	// Use this for initialization
 	void Start () {
 	
@@ -62,6 +63,20 @@ public class Click : MonoBehaviour {
 		temp.transform.SendMessage ("set",1,SendMessageOptions.DontRequireReceiver);;
 		
 	}
+	public void unit(int x){
+		if (x == 0) {
+			Transform point = currentSchool.transform.GetChild(2);
+			print ("GRUNT");
+		} else if (x == 1) {
+			Transform point = currentSchool.transform.GetChild(2);
+			print ("GRUNT");
+
+		} else if (x == 2) {
+			Transform point = currentSchool.transform.GetChild(2);
+			print ("GRUNT");
+		}
+
+	}
 
 
 
@@ -75,7 +90,7 @@ public class Click : MonoBehaviour {
 			if(Physics.Raycast (ray,out hit,1700)){
 				//print("AHH");
 				if(hit.transform.tag == "Axeman" || hit.transform.tag == "Archer"){
-					print("RUNS");
+;
 					for(int i = 0;i<grunt.Length;i++){
 						grunt[i].SetActive (false);
 					}
@@ -89,7 +104,7 @@ public class Click : MonoBehaviour {
 
 				}
 				if(hit.transform.tag == "School"){
-					print("RUNS1");
+					currentSchool = hit.transform.gameObject;
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);
 					}
@@ -102,7 +117,7 @@ public class Click : MonoBehaviour {
 
 				}
 				if(hit.transform.tag == "Grunt"){
-					print("RUNS2");
+
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);
 					}
