@@ -4257,6 +4257,7 @@ GameObject:
   - 23: {fileID: 481643268}
   - 95: {fileID: 481643267}
   - 65: {fileID: 481643266}
+  - 114: {fileID: 481643271}
   m_Layer: 8
   m_Name: Zombie School Prefab
   m_TagString: School
@@ -4337,6 +4338,21 @@ Transform:
   - {fileID: 479727690}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &481643271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11458914, guid: 748e194667b37eb4f9248237ade52d1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1713662029}
+  m_GameObject: {fileID: 481643265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cafb2314472c1545871710317877865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brute: {fileID: 0}
+  grunt: {fileID: 0}
+  archer: {fileID: 0}
 --- !u!1 &482983381
 GameObject:
   m_ObjectHideFlags: 0
