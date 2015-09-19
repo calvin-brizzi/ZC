@@ -117,7 +117,7 @@ public class Click : MonoBehaviour {
 
 				}
 				if(hit.transform.tag == "Grunt"){
-
+					print ("THIS WORKS THO");
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);
 					}

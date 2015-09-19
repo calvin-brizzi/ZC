@@ -69,12 +69,12 @@
      <Compile Include="Assets\NetScripts\SceneMan.cs" />
      <Compile Include="Assets\Resources.cs" />
      <Compile Include="Assets\UIAssets\Scripts\CamerControl.cs" />
-     <Compile Include="Assets\UIAssets\Scripts\Click.cs" />
      <Compile Include="Assets\UIAssets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\UIAssets\Scripts\Resize.cs" />
      <Compile Include="Assets\UIAssets\Scripts\Selected.cs" />
      <Compile Include="Assets\UIAssets\Scripts\TerrainGenerator.cs" />
      <Compile Include="Assets\UIAssets\Scripts\UISelect.cs" />
+     <Compile Include="Assets\UIAssets\Scripts\newSS\Click.cs" />
      <Compile Include="Assets\UIPrefabs\move.cs" />
      <Compile Include="Assets\build.cs" />
      <None Include="Assets\Character Models\Brute Frames.txt" />
