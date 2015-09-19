@@ -68,6 +68,7 @@
      <Compile Include="Assets\NetScripts\PendingCommands.cs" />
      <Compile Include="Assets\NetScripts\SceneMan.cs" />
      <Compile Include="Assets\Resources.cs" />
+     <Compile Include="Assets\Spawn.cs" />
      <Compile Include="Assets\UIAssets\Scripts\CamerControl.cs" />
      <Compile Include="Assets\UIAssets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\UIAssets\Scripts\Resize.cs" />

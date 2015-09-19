@@ -25,7 +25,11 @@ public class Click : MonoBehaviour {
 			builder[i].SetActive (false);
 		}
 	}
+	public void makeGrunt(){
+		print ("ATTEMPTS");
+		currentSchool.GetComponent<Spawn> ().spawnBrute ();
 
+	}
 	public void build(){
 		print ("WORKS BITCH");
 		for(int i = 0;i<units.Length;i++){
@@ -43,6 +47,7 @@ public class Click : MonoBehaviour {
 	}
 
 	public void loveHotel(){
+		print ("TRYS");
 		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
 		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
 		print (temp.transform.name);
