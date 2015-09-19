@@ -279,7 +279,7 @@ public class Unit : MonoBehaviour {
 	}
 	
 	//Moves the unit from one point to another
-	void MoveUnit(Vector3 from, Vector3 to){
+	public void MoveUnit(Vector3 from, Vector3 to){
 		PathRequestController.RequestPath(from,to,OnPathFound);
 	}
 

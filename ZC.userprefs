@@ -1,9 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UIAssets\Scripts\Click.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Spawn.cs">
     <Files>
-      <File FileName="Assets\UIAssets\Scripts\Click.cs" Line="76" Column="20" />
-      <File FileName="Assets\Resources.cs" Line="24" Column="3" />
+      <File FileName="Assets\UIAssets\Scripts\UISelect.cs" Line="17" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\TerrainGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\CamerControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\newSS\Click.cs" Line="29" Column="22" />
+      <File FileName="Assets\AIScripts\Unit.cs" Line="264" Column="22" />
+      <File FileName="Assets\Spawn.cs" Line="14" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
