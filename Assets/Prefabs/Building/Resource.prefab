@@ -26,6 +26,7 @@ GameObject:
   - 33: {fileID: 3380190}
   - 65: {fileID: 6580190}
   - 23: {fileID: 2380190}
+  - 114: {fileID: 11423124}
   m_Layer: 8
   m_Name: Resource
   m_TagString: Resource
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 180192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.4000015, y: .899999976, z: -17.3999996}
+  m_LocalPosition: {x: -36.4000015, y: .899999976, z: -25.1000004}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children:
   - {fileID: 480190}
@@ -97,6 +98,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11423124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 180192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f849f12ff8046a9bdca383bee3ae92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfMaterial: 400
+  type: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &115336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 415336}
+  m_Layer: 9
+  m_Name: GatherPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &199532
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,13 +25,26 @@ GameObject:
   - 4: {fileID: 499532}
   - 212: {fileID: 21299532}
   - 136: {fileID: 13608104}
-  m_Layer: 0
+  - 114: {fileID: 11412950}
+  m_Layer: 8
   m_Name: BigRock 2
-  m_TagString: Prop
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &415336
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 115336}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: -4.69000006, y: -7.57999992, z: 34.5999985}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 499532}
+  m_RootOrder: 0
 --- !u!4 &499532
 Transform:
   m_ObjectHideFlags: 1
@@ -24,11 +52,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199532}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 73.8000031, y: 63.2000008, z: -821.700012}
+  m_LocalPosition: {x: -155.600006, y: 63.9000015, z: 243.399994}
   m_LocalScale: {x: 9.44375324, y: 8.36653519, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 415336}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11412950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f849f12ff8046a9bdca383bee3ae92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfMaterial: 100
+  type: 2
 --- !u!136 &13608104
 CapsuleCollider:
   m_ObjectHideFlags: 1

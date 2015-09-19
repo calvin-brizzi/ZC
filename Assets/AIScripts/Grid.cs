@@ -20,9 +20,7 @@ public class Grid : MonoBehaviour {
         CreateGrid();
     }
 	void Update(){
-		if (Input.GetKey (KeyCode.A)) {
-			CreateGrid();
-		}
+
 	}
 	public void ReCreateGrid()
 	{
@@ -84,7 +82,7 @@ public class Grid : MonoBehaviour {
             return gridSizeX * gridSizeY;
         }
     }
-
+	/*
 	void OnDrawGizmos(){
 		Gizmos.DrawWireCube (transform.position, new Vector3 (gridSize.x, 1, gridSize.y));
 		if(grid!=null){
@@ -93,5 +91,5 @@ public class Grid : MonoBehaviour {
 				Gizmos.DrawCube(n.position,Vector3.one *(nodeDiameter-.1f));
 			}
 		}
-	}
+	}*/
 }

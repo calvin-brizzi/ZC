@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour {
 	public int health;
 	int attackStateHash; 
 	int gatherStateHash; 
+	int deathStateHash; 
 	Vector3 mouseClick;
     int speed;
 	int currentLoad;
@@ -36,6 +37,7 @@ public class Unit : MonoBehaviour {
 	bool clicked;
 	bool collectGoods;
 	bool attacking;
+	bool instructedAttack = false;
 	int NumberOfEnemies=0;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
@@ -47,7 +49,7 @@ public class Unit : MonoBehaviour {
 	public GameObject glowSelection;
 	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
-	public enum State{Gathering,Attacking,Moving,Idle};
+	public enum State{Gathering,Attacking,Moving,Idle,Dead};
 	public Resource.ResourceType resourceType;
 	public Type unitClass;
 	public State state;
@@ -55,13 +57,14 @@ public class Unit : MonoBehaviour {
 	void Awake(){
 		health = 100;
 		attacking = false;
-		gameObject.renderer.material.mainTexture = textures [team-1];
+//		gameObject.renderer.material.mainTexture = textures [team-1];
 		if(unitClass == Type.Grunt){
 			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
 		}
 		attackStateHash = Animator.StringToHash("Base Layer.Attack");
 		idleStateHash = Animator.StringToHash("Base Layer.Idle");
 		runStateHash = Animator.StringToHash("Base Layer.Run");
+		deathStateHash = Animator.StringToHash("Base Layer.Death");
 		anim = GetComponent<Animator>();
 		collectedAmount = 0;
 		duration = 0.01f;
@@ -78,114 +81,120 @@ public class Unit : MonoBehaviour {
 
 	}
 	void FixedUpdate(){
-		CheckState ();
-		if (attacking && target != null) {
-			transform.LookAt(target.transform);
-		}
-
-
-		int number = CheckForEnemies ();
-		if (target != null &&Vector3.Distance(target.transform.position,transform.position)>=((float)attackRange+4)) {
-			print (team+"To Far");
-			target = null;
-			attacking =false;
-			if(state!=State.Moving){
-				state=State.Idle;
+		if(state!=State.Dead){
+			if (attacking && target != null) {
+				transform.LookAt(target.transform);
 			}
-		}
-		if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
-			collectGoods=false;
-			collectedAmount=currentLoad;
-			currentLoad=0;
-			StartCoroutine("FollowPath");
-		}
-		if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad && currentResource!=null){// While gathering goods increase current load
-			currentLoad+=gatherSpeed;
-			currentResource.GetComponent<Resource>().ReduceAmountOfMaterial(gatherSpeed);
-			collectedAmount=currentLoad;
-		}
-
-		if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
-			if(!clicked){
-				Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
-				cameraPosition.y=Screen.height-cameraPosition.y;
-				selected=AICamera.selectedArea.Contains (cameraPosition) ;
-				if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached() ){
-					UnitMonitor.AddUnit(this.gameObject);
-					wasSelected=true;
-				}
-
-				//If either of the shift buttons are pushed then dont deselct it just add it
-				else if(!selected && wasSelected && !UnitMonitor.isShiftPressed()){
-					UnitMonitor.RemoveUnit(this.gameObject);
-					wasSelected=false;
+			if(health<=0){
+				state=State.Dead;
+			}
+			CheckState ();
+			int number = CheckForEnemies ();
+			int targetHealth = 0;
+			if(target!=null){
+				targetHealth=target.gameObject.GetComponent<Unit>().health;
+			}
+			if (target != null && !instructedAttack && Vector3.Distance(target.transform.position,transform.position)>=((float)attackRange+4) || targetHealth<=0) {
+				target = null;
+				attacking =false;
+				if(state!=State.Moving){
+					state=State.Idle;
 				}
 			}
-
-			if(wasSelected && glow == null){
-				glow = (GameObject)GameObject.Instantiate(glowSelection);
-				glow.transform.parent=transform;
-				glow.transform.localPosition=new Vector3(0,-GetComponent<MeshFilter>().mesh.bounds.extents.y,0);
+			if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
+				collectGoods=false;
+				collectedAmount=currentLoad;
+				currentLoad=0;
+				StartCoroutine("FollowPath");
 			}
-			else if(!wasSelected && glow!=null){
-				GameObject.Destroy (glow);
-				glow=null;
+			if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad && currentResource!=null){// While gathering goods increase current load
+				currentLoad+=gatherSpeed;
+				currentResource.GetComponent<Resource>().ReduceAmountOfMaterial(gatherSpeed);
+				collectedAmount=currentLoad;
 			}
-		}
-		//print (wasSelected);
-		if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
-		{
-			print ("click");
-			path = null;
-			StopCoroutine("FollowPath");
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-			if (Physics.Raycast(ray, out hit))
+			if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
+				if(!clicked){
+					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
+					cameraPosition.y=Screen.height-cameraPosition.y;
+					selected=AICamera.selectedArea.Contains (cameraPosition) ;
+					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached() ){
+						UnitMonitor.AddUnit(this.gameObject);
+						wasSelected=true;
+					}
+
+					//If either of the shift buttons are pushed then dont deselct it just add it
+					else if(!selected && wasSelected && !UnitMonitor.isShiftPressed()){
+						UnitMonitor.RemoveUnit(this.gameObject);
+						wasSelected=false;
+					}
+				}
+
+				if(wasSelected && glow == null){
+					glow = (GameObject)GameObject.Instantiate(glowSelection);
+					glow.transform.parent=transform;
+					glow.transform.localPosition=new Vector3(0,-GetComponent<MeshFilter>().mesh.bounds.extents.y,0);
+				}
+				else if(!wasSelected && glow!=null){
+					GameObject.Destroy (glow);
+					glow=null;
+				}
+
+			}
+			//print (wasSelected);
+			if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 			{
-				print ("click");
-				mouseClick = hit.point;
-				notOverrideable = true;
-				if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
-					//Atack
-					this.target = hit.collider.gameObject;
-					attacking = true;
-					notOverrideable=false;
-					print ("Attack unit");
-				}
-				Instantiate(marker,mouseClick,transform.rotation);
-				if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
-					currentResource = hit.transform.gameObject;
-					if(resourceType!=Resource.ResourceType.Nothing){
-						collectedAmount=0;
-						currentLoad=0;
+				path = null;
+				StopCoroutine("FollowPath");
+				RaycastHit hit;
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+				if (Physics.Raycast(ray, out hit))
+				{
+					mouseClick = hit.point;
+					notOverrideable = true;
+					instructedAttack=false;
+					if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
+						//Atack
+						this.target = hit.collider.gameObject;
+						attacking = true;
+						instructedAttack = true;
+						notOverrideable=false;
+						print ("Attack unit");
 					}
-					resourceType = currentResource.GetComponent<Resource>().type;
-					var gatherPoint = hit.transform.Find("GatherPoint");
-					gathering = true;
-					attacking=false;
-					if(gatherPoint){
-						collectGoods=false;
+					if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
+						currentResource = hit.transform.gameObject;
+						if(resourceType!=Resource.ResourceType.Nothing){
+							collectedAmount=0;
+							currentLoad=0;
+						}
+						resourceType = currentResource.GetComponent<Resource>().type;
+						var gatherPoint = hit.transform.Find("GatherPoint");
+						gathering = true;
+						attacking=false;
+						if(gatherPoint){
+							collectGoods=false;
+							returning = false;
+							resourcePoint = gatherPoint.position;
+							MoveUnit(transform.position,gatherPoint.position);
+						}
+					}
+					else if(hit.collider.gameObject.tag=="Home Base"){
+						var returnPoint = hit.transform.Find("ReturnPoint");
+						attacking=false;
+						if(unitClass.Equals(Type.Grunt)){
+							depositing =true;
+							MoveUnit(transform.position,returnPoint.position);
+						}
+					}
+					else{
+						gathering=false;
 						returning = false;
-						resourcePoint = gatherPoint.position;
-						MoveUnit(transform.position,gatherPoint.position);
+						collectGoods=false;
+						currentLoad = 0;
+						print("Moving");
+						MoveUnit(transform.position,mouseClick);
 					}
-				}
-				else if(hit.collider.gameObject.tag=="Home Base"){
-					var returnPoint = hit.transform.Find("ReturnPoint");
-					attacking=false;
-					if(unitClass.Equals(Type.Grunt)){
-						depositing =true;
-						MoveUnit(transform.position,returnPoint.position);
-					}
-				}
-				else{
-					gathering=false;
-					returning = false;
-					collectGoods=false;
-					currentLoad = 0;
-					print("Moving");
-					MoveUnit(transform.position,mouseClick);
 				}
 			}
 		}
@@ -213,11 +222,20 @@ public class Unit : MonoBehaviour {
 			anim.Play(runStateHash);
 		}else if (state == State.Attacking) {
 			anim.Play(attackStateHash);
+			if(target!=null){
+				target.gameObject.GetComponent<Unit>().health-=1;
+			}
 		}else if (state == State.Gathering) {
 			anim.Play(gatherStateHash);
 		}else if (state == State.Idle) {
 			anim.Play(idleStateHash);
+		}else if (state == State.Dead) {
+			anim.Play(deathStateHash);
+			Invoke ("RemoveUnit",1);
 		}
+	}
+	void RemoveUnit(){
+		Destroy(this.gameObject);
 	}
 	//Handles selection of the troops
 	void OnMouseDown(){
@@ -289,7 +307,7 @@ public class Unit : MonoBehaviour {
 
     IEnumerator FollowPath()
     {
-		if (path != null && path.Length>0) {
+		if (this.health > 0 && path != null && path.Length>0) {
 			state=State.Moving;
 			//Play moving animation
 			path = SmoothPath(path);
@@ -309,6 +327,9 @@ public class Unit : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				transform.LookAt(waypoint);
 				yield return null;
+				if(target!=null){
+					print ((target!= null)+ "&&" + attacking +"&&"+ (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4))+"&&"+ ! notOverrideable);
+				}
 				if(target!= null && attacking && Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
