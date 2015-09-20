@@ -19,6 +19,9 @@ public class Unit : MonoBehaviour {
 	int deathStateHash; 
 	Vector3 mouseClick;
     int speed;
+	int damage;
+	float damageDelay;
+	float damageWait;
 	int currentLoad;
 	int MAX_LOAD;
 	int gatherSpeed;
@@ -49,12 +52,21 @@ public class Unit : MonoBehaviour {
 	public GameObject glowSelection;
 	private GameObject glow;
 	public enum Type{Grunt, Archer, Warrior};
+	public enum TargetType{Unit,Building};
 	public enum State{Gathering,Attacking,Moving,Idle,Dead};
 	public Resource.ResourceType resourceType;
 	public Type unitClass;
+	public TargetType targetType;
 	public State state;
 	int layerMask;
 	void Awake(){
+		if (unitClass == Type.Grunt) {
+			damage = 1;
+		}else if (unitClass == Type.Warrior) {
+			damage = 10;
+		}else if (unitClass == Type.Archer) {
+			damage =5;
+		}
 		health = 100;
 		attacking = false;
 //		gameObject.renderer.material.mainTexture = textures [team-1];
@@ -78,6 +90,8 @@ public class Unit : MonoBehaviour {
 		state = State.Idle;
 		wasSelected = false;
 		layerMask=1<<10;
+		damageDelay=1f;
+	 	damageWait = 0;
 
 	}
 	void FixedUpdate(){
@@ -92,7 +106,11 @@ public class Unit : MonoBehaviour {
 			int number = CheckForEnemies ();
 			int targetHealth = 0;
 			if(target!=null){
-				targetHealth=target.gameObject.GetComponent<Unit>().health;
+				if(targetType==TargetType.Unit){
+					targetHealth=target.gameObject.GetComponent<Unit>().health;
+				}else if(targetType==TargetType.Building){
+					targetHealth=target.gameObject.GetComponent<DestructableBuilding>().health;
+				}
 			}
 			if (target != null && !instructedAttack && Vector3.Distance(target.transform.position,transform.position)>=((float)attackRange+4) || targetHealth<=0) {
 				target = null;
@@ -141,7 +159,7 @@ public class Unit : MonoBehaviour {
 				}
 
 			}
-			//print (wasSelected);
+			print (wasSelected);
 			if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 			{
 				path = null;
@@ -154,13 +172,26 @@ public class Unit : MonoBehaviour {
 					mouseClick = hit.point;
 					notOverrideable = true;
 					instructedAttack=false;
+					print(hit.collider.gameObject.tag);
+					Transform attackPoint = null;
 					if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
 						//Atack
 						this.target = hit.collider.gameObject;
+						targetType=TargetType.Unit;
 						attacking = true;
 						instructedAttack = true;
 						notOverrideable=false;
 						print ("Attack unit");
+					}
+					if(hit.collider.gameObject.tag=="Building" && hit.collider.gameObject.GetComponent<DestructableBuilding>().team!=this.team){
+						//Atack
+						this.target = hit.collider.gameObject;
+						targetType=TargetType.Building;
+						attacking = true;
+						instructedAttack = true;
+						notOverrideable=false;
+						attackPoint = hit.transform.Find("AttackPoint");
+						print ("Attack Building");
 					}
 					if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 						currentResource = hit.transform.gameObject;
@@ -193,7 +224,11 @@ public class Unit : MonoBehaviour {
 						collectGoods=false;
 						currentLoad = 0;
 						print("Moving");
-						MoveUnit(transform.position,mouseClick);
+						if(targetType==TargetType.Building && attackPoint!=null){
+							MoveUnit(transform.position,attackPoint.position);
+						}else{
+							MoveUnit(transform.position,mouseClick);
+						}
 					}
 				}
 			}
@@ -204,11 +239,13 @@ public class Unit : MonoBehaviour {
 		int returnAmount = 0;
 		if (!attacking && state!=State.Moving) {
 			int count = 0;
-			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange,layerMask);
+			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange+4,layerMask);
 			for (var i =0; i< nearbyEnemy.Length; i++) {
 				Unit unit;
 				unit = nearbyEnemy [i].GetComponent<Unit> () as Unit;
 				if (unit != null && unit.team != this.team) {
+					targetType = TargetType.Unit;
+					print ("Enemy");
 					Attack (nearbyEnemy [i].gameObject);
 					count ++;
 				}
@@ -223,7 +260,7 @@ public class Unit : MonoBehaviour {
 		}else if (state == State.Attacking) {
 			anim.Play(attackStateHash);
 			if(target!=null){
-				target.gameObject.GetComponent<Unit>().health-=1;
+				DoDamage();
 			}
 		}else if (state == State.Gathering) {
 			anim.Play(gatherStateHash);
@@ -232,6 +269,17 @@ public class Unit : MonoBehaviour {
 		}else if (state == State.Dead) {
 			anim.Play(deathStateHash);
 			Invoke ("RemoveUnit",1);
+		}
+	}
+
+	void DoDamage(){
+		if (Time.time >= damageWait) {
+			if (targetType == TargetType.Building) {
+				target.gameObject.GetComponent<DestructableBuilding> ().health -= damage;
+			} else if (targetType == TargetType.Unit) {
+				target.gameObject.GetComponent<Unit> ().health -= damage;
+			}
+			damageWait = damageDelay+Time.time;
 		}
 	}
 	void RemoveUnit(){
@@ -330,7 +378,7 @@ public class Unit : MonoBehaviour {
 				if(target!=null){
 					print ((target!= null)+ "&&" + attacking +"&&"+ (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4))+"&&"+ ! notOverrideable);
 				}
-				if(target!= null && attacking && Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)&& ! notOverrideable){
+				if(target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
 					print ("Attacking");

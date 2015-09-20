@@ -49,6 +49,7 @@
      <Compile Include="Assets\AIScripts\AICamera.cs" />
      <Compile Include="Assets\AIScripts\A_Pathfinding.cs" />
      <Compile Include="Assets\AIScripts\Attack.cs" />
+     <Compile Include="Assets\AIScripts\DestructableBuilding.cs" />
      <Compile Include="Assets\AIScripts\Grid.cs" />
      <Compile Include="Assets\AIScripts\Grunt.cs" />
      <Compile Include="Assets\AIScripts\Hashes.cs" />
