@@ -6,12 +6,12 @@ public class Heap<T> where T: IHeapItem<T>
 {
     T[] items;
     int count;
-
+	//Constructor
     public Heap(int maxSize)
     {
         items = new T[maxSize];
     }
-
+	//Adds item to heap
     public void Add(T item)
     {
         item.Index = count;
@@ -19,7 +19,7 @@ public class Heap<T> where T: IHeapItem<T>
         SortUp(item);
         count++;
     }
-
+	//Removes first item from heap
     public T Pop()
     {
         T first = items[0];
@@ -29,7 +29,7 @@ public class Heap<T> where T: IHeapItem<T>
         SortDown(items[0]);
         return first;
     }
-
+	//Reorders the item in the heap
     public void UpdateItem(T item)
     {
         SortUp(item);
@@ -42,12 +42,12 @@ public class Heap<T> where T: IHeapItem<T>
             return count;
         }
     }
-
+	//Checks if item is contained in the heap
     public bool Contains(T item)
     {
         return Equals(items[item.Index],item);
     }
-
+	//Moves an item down the heap
     void SortDown(T item)
     {
         while (true)
@@ -82,6 +82,7 @@ public class Heap<T> where T: IHeapItem<T>
         }
 
     }
+	//Moves a item up the heap
     void SortUp(T item)
     {
         int parentIndex = (item.Index - 1) / 2;
@@ -99,7 +100,7 @@ public class Heap<T> where T: IHeapItem<T>
             parentIndex = (item.Index - 1) / 2;
         }
     }
-
+	//Swaps two items in the heap
     void Swap(T item1, T item2)
     {
         items[item1.Index] = item2;
@@ -109,7 +110,7 @@ public class Heap<T> where T: IHeapItem<T>
         item2.Index = item1Index;
     }
 }
-
+//Interface for Heap item
 public interface IHeapItem<T> : IComparable<T>
 {
     int Index

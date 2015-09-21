@@ -10,6 +10,7 @@ public class Node : IHeapItem<Node>{
     int h;
     int x, y;
     int index;
+	//Constructor
     public Node(bool walkable,Vector3 position, int x, int y)
     {
         this.walkable = walkable;
@@ -17,7 +18,7 @@ public class Node : IHeapItem<Node>{
         this.x = x;
         this.y = y;
     }
-
+	//Compares one node to the other
 	public int CompareTo(Node node)
 	{
 		int compare = f.CompareTo(node.f);

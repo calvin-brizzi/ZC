@@ -1,14 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-/*
- *[TODO] Add attack ability
- *[TODO] Work of flocking troops
- *[TODO] Make each character look like the correct character
- *[TODO] Give each character the correct animation depending on the task assigned
- *[TODO] Change the colour of the glow depending on team
- *[TODO] Stop the units from attacking when out of range
- *[TODO] Stop the units on the other team from being able to be selected
-*/
+
 public class Unit : MonoBehaviour {
 	public GameObject marker;
 	int idleStateHash;
@@ -60,6 +52,7 @@ public class Unit : MonoBehaviour {
 	public State state;
 	int layerMask;
 	void Awake(){
+		//Sets the damge values depending on the class
 		if (unitClass == Type.Grunt) {
 			damage = 1;
 		}else if (unitClass == Type.Warrior) {
@@ -67,17 +60,22 @@ public class Unit : MonoBehaviour {
 		}else if (unitClass == Type.Archer) {
 			damage =5;
 		}
+		//
 		health = 100;
 		attacking = false;
 		gameObject.renderer.material.mainTexture = textures [team-1];
+		//Since only grunt unit has a gathering animation
 		if(unitClass == Type.Grunt){
 			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
 		}
+		//Gets the indexes of the animations so can be played when needed;
 		attackStateHash = Animator.StringToHash("Base Layer.Attack");
 		idleStateHash = Animator.StringToHash("Base Layer.Idle");
 		runStateHash = Animator.StringToHash("Base Layer.Run");
 		deathStateHash = Animator.StringToHash("Base Layer.Death");
+		//Gets the animator controller for each unit
 		anim = GetComponent<Animator>();
+		//Sets variables 
 		collectedAmount = 0;
 		duration = 0.01f;
 		speed = 20;
@@ -94,17 +92,19 @@ public class Unit : MonoBehaviour {
 	 	damageWait = 0;
 
 	}
+
 	void FixedUpdate(){
-		if(state!=State.Dead){
+		if(state!=State.Dead){ // If the unit is not dead
 			if (attacking && target != null) {
-				transform.LookAt(target.transform);
+				transform.LookAt(target.transform);//Makes unit look at current attack target
 			}
-			if(health<=0){
+			if(health<=0){//Checks to see if target is dead
 				state=State.Dead;
 			}
-			CheckState ();
+			CheckState ();//Checks the state of the target
 			int number = CheckForEnemies ();
 			int targetHealth = 0;
+			//Gets the health of the target
 			if(target!=null){
 				if(targetType==TargetType.Unit){
 					targetHealth=target.gameObject.GetComponent<Unit>().health;
@@ -112,6 +112,7 @@ public class Unit : MonoBehaviour {
 					targetHealth=target.gameObject.GetComponent<DestructableBuilding>().health;
 				}
 			}
+			//If target is out of range or dead remove it as target
 			if (target != null && !instructedAttack && Vector3.Distance(target.transform.position,transform.position)>=((float)attackRange+4) || targetHealth<=0) {
 				target = null;
 				attacking =false;
@@ -119,6 +120,7 @@ public class Unit : MonoBehaviour {
 					state=State.Idle;
 				}
 			}
+			//FOR GATHERING//
 			if ((MAX_LOAD==currentLoad)||(collectGoods && gathering && currentResource == null)) { // If the unit has reached its max load return to base or If the resource is destroyed and the grunt has not filled its capacity
 				collectGoods=false;
 				collectedAmount=currentLoad;
@@ -130,7 +132,7 @@ public class Unit : MonoBehaviour {
 				currentResource.GetComponent<Resource>().ReduceAmountOfMaterial(gatherSpeed);
 				collectedAmount=currentLoad;
 			}
-
+			//////////
 			if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
 				if(!clicked){
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
@@ -147,23 +149,24 @@ public class Unit : MonoBehaviour {
 						wasSelected=false;
 					}
 				}
-
+				//Create the particle effect object that shows which object is selected
 				if(wasSelected && glow == null){
 					glow = (GameObject)GameObject.Instantiate(glowSelection);
 					glow.transform.parent=transform;
 					glow.transform.localPosition=new Vector3(0,0,0);
 				}
+				//If unselected remove it
 				else if(!wasSelected && glow!=null){
 					GameObject.Destroy (glow);
 					glow=null;
 				}
 
 			}
-			print (wasSelected);
+			print (wasSelected);//Debugging
 			if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 			{
 				path = null;
-				StopCoroutine("FollowPath");
+				StopCoroutine("FollowPath");//Stops the players movement
 				RaycastHit hit;
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -174,6 +177,7 @@ public class Unit : MonoBehaviour {
 					instructedAttack=false;
 					print(hit.collider.gameObject.tag);
 					Transform attackPoint = null;
+					//If enemy unit attack
 					if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
 						//Atack
 						this.target = hit.collider.gameObject;
@@ -183,6 +187,7 @@ public class Unit : MonoBehaviour {
 						notOverrideable=false;
 						print ("Attack unit");
 					}
+					//If enemy building attack
 					if(hit.collider.gameObject.tag=="Building" && hit.collider.gameObject.GetComponent<DestructableBuilding>().team!=this.team){
 						//Atack
 						this.target = hit.collider.gameObject;
@@ -193,6 +198,7 @@ public class Unit : MonoBehaviour {
 						attackPoint = hit.transform.Find("AttackPoint");
 						print ("Attack Building");
 					}
+					//If resource and grunt start gathering
 					if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
 						currentResource = hit.transform.gameObject;
 						if(resourceType!=Resource.ResourceType.Nothing){
@@ -210,9 +216,11 @@ public class Unit : MonoBehaviour {
 							MoveUnit(transform.position,gatherPoint.position);
 						}
 					}
+					//If not grunt just stop moving
 					else if(hit.collider.gameObject.tag=="Resource"||hit.collider.gameObject.tag=="Home Base"  && !unitClass.Equals(Type.Grunt)){
 						state=State.Idle;
 					}
+					//Return to homebase and deposit goods
 					else if(hit.collider.gameObject.tag=="Home Base"){
 						var returnPoint = hit.transform.Find("ReturnPoint");
 						attacking=false;
@@ -221,7 +229,7 @@ public class Unit : MonoBehaviour {
 							MoveUnit(transform.position,returnPoint.position);
 						}
 					}
-					else{
+					else{//Just move the unit
 						gathering=false;
 						returning = false;
 						collectGoods=false;
@@ -237,26 +245,26 @@ public class Unit : MonoBehaviour {
 			}
 		}
 	}
-
+	//Perimeter check to see if enemies are close by and if so start attacking them
 	int CheckForEnemies(){
 		int returnAmount = 0;
 		if (!attacking && state!=State.Moving) {
 			int count = 0;
-			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange+4,layerMask);
+			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange+4,layerMask); // Returns an array of all enemies in attackrange+4 area
 			for (var i =0; i< nearbyEnemy.Length; i++) {
 				Unit unit;
 				unit = nearbyEnemy [i].GetComponent<Unit> () as Unit;
 				if (unit != null && unit.team != this.team) {
 					targetType = TargetType.Unit;
-					print ("Enemy");
 					Attack (nearbyEnemy [i].gameObject);
-					count ++;
+					count ++;//Numbers of enemies
 				}
 			}
 			returnAmount =count;
 		}
 		return returnAmount;
 	}
+	//Checks the state of the unit and plays the correct animation
 	void CheckState(){
 		if (state == State.Moving) {
 			anim.Play(runStateHash);
@@ -271,6 +279,7 @@ public class Unit : MonoBehaviour {
 			anim.Play(idleStateHash);
 		}else if (state == State.Dead) {
 			anim.Play(deathStateHash);
+			StopCoroutine("FollowPath");
 			Invoke ("RemoveUnit",1);
 		}
 	}
@@ -315,9 +324,10 @@ public class Unit : MonoBehaviour {
 			}
 		}
 	}
-
+	//Starts an attack on a specific unit
 	void Attack(GameObject targetObj){
 		this.target = targetObj;
+		targetType = TargetType.Unit;
 		state = State.Attacking;
 		attacking = true;
 		transform.LookAt (target.transform);
@@ -333,7 +343,7 @@ public class Unit : MonoBehaviour {
 	public void MoveUnit(Vector3 from, Vector3 to){
 		PathRequestController.RequestPath(from,to,OnPathFound);
 	}
-
+	//If the PathRequestController finds a path follow it
     public void OnPathFound(Vector3[] newPath, bool success)
     {
         if (success && !gathering) {
@@ -355,7 +365,7 @@ public class Unit : MonoBehaviour {
 			//Play gathering animation
 		}
     }
-
+	//Moves the unit along the path
     IEnumerator FollowPath()
     {
 		if (this.health > 0 && path != null && path.Length>0) {
@@ -384,6 +394,7 @@ public class Unit : MonoBehaviour {
 				if(target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
+					instructedAttack=false;//So when opponent moves unit does keep attacking
 					print ("Attacking");
 					StopCoroutine ("FollowPath");
 				}
@@ -397,7 +408,7 @@ public class Unit : MonoBehaviour {
 						depositing =false;
 						collectedAmount=0;
 					}
-					else if(target!=null && attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange+4&& ! notOverrideable){
+					else if(target!=null && attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange+30&& ! notOverrideable){
 						Attack(target);
 					}
 
