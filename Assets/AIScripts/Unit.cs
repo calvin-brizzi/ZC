@@ -66,7 +66,7 @@ public class Unit : MonoBehaviour {
 		gameObject.renderer.material.mainTexture = textures [team-1];
 		//Since only grunt unit has a gathering animation
 		if(unitClass == Type.Grunt){
-			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
+			gatherStateHash = Animator.StringToHash("Base Layer.Idle");
 		}
 		//Gets the indexes of the animations so can be played when needed;
 		attackStateHash = Animator.StringToHash("Base Layer.Attack");
