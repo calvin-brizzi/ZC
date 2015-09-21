@@ -5,10 +5,14 @@ public class AICamera : MonoBehaviour {
 	public Texture2D selectionTexture=null;
 	public static Rect selectedArea = new Rect(0,0,0,0);
 	private Vector3 initialClick = -Vector3.one;
-	
+	public static int team;
+	void Awake(){
+		team = 1;
+	}
 	// Update is called once per frame
 	void Update () {
 		CheckSelection ();
+
 	}
 
 	void CheckSelection(){

@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 437252}
   - 95: {fileID: 9537554}
-  - 33: {fileID: 3381088}
   - 23: {fileID: 2311886}
   - 136: {fileID: 13612600}
   - 114: {fileID: 11451682}
@@ -2301,7 +2300,7 @@ Transform:
   m_GameObject: {fileID: 137252}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.88000011, y: 0, z: -45.0900002}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 437254}
   - {fileID: 437256}
@@ -4288,13 +4287,6 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3381088
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 137252}
-  m_Mesh: {fileID: 0}
 --- !u!95 &9537554
 Animator:
   serializedVersion: 3
@@ -4326,7 +4318,7 @@ MonoBehaviour:
   textures:
   - {fileID: 2800000, guid: be15a11df26358e4ba05fa431f33af86, type: 3}
   - {fileID: 2800000, guid: d86c814e9a22f2f48b01b10297ed8003, type: 3}
-  attackRange: 2
+  attackRange: 10
   team: 2
   glowSelection: {fileID: 172638, guid: 2b49024d879f96a458f5e86fb44114b1, type: 2}
   resourceType: 0
@@ -4523,7 +4515,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 9702341b90d09584191ae9c738f75987, type: 2}
+  - {fileID: 2100000, guid: c055f5d6d09866c4b8cca10714659461, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

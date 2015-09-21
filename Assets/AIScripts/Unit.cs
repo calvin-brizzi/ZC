@@ -69,7 +69,7 @@ public class Unit : MonoBehaviour {
 		}
 		health = 100;
 		attacking = false;
-//		gameObject.renderer.material.mainTexture = textures [team-1];
+		gameObject.renderer.material.mainTexture = textures [team-1];
 		if(unitClass == Type.Grunt){
 			gatherStateHash = Animator.StringToHash("Base Layer.Gather");
 		}
@@ -136,7 +136,7 @@ public class Unit : MonoBehaviour {
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
 					cameraPosition.y=Screen.height-cameraPosition.y;
 					selected=AICamera.selectedArea.Contains (cameraPosition) ;
-					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached() ){
+					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached()&& this.team == AICamera.team){
 						UnitMonitor.AddUnit(this.gameObject);
 						wasSelected=true;
 					}
@@ -151,7 +151,7 @@ public class Unit : MonoBehaviour {
 				if(wasSelected && glow == null){
 					glow = (GameObject)GameObject.Instantiate(glowSelection);
 					glow.transform.parent=transform;
-					glow.transform.localPosition=new Vector3(0,-GetComponent<MeshFilter>().mesh.bounds.extents.y,0);
+					glow.transform.localPosition=new Vector3(0,0,0);
 				}
 				else if(!wasSelected && glow!=null){
 					GameObject.Destroy (glow);
@@ -209,6 +209,9 @@ public class Unit : MonoBehaviour {
 							resourcePoint = gatherPoint.position;
 							MoveUnit(transform.position,gatherPoint.position);
 						}
+					}
+					else if(hit.collider.gameObject.tag=="Resource"||hit.collider.gameObject.tag=="Home Base"  && !unitClass.Equals(Type.Grunt)){
+						state=State.Idle;
 					}
 					else if(hit.collider.gameObject.tag=="Home Base"){
 						var returnPoint = hit.transform.Find("ReturnPoint");
