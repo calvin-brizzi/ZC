@@ -162,7 +162,8 @@ public class Unit : MonoBehaviour {
 				}
 
 			}
-			print (wasSelected);//Debugging
+
+			//print (wasSelected);//Debugging
 			if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 			{
 				path = null;
@@ -221,7 +222,7 @@ public class Unit : MonoBehaviour {
 						state=State.Idle;
 					}
 					//Return to homebase and deposit goods
-					else if(hit.collider.gameObject.tag=="Home Base"){
+					else if(hit.collider.gameObject.tag=="Home Base" && unitClass.Equals(Type.Grunt)){
 						var returnPoint = hit.transform.Find("ReturnPoint");
 						attacking=false;
 						if(unitClass.Equals(Type.Grunt)){
@@ -234,7 +235,6 @@ public class Unit : MonoBehaviour {
 						returning = false;
 						collectGoods=false;
 						currentLoad = 0;
-						print("Moving");
 						if(targetType==TargetType.Building && attackPoint!=null){
 							MoveUnit(transform.position,attackPoint.position);
 						}else{
@@ -319,10 +319,17 @@ public class Unit : MonoBehaviour {
 			}
 			else{//When gathering and the unit has reached the home base to return the collected goods
 				MoveUnit(returnPoint.position,resourcePoint);
+				//Add coollectedAmount to the total resources
+				AddResources();
 				collectedAmount=0;
 				returning = false;
 			}
 		}
+	}
+
+	void AddResources(){
+		print ("Adding "+collectedAmount);
+		//Increase lava resource by x amount
 	}
 	//Starts an attack on a specific unit
 	void Attack(GameObject targetObj){
@@ -384,13 +391,9 @@ public class Unit : MonoBehaviour {
 					waypoint = path [targetPosition];
 				}
 				waypoint.y = transform.position.y;//So that the units always remain the same height
-				Debug.DrawLine (transform.position, waypoint);
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				transform.LookAt(waypoint);
 				yield return null;
-				if(target!=null){
-					print ((target!= null)+ "&&" + attacking +"&&"+ (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4))+"&&"+ ! notOverrideable);
-				}
 				if(target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
@@ -406,6 +409,9 @@ public class Unit : MonoBehaviour {
 					}
 					else if(depositing){ // This is for when a grunt is carrying good and the player deposits it manuallly
 						depositing =false;
+						//Add the collectedAmount to the total resources
+						AddResources();
+						state = State.Idle;
 						collectedAmount=0;
 					}
 					else if(target!=null && attacking && Vector3.Distance(transform.position,target.transform.position)<=attackRange+30&& ! notOverrideable){
