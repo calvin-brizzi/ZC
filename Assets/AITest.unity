@@ -5343,6 +5343,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 13608104, guid: dd68c4c5f66cbce49938ce791055d3fd, type: 2}
+      propertyPath: m_Center.y
+      value: -8.28999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 13608104, guid: dd68c4c5f66cbce49938ce791055d3fd, type: 2}
+      propertyPath: m_Radius
+      value: 4.94000006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd68c4c5f66cbce49938ce791055d3fd, type: 2}
   m_RootGameObject: {fileID: 1321039602}
@@ -10286,10 +10294,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 4.33904934
+  m_Radius: 4.94000006
   m_Height: 1.55507231
   m_Direction: 1
-  m_Center: {x: -2, y: -4, z: 0}
+  m_Center: {x: -2, y: -8.28999996, z: 0}
 --- !u!212 &1321039605
 SpriteRenderer:
   m_ObjectHideFlags: 0
