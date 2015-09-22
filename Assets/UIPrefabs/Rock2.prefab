@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 471648}
   - 212: {fileID: 21271648}
   - 136: {fileID: 13614162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock2
   m_TagString: Prop
   m_Icon: {fileID: 0}

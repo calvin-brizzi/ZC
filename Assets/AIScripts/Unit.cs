@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour {
 	int gatherStateHash; 
 	int deathStateHash; 
 	Vector3 mouseClick;
-    int speed;
+    public int speed;
 	int damage;
 	float damageDelay;
 	float damageWait;
@@ -78,7 +78,7 @@ public class Unit : MonoBehaviour {
 		//Sets variables 
 		collectedAmount = 0;
 		duration = 0.01f;
-		speed = 20;
+		//speed = 20;
 		MAX_LOAD = 100;
 		currentLoad = 0;
 		gatherSpeed = 1;
