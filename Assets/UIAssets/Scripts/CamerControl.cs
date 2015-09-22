@@ -30,5 +30,11 @@ public class CamerControl : MonoBehaviour {
 			temp.z = temp.z - mag;
 			transform.position = temp;
 		}
+		if (Input.GetAxis ("Mouse ScrollWheel") < 0) {
+			this.transform.position = this.transform.position - this.transform.forward*20;
+		}
+		if (Input.GetAxis ("Mouse ScrollWheel") > 0) {
+			this.transform.position = this.transform.position + this.transform.forward*20;
+		}
 	}
 }

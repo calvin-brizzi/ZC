@@ -194,9 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cafb2314472c1545871710317877865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brute: {fileID: 0}
-  grunt: {fileID: 0}
-  archer: {fileID: 0}
+  brute: {fileID: 137252, guid: 598e9dbe5ad14b64ebbd6454ce078169, type: 2}
+  grunt: {fileID: 193322, guid: 40ef36dca396c0d4783ac79b5af6ba26, type: 2}
+  archer: {fileID: 167174, guid: 16205b3c746699a47944081d6407c1eb, type: 2}
 --- !u!212 &21214602
 SpriteRenderer:
   m_ObjectHideFlags: 1
