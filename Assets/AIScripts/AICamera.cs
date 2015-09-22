@@ -9,7 +9,6 @@ public class AICamera : MonoBehaviour {
 
 
 	void Awake(){
-		team = 1;
 	}
 	// Update is called once per frame
 	void Update () {

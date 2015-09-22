@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3359398}
   - 65: {fileID: 6559398}
   - 23: {fileID: 2359398}
+  - 114: {fileID: 11464990}
   m_Layer: 8
   m_Name: Home Base
   m_TagString: Home Base
@@ -33,6 +34,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &164990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 464990}
+  m_Layer: 9
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &459396
 Transform:
   m_ObjectHideFlags: 1
@@ -40,10 +56,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.5, y: 0, z: 16.3999996}
+  m_LocalPosition: {x: -122.699997, y: 5, z: -22.3999996}
   m_LocalScale: {x: 12, y: 9.14096165, z: 12}
   m_Children:
   - {fileID: 459398}
+  - {fileID: 464990}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &459398
@@ -58,6 +75,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 459396}
   m_RootOrder: 0
+--- !u!4 &464990
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.829999983, y: 0, z: -.00999999978}
+  m_LocalScale: {x: 2.60250664, y: 1.44787264, z: 2.90145683}
+  m_Children: []
+  m_Father: {fileID: 459396}
+  m_RootOrder: 1
 --- !u!23 &2359398
 Renderer:
   m_ObjectHideFlags: 1
@@ -97,6 +126,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11464990
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dbf4a3a7efba7b4fb76d9a2d99fcd5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 1
+  health: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

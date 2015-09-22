@@ -190,7 +190,7 @@ public class Unit : MonoBehaviour {
 						print ("Attack unit");
 					}
 					//If enemy building attack
-					if(hit.collider.gameObject.tag=="Building" && hit.collider.gameObject.GetComponent<DestructableBuilding>().team!=this.team){
+					if((hit.collider.gameObject.tag=="Building"||hit.collider.gameObject.tag=="Home Base"||hit.collider.gameObject.tag=="School") && hit.collider.gameObject.GetComponent<DestructableBuilding>().team!=this.team){
 						//Atack
 						this.target = hit.collider.gameObject;
 						targetType=TargetType.Building;
@@ -219,11 +219,11 @@ public class Unit : MonoBehaviour {
 						}
 					}
 					//If not grunt just stop moving
-					else if(hit.collider.gameObject.tag=="Resource"||hit.collider.gameObject.tag=="Home Base"  && !unitClass.Equals(Type.Grunt)){
+					else if(hit.collider.gameObject.tag=="Resource"||(hit.collider.gameObject.tag=="Home Base"  && !unitClass.Equals(Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding>().team==this.team)){
 						state=State.Idle;
 					}
 					//Return to homebase and deposit goods
-					else if(hit.collider.gameObject.tag=="Home Base" && unitClass.Equals(Type.Grunt)){
+					else if(hit.collider.gameObject.tag=="Home Base" && unitClass.Equals(Type.Grunt)&& hit.collider.gameObject.GetComponent<DestructableBuilding>().team==this.team){
 						var returnPoint = hit.transform.Find("ReturnPoint");
 						attacking=false;
 						if(unitClass.Equals(Type.Grunt)){
