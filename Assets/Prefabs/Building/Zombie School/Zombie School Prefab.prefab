@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  health: 10
+  health: 200
 --- !u!114 &11409292
 MonoBehaviour:
   m_ObjectHideFlags: 1
