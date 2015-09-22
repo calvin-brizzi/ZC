@@ -2810,6 +2810,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11426278, guid: 0d8b12b3e1491c34e8b9a8ef572fe0df, type: 2}
+      propertyPath: team
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d8b12b3e1491c34e8b9a8ef572fe0df, type: 2}
   m_RootGameObject: {fileID: 2037475519}
@@ -23269,7 +23273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbf4a3a7efba7b4fb76d9a2d99fcd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
+  team: 3
   health: 100
 --- !u!1 &2037572408
 GameObject:

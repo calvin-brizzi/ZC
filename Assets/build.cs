@@ -15,7 +15,8 @@ public class build : MonoBehaviour {
 			Instantiate (prefab,this.transform.position,Quaternion.identity);
 			Destroy (this.gameObject);
 			print ("runs");
-
+			GameObject a=GameObject.FindGameObjectWithTag("A*");
+			a.GetComponent<Grid>().ReCreateGrid();
 		}
 	}
 

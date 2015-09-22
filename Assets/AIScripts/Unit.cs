@@ -138,7 +138,8 @@ public class Unit : MonoBehaviour {
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
 					cameraPosition.y=Screen.height-cameraPosition.y;
 					selected=AICamera.selectedArea.Contains (cameraPosition) ;
-					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached()&& this.team == AICamera.team){
+					GameObject aiCamera=GameObject.FindGameObjectWithTag("MainCamera");
+					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached()&& this.team == aiCamera.GetComponent<AICamera>().team){
 						UnitMonitor.AddUnit(this.gameObject);
 						wasSelected=true;
 					}
@@ -162,7 +163,7 @@ public class Unit : MonoBehaviour {
 				}
 
 			}
-
+			//print (Input.GetMouseButtonDown(1));
 			//print (wasSelected);//Debugging
 			if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 			{
@@ -170,7 +171,7 @@ public class Unit : MonoBehaviour {
 				StopCoroutine("FollowPath");//Stops the players movement
 				RaycastHit hit;
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+				print ("click");
 				if (Physics.Raycast(ray, out hit))
 				{
 					mouseClick = hit.point;
@@ -299,15 +300,21 @@ public class Unit : MonoBehaviour {
 	}
 	//Handles selection of the troops
 	void OnMouseDown(){
-		clicked = true;
-		wasSelected = true;
+		GameObject aiCamera=GameObject.FindGameObjectWithTag("MainCamera");
+		if (this.team == aiCamera.GetComponent<AICamera> ().team) {
+			clicked = true;
+			wasSelected = true;
+		}
 	}
 
 	void OnMouseUp(){
-		if(clicked){
-			wasSelected = true;
+		GameObject aiCamera=GameObject.FindGameObjectWithTag("MainCamera");
+		if (this.team == aiCamera.GetComponent<AICamera> ().team) {
+			if (clicked) {
+				wasSelected = true;
+			}
+			clicked = false;
 		}
-		clicked = false;
 	}
 	//Starts the gathering movement of the grunt
 	public void Gather(){
@@ -397,7 +404,9 @@ public class Unit : MonoBehaviour {
 				if(target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
-					instructedAttack=false;//So when opponent moves unit does keep attacking
+					if(targetType!=TargetType.Building){
+						instructedAttack=false;//So when opponent moves unit does keep attacking
+					}
 					print ("Attacking");
 					StopCoroutine ("FollowPath");
 				}

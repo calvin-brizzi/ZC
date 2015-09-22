@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TerrainGenerator : MonoBehaviour {
@@ -14,7 +14,8 @@ public class TerrainGenerator : MonoBehaviour {
 			Instantiate (obj,new Vector3(x,y,z),Quaternion.identity);
 		}
 		this.GetComponent<GridMaker> ().add ();
-
+		//GameObject a=GameObject.FindGameObjectWithTag("A*");
+		//a.GetComponent<Grid>().ReCreateGrid();
 
 	}
 	
