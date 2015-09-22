@@ -12,10 +12,22 @@ public class Spawn : MonoBehaviour {
 
 	public void spawnBrute(){
 		print ("TRYS");
-		Instantiate (brute, this.transform.position, Quaternion.identity);
-		brute.GetComponent<Unit>().MoveUnit(this.transform.position,this.transform.position);
+		Vector3 spawnpoint = this.transform.position;
+		spawnpoint.z = spawnpoint.z - 50;
+		Instantiate (brute, spawnpoint, Quaternion.identity);
 	}
-
+	public void spawnArcher(){
+		print ("TRYS");
+		Vector3 spawnpoint = this.transform.position;
+		spawnpoint.z = spawnpoint.z - 50;
+		Instantiate (archer, spawnpoint, Quaternion.identity);
+	}
+	public void spawnGrunt(){
+		print ("TRYS");
+		Vector3 spawnpoint = this.transform.position;
+		spawnpoint.z = spawnpoint.z - 50;
+		Instantiate (grunt, spawnpoint, Quaternion.identity);
+	}
 	// Update is called once per frame
 	void Update () {
 		

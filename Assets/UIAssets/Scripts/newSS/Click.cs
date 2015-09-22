@@ -25,10 +25,20 @@ public class Click : MonoBehaviour {
 			builder[i].SetActive (false);
 		}
 	}
-	public void makeGrunt(){
+	public void makeBrute(){
 		print ("ATTEMPTS");
 		currentSchool.GetComponent<Spawn> ().spawnBrute ();
 
+	}
+	public void makeArcher(){
+		print ("ATTEMPTS");
+		currentSchool.GetComponent<Spawn> ().spawnArcher ();
+		
+	}
+	public void makeGrunt(){
+		print ("ATTEMPTS");
+		currentSchool.GetComponent<Spawn> ().spawnGrunt ();
+		
 	}
 	public void build(){
 		print ("WORKS BITCH");
@@ -106,10 +116,14 @@ public class Click : MonoBehaviour {
 					for(int i = 0;i<buildings.Length;i++){
 						buildings[i].SetActive (false);
 					}
+					for(int i = 0;i<builder.Length;i++){
+						builder[i].SetActive (false);
+					}
 
 				}
 				if(hit.transform.tag == "School"){
 					currentSchool = hit.transform.gameObject;
+					print ("CURRENT SCHOOL");
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);
 					}
@@ -118,6 +132,9 @@ public class Click : MonoBehaviour {
 					}
 					for(int i = 0;i<buildings.Length;i++){
 						buildings[i].SetActive (true);
+					}
+					for(int i = 0;i<builder.Length;i++){
+						builder[i].SetActive (false);
 					}
 
 				}
@@ -131,6 +148,9 @@ public class Click : MonoBehaviour {
 					}
 					for(int i = 0;i<buildings.Length;i++){
 						buildings[i].SetActive (false);
+					}
+					for(int i = 0;i<builder.Length;i++){
+						builder[i].SetActive (false);
 					}
 
 				}

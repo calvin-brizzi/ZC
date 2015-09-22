@@ -4,20 +4,22 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
     public Vector2 gridSize;
-    
+
     public LayerMask obstacle;
     int nodeDiameter;
    	int gridSizeX;
     int gridSizeY;
 	int nodeRadius;
 	Node[,] grid;
+
+
     void Awake()
     {
 		nodeRadius = 1;
         nodeDiameter = nodeRadius*2;
         gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
-        CreateGrid();
+        //CreateGrid();
     }
 	//Recreates the grid for when objects are removed and need to update the grid
 	public void ReCreateGrid()
