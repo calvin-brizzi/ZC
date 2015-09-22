@@ -81,7 +81,7 @@ public class Unit : MonoBehaviour {
 		//speed = 20;
 		MAX_LOAD = 100;
 		currentLoad = 0;
-		gatherSpeed = 1;
+		gatherSpeed = 20;
 		glow = null;
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
@@ -94,6 +94,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+		//Debug.Log (mainBuilding.name);
 		if(state!=State.Dead){ // If the unit is not dead
 			if (attacking && target != null) {
 				transform.LookAt(target.transform);//Makes unit look at current attack target
@@ -127,8 +128,9 @@ public class Unit : MonoBehaviour {
 				currentLoad=0;
 				StartCoroutine("FollowPath");
 			}
-			if (unitClass == Type.Grunt && collectGoods && MAX_LOAD!=currentLoad && currentResource!=null){// While gathering goods increase current load
+			if (unitClass == Type.Grunt && collectGoods && MAX_LOAD > currentLoad && currentResource!=null){// While gathering goods increase current load
 				currentLoad+=gatherSpeed;
+				Debug.Log(currentLoad);
 				currentResource.GetComponent<Resource>().ReduceAmountOfMaterial(gatherSpeed);
 				collectedAmount=currentLoad;
 			}
@@ -225,6 +227,7 @@ public class Unit : MonoBehaviour {
 					//Return to homebase and deposit goods
 					else if(hit.collider.gameObject.tag=="Home Base" && unitClass.Equals(Type.Grunt)&& hit.collider.gameObject.GetComponent<DestructableBuilding>().team==this.team){
 						var returnPoint = hit.transform.Find("ReturnPoint");
+
 						attacking=false;
 						if(unitClass.Equals(Type.Grunt)){
 							depositing =true;
@@ -318,8 +321,10 @@ public class Unit : MonoBehaviour {
 	}
 	//Starts the gathering movement of the grunt
 	public void Gather(){
+		Debug.Log ("Gathering");
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
+			Debug.Log("Returning");
 			if(!returning){//While the unit is collecting goods
 				MoveUnit(resourcePoint,returnPoint.position);
 				returning=true;
