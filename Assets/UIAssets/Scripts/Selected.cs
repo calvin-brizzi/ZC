@@ -57,6 +57,9 @@ public class Selected : MonoBehaviour {
 				sel = false;
 				Instantiate (buildings[current],this.transform.position,Quaternion.identity);
 				Destroy (this.gameObject);
+				////////////Recalls the create grid to make the grid after building///////////////
+				GameObject a=GameObject.FindGameObjectWithTag("A*");
+				a.GetComponent<Grid>().ReCreateGrid();
 			}else{
 				print (objects.Count);
 			}

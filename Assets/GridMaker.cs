@@ -18,7 +18,8 @@ public class GridMaker : MonoBehaviour {
 		count++;
 		print (count);
 		if (x == count) {
-			A.GetComponent<Grid>().CreateGrid();
+			GameObject a=GameObject.FindGameObjectWithTag("A*");
+			a.GetComponent<Grid>().ReCreateGrid();
 
 		}
 	}
