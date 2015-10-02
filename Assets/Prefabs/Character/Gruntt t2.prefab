@@ -3776,7 +3776,7 @@ Transform:
   m_GameObject: {fileID: 149764}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 449546}
   - {fileID: 449776}
@@ -4320,7 +4320,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: d95f7d940c5e83143a67b9ca757ae0dd, type: 3}
   - {fileID: 2800000, guid: 3c18238ddbbc182489ee16c31f3355b9, type: 3}
   attackRange: 10
-  team: 1
+  team: 2
   glowSelection: {fileID: 172638, guid: 2b49024d879f96a458f5e86fb44114b1, type: 2}
   resourceType: 0
   unitClass: 0
