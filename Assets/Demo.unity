@@ -21692,11 +21692,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11458776, guid: 6f622248f428de24f84ec4f48d08665c, type: 2}
       propertyPath: gridSize.x
-      value: 1000
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 11458776, guid: 6f622248f428de24f84ec4f48d08665c, type: 2}
       propertyPath: gridSize.y
-      value: 1000
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f622248f428de24f84ec4f48d08665c, type: 2}
@@ -23489,7 +23489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cbd5ccace57524cbd445bf35444c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 1000, y: 1000}
+  gridSize: {x: 2000, y: 2000}
   obstacle:
     serializedVersion: 2
     m_Bits: 256
@@ -32192,7 +32192,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 644518610}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Scenery
   m_TagString: Untagged
   m_Icon: {fileID: 0}

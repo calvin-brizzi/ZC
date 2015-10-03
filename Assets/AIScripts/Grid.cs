@@ -84,13 +84,13 @@ public class Grid : MonoBehaviour {
 	//For debuggin purposes so can see grid size
 	void OnDrawGizmos(){
 		Gizmos.DrawWireCube (transform.position, new Vector3 (gridSize.x, 1, gridSize.y));
-		/*
+
 		if(grid!=null){
 			foreach(Node n in grid){
 				Gizmos.color = (n.Walkable)?Color.white:Color.red;
 				Gizmos.DrawCube(n.position,Vector3.one *(nodeDiameter-.1f));
 			}
 		}
-		*/
+
 	}
 }

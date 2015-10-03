@@ -239,9 +239,11 @@ public class Unit : MonoBehaviour {
 						returning = false;
 						collectGoods=false;
 						currentLoad = 0;
+						print ("Should be here");
 						if(targetType==TargetType.Building && attackPoint!=null){
 							MoveUnit(transform.position,attackPoint.position);
 						}else{
+							print ("No idea");
 							MoveUnit(transform.position,mouseClick);
 						}
 					}
@@ -406,6 +408,7 @@ public class Unit : MonoBehaviour {
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
 				transform.LookAt(waypoint);
 				yield return null;
+				//print (target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable);
 				if(target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable){
 					attacking = false;
 					state = State.Attacking;
