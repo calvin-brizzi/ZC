@@ -8,14 +8,14 @@ public class TerrainGenerator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-//		for (int i = 0; i<quantity; i++) {
-//			int x = Random.Range (startX, endX);
-//			int z = Random.Range (startZ, endZ);
-//			Instantiate (obj,new Vector3(x,y,z),Quaternion.identity);
-//		}
-//		this.GetComponent<GridMaker> ().add ();
-//		GameObject a=GameObject.FindGameObjectWithTag("A*");
-//		a.GetComponent<Grid>().ReCreateGrid();
+		for (int i = 0; i<quantity; i++) {
+			int x = Random.Range (startX, endX);
+			int z = Random.Range (startZ, endZ);
+			Instantiate (obj,new Vector3(x,y,z),Quaternion.identity);
+		}
+		this.GetComponent<GridMaker> ().add ();
+		GameObject a=GameObject.FindGameObjectWithTag("A*");
+		a.GetComponent<Grid>().ReCreateGrid();
 
 	}
 	

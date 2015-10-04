@@ -15,6 +15,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &137386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 437386}
+  - 65: {fileID: 6537386}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &179472
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +44,7 @@ GameObject:
   - 95: {fileID: 9579472}
   - 65: {fileID: 6526280}
   - 114: {fileID: 11487566}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Graveyard Prefab
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -47,6 +63,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 479472}
   m_RootOrder: 0
+--- !u!4 &437386
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 479472}
+  m_RootOrder: 1
 --- !u!4 &479472
 Transform:
   m_ObjectHideFlags: 1
@@ -58,6 +86,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 418940}
+  - {fileID: 437386}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!23 &2379472
@@ -99,6 +128,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.61999989, y: 1.67655861, z: 2.66000009}
   m_Center: {x: -2.38418579e-07, y: .0900000036, z: -5.96046448e-08}
+--- !u!65 &6537386
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137386}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.69504881, y: 1, z: 2.76478839}
+  m_Center: {x: .224105865, y: 0, z: -.194723487}
 --- !u!95 &9579472
 Animator:
   serializedVersion: 3

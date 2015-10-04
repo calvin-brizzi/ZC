@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{9B1EE227-2B4D-FA9A-170E-482C362394BF}</ProjectGuid>
+	<ProjectGuid>{A82F04ED-1BD5-BDFA-AD90-7C4E31C92627}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -69,6 +69,7 @@
      <Compile Include="Assets\NetScripts\NoCommand.cs" />
      <Compile Include="Assets\NetScripts\PendingCommands.cs" />
      <Compile Include="Assets\NetScripts\SceneMan.cs" />
+     <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Resources.cs" />
      <Compile Include="Assets\Spawn.cs" />
      <Compile Include="Assets\UIAssets\Scripts\CamerControl.cs" />
@@ -81,9 +82,33 @@
      <Compile Include="Assets\UIPrefabs\move.cs" />
      <Compile Include="Assets\build.cs" />
      <Compile Include="Assets\transparent.cs" />
+     <Compile Include="Assets\visible.cs" />
+     <None Include="Assets\StencilShaders\Masks\StencilMask_4.shader" />
+     <None Include="Assets\StencilShaders\Portal_2_Shaders\Stencil_02_Alpha-Diffuse.shader" />
+     <None Include="Assets\StencilShaders\Portal_1_Shaders\Stencil_01_Normal-Diffuse.shader" />
+     <None Include="Assets\StencilShaders\Masks\StencilMask_1.shader" />
+     <None Include="Assets\StencilShaders\Portal_2_Shaders\Stencil_02_Reflect-Normal-Spec.shader" />
+     <None Include="Assets\StencilShaders\Portal_4_Shaders\Stencil_04_Normal-Spec.shader" />
+     <None Include="Assets\StencilShaders\Masks\StencilMask_3.shader" />
+     <None Include="Assets\StencilShaders\Masks\DepthMask.shader" />
      <None Include="Assets\Character Models\Brute Frames.txt" />
+     <None Include="Assets\StencilShaders\Portal_3_Shaders\Stencil_03_Normal-Diffuse.shader" />
      <None Include="Assets\Character Models\Grunt Frames.txt" />
+     <None Include="Assets\StencilShaders\StencilViewer\Stencil_ViewRef_03.shader" />
+     <None Include="Assets\StencilShaders\Portal_1_Shaders\Stencil_01_Normal-Spec.shader" />
+     <None Include="Assets\StencilShaders\Portal_4_Shaders\Stencil_04_Alpha-Diffuse.shader" />
+     <None Include="Assets\StencilShaders\Portal_3_Shaders\Stencil_03_Reflect-Normal-Spec.shader" />
+     <None Include="Assets\StencilShaders\Portal_3_Shaders\Stencil_03_Normal-Spec.shader" />
      <None Include="Assets\Character Models\Archer Frames.txt" />
+     <None Include="Assets\StencilShaders\Portal_2_Shaders\Stencil_02_Normal-Diffuse.shader" />
+     <None Include="Assets\StencilShaders\StencilViewer\Stencil_ViewRef_04.shader" />
+     <None Include="Assets\StencilShaders\Masks\StencilMask_2.shader" />
+     <None Include="Assets\StencilShaders\Portal_1_Shaders\Stencil_01_Alpha-Diffuse.shader" />
+     <None Include="Assets\StencilShaders\Portal_2_Shaders\Stencil_02_Normal-Spec.shader" />
+     <None Include="Assets\StencilShaders\StencilViewer\Stencil_ViewRef_02.shader" />
+     <None Include="Assets\StencilShaders\StencilViewer\Stencil_ViewRef_01.shader" />
+     <None Include="Assets\StencilShaders\Portal_3_Shaders\Stencil_03_Alpha-Diffuse.shader" />
+     <None Include="Assets\StencilShaders\Portal_4_Shaders\Stencil_04_Normal-Diffuse.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>
