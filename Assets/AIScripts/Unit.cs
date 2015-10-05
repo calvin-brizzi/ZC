@@ -11,6 +11,15 @@ public class Unit : MonoBehaviour {
 	int deathStateHash; 
 	Vector3 mouseClick;
     public int speed;
+	//Move into sound controller script
+	public AudioClip selectionConfirmation;
+	public AudioClip attackConfirmation;
+	public AudioClip moveConfirmation;
+	public AudioClip death;
+	public AudioClip attackHitSoundBuilding;
+	public AudioClip attackHitSoundUnit;
+	public AudioClip bowDraw;
+	public AudioClip gatherConfirmation;
 	int damage;
 	float damageDelay;
 	float damageWait;
@@ -78,7 +87,6 @@ public class Unit : MonoBehaviour {
 		//Sets variables 
 		collectedAmount = 0;
 		duration = 0.01f;
-		//speed = 20;
 		MAX_LOAD = 100;
 		currentLoad = 0;
 		gatherSpeed = 20;
@@ -101,6 +109,7 @@ public class Unit : MonoBehaviour {
 			}
 			if(health<=0){//Checks to see if target is dead
 				state=State.Dead;
+				audio.PlayOneShot(death);
 			}
 			CheckState ();//Checks the state of the target
 			int number = CheckForEnemies ();
@@ -126,6 +135,7 @@ public class Unit : MonoBehaviour {
 				collectGoods=false;
 				collectedAmount=currentLoad;
 				currentLoad=0;
+
 				StartCoroutine("FollowPath");
 			}
 			if (unitClass == Type.Grunt && collectGoods && MAX_LOAD > currentLoad && currentResource!=null){// While gathering goods increase current load
@@ -144,6 +154,7 @@ public class Unit : MonoBehaviour {
 					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached()&& this.team == aiCamera.GetComponent<AICamera>().team){
 						UnitMonitor.AddUnit(this.gameObject);
 						wasSelected=true;
+						audio.PlayOneShot(selectionConfirmation);
 					}
 
 					//If either of the shift buttons are pushed then dont deselct it just add it
@@ -184,6 +195,7 @@ public class Unit : MonoBehaviour {
 					//If enemy unit attack
 					if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
 						//Atack
+						audio.PlayOneShot(attackConfirmation);
 						this.target = hit.collider.gameObject;
 						targetType=TargetType.Unit;
 						attacking = true;
@@ -194,6 +206,7 @@ public class Unit : MonoBehaviour {
 					//If enemy building attack
 					if((hit.collider.gameObject.tag=="Building"||hit.collider.gameObject.tag=="Home Base"||hit.collider.gameObject.tag=="School") && hit.collider.gameObject.GetComponent<DestructableBuilding>().team!=this.team){
 						//Atack
+						audio.PlayOneShot(attackConfirmation);
 						this.target = hit.collider.gameObject;
 						targetType=TargetType.Building;
 						attacking = true;
@@ -204,6 +217,7 @@ public class Unit : MonoBehaviour {
 					}
 					//If resource and grunt start gathering
 					if(hit.collider.gameObject.tag=="Resource"  && unitClass.Equals(Type.Grunt)){
+						audio.PlayOneShot(gatherConfirmation);
 						currentResource = hit.transform.gameObject;
 						if(resourceType!=Resource.ResourceType.Nothing){
 							collectedAmount=0;
@@ -235,15 +249,14 @@ public class Unit : MonoBehaviour {
 						}
 					}
 					else{//Just move the unit
+						audio.PlayOneShot(moveConfirmation);
 						gathering=false;
 						returning = false;
 						collectGoods=false;
 						currentLoad = 0;
-						print ("Should be here");
 						if(targetType==TargetType.Building && attackPoint!=null){
 							MoveUnit(transform.position,attackPoint.position);
 						}else{
-							print ("No idea");
 							MoveUnit(transform.position,mouseClick);
 						}
 					}
@@ -293,8 +306,14 @@ public class Unit : MonoBehaviour {
 	void DoDamage(){
 		if (Time.time >= damageWait) {
 			if (targetType == TargetType.Building) {
+				if(attackHitSoundBuilding!=null){
+					audio.PlayOneShot(attackHitSoundBuilding);
+				}
 				target.gameObject.GetComponent<DestructableBuilding> ().health -= damage;
 			} else if (targetType == TargetType.Unit) {
+				if(attackHitSoundUnit!=null){
+					audio.PlayOneShot(attackHitSoundUnit);
+				}
 				target.gameObject.GetComponent<Unit> ().health -= damage;
 			}
 			damageWait = damageDelay+Time.time;
@@ -309,6 +328,8 @@ public class Unit : MonoBehaviour {
 		if (this.team == aiCamera.GetComponent<AICamera> ().team) {
 			clicked = true;
 			wasSelected = true;
+			audio.PlayOneShot(selectionConfirmation);
+			print ("Play Sound");
 		}
 	}
 

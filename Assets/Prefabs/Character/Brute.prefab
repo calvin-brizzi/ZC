@@ -13,6 +13,7 @@ GameObject:
   - 136: {fileID: 13612600}
   - 114: {fileID: 11451682}
   - 54: {fileID: 5405676}
+  - 82: {fileID: 8278386}
   m_Layer: 10
   m_Name: Brute
   m_TagString: Unit
@@ -2300,7 +2301,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137252}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.88000011, y: 0, z: -45.0900002}
+  m_LocalPosition: {x: -37.3922119, y: -7, z: -395.726929}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 437254}
@@ -4303,6 +4304,64 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!82 &8278386
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137252}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9537554
 Animator:
   serializedVersion: 3
@@ -4332,6 +4391,16 @@ MonoBehaviour:
   marker: {fileID: 100134, guid: e321877caba812c42a628ac3a1e1edf6, type: 2}
   health: 100
   speed: 40
+  selectionConfirmation: {fileID: 8300000, guid: 778098fe74b6d544d8504a26c9a5eb72,
+    type: 3}
+  attackConfirmation: {fileID: 8300000, guid: c3293c856c5dc0a4d9e5f84db9b1f4db, type: 3}
+  moveConfirmation: {fileID: 8300000, guid: 511311998dc4b314cbeb7d6d82280a2c, type: 3}
+  death: {fileID: 8300000, guid: 820dc0b94a50f9345927065d268e980b, type: 3}
+  attackHitSoundBuilding: {fileID: 8300000, guid: 873449c74671fff4aba5242d36aac9f3,
+    type: 3}
+  attackHitSoundUnit: {fileID: 8300000, guid: 8c681843dfce6e8438ef5eb3c8f48365, type: 3}
+  bowDraw: {fileID: 0}
+  gatherConfirmation: {fileID: 0}
   textures:
   - {fileID: 2800000, guid: be15a11df26358e4ba05fa431f33af86, type: 3}
   - {fileID: 2800000, guid: d86c814e9a22f2f48b01b10297ed8003, type: 3}
@@ -4351,7 +4420,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .280000001
+  m_Radius: .5
   m_Height: 1.29999995
   m_Direction: 1
   m_Center: {x: 0, y: .589999974, z: 0}

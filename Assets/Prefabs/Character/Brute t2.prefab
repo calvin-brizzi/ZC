@@ -13,6 +13,7 @@ GameObject:
   - 136: {fileID: 13612600}
   - 114: {fileID: 11451682}
   - 54: {fileID: 5423510}
+  - 82: {fileID: 8287070}
   m_Layer: 10
   m_Name: Brute t2
   m_TagString: Unit
@@ -2300,7 +2301,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137252}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.88000011, y: 0, z: -45.0900002}
+  m_LocalPosition: {x: -147.300003, y: 0, z: -113.900002}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 437254}
@@ -4303,6 +4304,64 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!82 &8287070
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137252}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!95 &9537554
 Animator:
   serializedVersion: 3
@@ -4332,6 +4391,14 @@ MonoBehaviour:
   marker: {fileID: 100134, guid: e321877caba812c42a628ac3a1e1edf6, type: 2}
   health: 100
   speed: 40
+  selectionConfirmation: {fileID: 0}
+  attackConfirmation: {fileID: 0}
+  moveConfirmation: {fileID: 0}
+  death: {fileID: 0}
+  attackHitSoundBuilding: {fileID: 0}
+  attackHitSoundUnit: {fileID: 0}
+  bowDraw: {fileID: 0}
+  gatherConfirmation: {fileID: 0}
   textures:
   - {fileID: 2800000, guid: be15a11df26358e4ba05fa431f33af86, type: 3}
   - {fileID: 2800000, guid: d86c814e9a22f2f48b01b10297ed8003, type: 3}
