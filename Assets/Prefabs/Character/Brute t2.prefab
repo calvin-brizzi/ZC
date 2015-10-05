@@ -12,6 +12,7 @@ GameObject:
   - 23: {fileID: 2311886}
   - 136: {fileID: 13612600}
   - 114: {fileID: 11451682}
+  - 54: {fileID: 5423510}
   m_Layer: 10
   m_Name: Brute t2
   m_TagString: Unit
@@ -4287,6 +4288,21 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!54 &5423510
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 137252}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!95 &9537554
 Animator:
   serializedVersion: 3
