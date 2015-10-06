@@ -1713,6 +1713,7 @@ GameObject:
   - 114: {fileID: 11449538}
   - 23: {fileID: 2349538}
   - 82: {fileID: 8243028}
+  - 114: {fileID: 11474352}
   m_Layer: 10
   m_Name: Gruntt t2
   m_TagString: Grunt
@@ -3776,7 +3777,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149764}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -87.7351685, y: -7, z: 89.1265869}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 449546}
@@ -4375,6 +4376,14 @@ MonoBehaviour:
   marker: {fileID: 100134, guid: e321877caba812c42a628ac3a1e1edf6, type: 2}
   health: 50
   speed: 30
+  selectionConfirmation: {fileID: 0}
+  attackConfirmation: {fileID: 0}
+  moveConfirmation: {fileID: 0}
+  death: {fileID: 0}
+  attackHitSoundBuilding: {fileID: 0}
+  attackHitSoundUnit: {fileID: 0}
+  bowDraw: {fileID: 0}
+  gatherConfirmation: {fileID: 0}
   textures:
   - {fileID: 2800000, guid: d95f7d940c5e83143a67b9ca757ae0dd, type: 3}
   - {fileID: 2800000, guid: 3c18238ddbbc182489ee16c31f3355b9, type: 3}
@@ -4385,6 +4394,19 @@ MonoBehaviour:
   unitClass: 0
   targetType: 0
   state: 3
+--- !u!114 &11474352
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf0257e396219a4da23fcfba3f50d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  MAX_HEALTH: 100
 --- !u!136 &13649538
 CapsuleCollider:
   m_ObjectHideFlags: 1
