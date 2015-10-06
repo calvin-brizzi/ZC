@@ -193,7 +193,7 @@ public class Unit : MonoBehaviour {
 					print(hit.collider.gameObject.tag);
 					Transform attackPoint = null;
 					//If enemy unit attack
-					if(hit.collider.gameObject.tag=="Unit" && hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
+					if((hit.collider.gameObject.tag=="Unit" || hit.collider.gameObject.tag=="Grunt")&& hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
 						//Atack
 						audio.PlayOneShot(attackConfirmation);
 						this.target = hit.collider.gameObject;
