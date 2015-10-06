@@ -367,6 +367,7 @@ public class Unit : MonoBehaviour {
 			if(!returning){//While the unit is collecting goods
 				MoveUnit(resourcePoint,returnPoint.position);
 				returning=true;
+				TargetReached=false;
 			}
 			else{//When gathering and the unit has reached the home base to return the collected goods
 				MoveUnit(returnPoint.position,resourcePoint);
@@ -374,6 +375,7 @@ public class Unit : MonoBehaviour {
 				AddResources();
 				collectedAmount=0;
 				returning = false;
+				TargetReached=false;
 			}
 		}
 	}
