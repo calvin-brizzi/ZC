@@ -167,6 +167,7 @@ public class Unit : MonoBehaviour {
 					else if(!selected && wasSelected && !UnitMonitor.isShiftPressed()){
 						UnitMonitor.RemoveUnit(this.gameObject);
 						wasSelected=false;
+						TargetReached=false;
 					}
 				}
 				//Create the particle effect object that shows which object is selected
