@@ -1783,6 +1783,7 @@ GameObject:
   - 23: {fileID: 2349538}
   - 82: {fileID: 8228550}
   - 114: {fileID: 11405032}
+  - 54: {fileID: 5429550}
   m_Layer: 10
   m_Name: Gruntt
   m_TagString: Grunt
@@ -4359,6 +4360,21 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!54 &5429550
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149764}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!82 &8228550
 AudioSource:
   m_ObjectHideFlags: 1
@@ -4568,6 +4584,7 @@ MonoBehaviour:
   attackHitSoundUnit: {fileID: 0}
   bowDraw: {fileID: 0}
   gatherConfirmation: {fileID: 8300000, guid: 6f14ae0d4b8c3c046bfc40d353cbc8e4, type: 3}
+  TargetReached: 0
   textures:
   - {fileID: 2800000, guid: d95f7d940c5e83143a67b9ca757ae0dd, type: 3}
   - {fileID: 2800000, guid: 3c18238ddbbc182489ee16c31f3355b9, type: 3}

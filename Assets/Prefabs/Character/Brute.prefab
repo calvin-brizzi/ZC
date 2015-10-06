@@ -81,9 +81,9 @@ GameObject:
   - 23: {fileID: 2311886}
   - 136: {fileID: 13612600}
   - 114: {fileID: 11451682}
-  - 54: {fileID: 5405676}
   - 82: {fileID: 8278386}
   - 114: {fileID: 11419884}
+  - 54: {fileID: 5466080}
   m_Layer: 10
   m_Name: Brute
   m_TagString: Unit
@@ -4360,7 +4360,7 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!54 &5405676
+--- !u!54 &5466080
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -4585,6 +4585,7 @@ MonoBehaviour:
   attackHitSoundUnit: {fileID: 8300000, guid: 8c681843dfce6e8438ef5eb3c8f48365, type: 3}
   bowDraw: {fileID: 0}
   gatherConfirmation: {fileID: 0}
+  TargetReached: 0
   textures:
   - {fileID: 2800000, guid: be15a11df26358e4ba05fa431f33af86, type: 3}
   - {fileID: 2800000, guid: d86c814e9a22f2f48b01b10297ed8003, type: 3}

@@ -41,6 +41,7 @@ public class Unit : MonoBehaviour {
 	bool clicked;
 	bool collectGoods;
 	bool attacking;
+	public bool TargetReached = false;
 	bool instructedAttack = false;
 	int NumberOfEnemies=0;
 	GameObject mainBuilding;
@@ -60,6 +61,7 @@ public class Unit : MonoBehaviour {
 	public TargetType targetType;
 	public State state;
 	int layerMask;
+	float StoppingDistance;
 	void Awake(){
 		//Sets the damge values depending on the class
 		if (unitClass == Type.Grunt) {
@@ -104,6 +106,10 @@ public class Unit : MonoBehaviour {
 	void FixedUpdate(){
 		//Debug.Log (mainBuilding.name);
 		if(state!=State.Dead){ // If the unit is not dead
+			StoppingDistance = collider.bounds.extents.z;
+			if(TargetReached){
+				state=State.Idle;
+			}
 			if (attacking && target != null) {
 				transform.LookAt(target.transform);//Makes unit look at current attack target
 			}
@@ -176,8 +182,7 @@ public class Unit : MonoBehaviour {
 				}
 
 			}
-			//print (Input.GetMouseButtonDown(1));
-			//print (wasSelected);//Debugging
+
 			if (Input.GetMouseButtonDown(1) && wasSelected) // Detects a players right click  and moves the selected troops top that position
 			{
 				path = null;
@@ -187,6 +192,7 @@ public class Unit : MonoBehaviour {
 				print ("click");
 				if (Physics.Raycast(ray, out hit))
 				{
+					TargetReached = false;
 					mouseClick = hit.point;
 					notOverrideable = true;
 					instructedAttack=false;
@@ -262,6 +268,13 @@ public class Unit : MonoBehaviour {
 						}
 					}
 				}
+			}
+		}
+	}
+	void OnCollisionStay(Collision col){
+		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null) {
+			if (col.gameObject.GetComponent<Unit> ().TargetReached == true){
+				TargetReached = true;
 			}
 		}
 	}
@@ -415,11 +428,12 @@ public class Unit : MonoBehaviour {
     {
 		if (this.health > 0 && path != null && path.Length>0) {
 			state=State.Moving;
+
 			//Play moving animation
 			path = SmoothPath(path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
-			while (true) {
+			while (true && !TargetReached) {
 				if (path!=null && transform.position == waypoint) {
 					targetPosition++;
 					if (path!=null && targetPosition >= path.Length) {
@@ -445,6 +459,7 @@ public class Unit : MonoBehaviour {
 
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
 					notOverrideable=false;
+					TargetReached=true;
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather();
 					}

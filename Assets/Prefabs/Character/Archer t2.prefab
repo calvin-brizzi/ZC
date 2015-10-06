@@ -2303,8 +2303,8 @@ GameObject:
   - 136: {fileID: 13639400}
   - 33: {fileID: 3377136}
   - 82: {fileID: 8283796}
-  - 54: {fileID: 5436248}
   - 114: {fileID: 11485938}
+  - 54: {fileID: 5473100}
   m_Layer: 10
   m_Name: Archer t2
   m_TagString: Unit
@@ -4397,7 +4397,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167174}
   m_Mesh: {fileID: 0}
---- !u!54 &5436248
+--- !u!54 &5473100
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -4607,6 +4607,7 @@ MonoBehaviour:
   attackHitSoundUnit: {fileID: 0}
   bowDraw: {fileID: 0}
   gatherConfirmation: {fileID: 0}
+  TargetReached: 0
   textures:
   - {fileID: 2800000, guid: 5c932875a86b4cd49ab874483a1ae20f, type: 3}
   - {fileID: 2800000, guid: 97dcfcf53c95c7b43852da83e15fcf04, type: 3}
@@ -5246,7 +5247,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177370}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -46.4726944}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22477372}
@@ -5256,7 +5257,7 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 8.10078049, y: 1.41000032}
+  m_AnchoredPosition: {x: 0, y: 1.30999994}
   m_SizeDelta: {x: 1, y: .200000003}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22477372
