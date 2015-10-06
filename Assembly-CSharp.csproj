@@ -53,6 +53,7 @@
      <Compile Include="Assets\AIScripts\Grid.cs" />
      <Compile Include="Assets\AIScripts\Grunt.cs" />
      <Compile Include="Assets\AIScripts\Hashes.cs" />
+     <Compile Include="Assets\AIScripts\HealthBar.cs" />
      <Compile Include="Assets\AIScripts\Heap.cs" />
      <Compile Include="Assets\AIScripts\Node.cs" />
      <Compile Include="Assets\AIScripts\PathRequestController.cs" />

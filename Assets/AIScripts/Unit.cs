@@ -87,9 +87,9 @@ public class Unit : MonoBehaviour {
 		//Sets variables 
 		collectedAmount = 0;
 		duration = 0.01f;
-		MAX_LOAD = 100;
+		MAX_LOAD = 300;
 		currentLoad = 0;
-		gatherSpeed = 20;
+		gatherSpeed = 1;
 		glow = null;
 		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
 		gathering = false;
@@ -241,7 +241,6 @@ public class Unit : MonoBehaviour {
 					//Return to homebase and deposit goods
 					else if(hit.collider.gameObject.tag=="Home Base" && unitClass.Equals(Type.Grunt)&& hit.collider.gameObject.GetComponent<DestructableBuilding>().team==this.team){
 						var returnPoint = hit.transform.Find("ReturnPoint");
-
 						attacking=false;
 						if(unitClass.Equals(Type.Grunt)){
 							depositing =true;
@@ -249,7 +248,9 @@ public class Unit : MonoBehaviour {
 						}
 					}
 					else{//Just move the unit
-						audio.PlayOneShot(moveConfirmation);
+						if(!attacking){
+							audio.PlayOneShot(moveConfirmation);
+						}
 						gathering=false;
 						returning = false;
 						collectGoods=false;
@@ -315,6 +316,7 @@ public class Unit : MonoBehaviour {
 					audio.PlayOneShot(attackHitSoundUnit);
 				}
 				target.gameObject.GetComponent<Unit> ().health -= damage;
+				target.gameObject.GetComponent<HealthBar>().SetHealthBar(target.gameObject.GetComponent<Unit> ().health);
 			}
 			damageWait = damageDelay+Time.time;
 		}
@@ -365,6 +367,7 @@ public class Unit : MonoBehaviour {
 	void AddResources(){
 		print ("Adding "+collectedAmount);
 		//Increase lava resource by x amount
+		Camera.main.GetComponent<Player> ().lava [team] += collectedAmount;
 	}
 	//Starts an attack on a specific unit
 	void Attack(GameObject targetObj){
