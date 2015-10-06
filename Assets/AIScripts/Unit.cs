@@ -383,7 +383,7 @@ public class Unit : MonoBehaviour {
 	void AddResources(){
 		print ("Adding "+collectedAmount);
 		//Increase lava resource by x amount
-		Camera.main.GetComponent<Player> ().lava [team] += collectedAmount;
+		Camera.main.GetComponent<Player> ().lava [team-1] += collectedAmount;
 	}
 	//Starts an attack on a specific unit
 	void Attack(GameObject targetObj){

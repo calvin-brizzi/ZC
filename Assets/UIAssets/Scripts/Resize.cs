@@ -10,6 +10,8 @@ public class Resize : MonoBehaviour {
 	public GameObject humans;
 	public GameObject housing;
 	public GameObject lavaVal;
+	public GameObject humanVal;
+	public GameObject houseVal;
 	// Use this for initialization
 	void Start () {
 		HUD.transform.SetAsFirstSibling ();
@@ -48,6 +50,7 @@ public class Resize : MonoBehaviour {
 		tPos.x = Mathf.RoundToInt(width*0.12f);
 		tPos.y =  Mathf.RoundToInt(height*0.05f);
 		housing.transform.position = tPos;
+
 		tPos.x = Mathf.RoundToInt(width*0.18f);
 		tPos.y =  Mathf.RoundToInt(height*0.17f);
 		tScale = lavaVal.transform.localScale;
@@ -55,6 +58,18 @@ public class Resize : MonoBehaviour {
 		tScale.y = (height/650f);
 		lavaVal.transform.localScale = tScale;
 		lavaVal.transform.position = tPos;
+		tPos.x = Mathf.RoundToInt(width*0.18f);
+		tPos.y =  Mathf.RoundToInt(height*0.11f);
+		tScale.x = width/1900f;
+		tScale.y = (height/650f);
+		humanVal.transform.localScale = tScale;
+		humanVal.transform.position = tPos;
+		tPos.x = Mathf.RoundToInt(width*0.18f);
+		tPos.y =  Mathf.RoundToInt(height*0.05f);
+		tScale.x = width/1900f;
+		tScale.y = (height/650f);
+		houseVal.transform.localScale = tScale;
+		houseVal.transform.position = tPos;
 		//lava.transform.localScale = tScale;
 
 
