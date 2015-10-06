@@ -24,7 +24,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 414602}
   - 212: {fileID: 21214602}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,8 +113,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123170}
-  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 68, y: 1, z: -364}
+  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: 19, y: -6.5999999, z: 376}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 414602}
@@ -224,8 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbf4a3a7efba7b4fb76d9a2d99fcd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 1
-  health: 200
+  team: 2
+  health: 100
 --- !u!114 &11458914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,9 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cafb2314472c1545871710317877865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brute: {fileID: 137252, guid: 598e9dbe5ad14b64ebbd6454ce078169, type: 2}
-  grunt: {fileID: 149764, guid: 1ea6d1f44298ea342abfecb6534b97f1, type: 2}
-  archer: {fileID: 167174, guid: 16205b3c746699a47944081d6407c1eb, type: 2}
+  brute: {fileID: 137252, guid: 3e71b4d22044af04d9e7b2571a4f6132, type: 2}
+  grunt: {fileID: 149764, guid: 1fdb4d6cdb5b63a43915be4373a355a7, type: 2}
+  archer: {fileID: 167174, guid: 160952e5e44f81143a244cf15db2de02, type: 2}
 --- !u!212 &21214602
 SpriteRenderer:
   m_ObjectHideFlags: 1
