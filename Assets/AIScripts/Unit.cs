@@ -273,7 +273,7 @@ public class Unit : MonoBehaviour {
 		}
 	}
 	void OnCollisionStay(Collision col){
-		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null) {
+		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null && UnitMonitor.selectedUnits.Contains(col.gameObject)) {
 			if (col.gameObject.GetComponent<Unit> ().TargetReached == true){
 				TargetReached = true;
 			}
@@ -345,7 +345,6 @@ public class Unit : MonoBehaviour {
 			clicked = true;
 			wasSelected = true;
 			audio.PlayOneShot(selectionConfirmation);
-			print ("Play Sound");
 		}
 	}
 
@@ -367,7 +366,6 @@ public class Unit : MonoBehaviour {
 			if(!returning){//While the unit is collecting goods
 				MoveUnit(resourcePoint,returnPoint.position);
 				returning=true;
-				TargetReached=false;
 			}
 			else{//When gathering and the unit has reached the home base to return the collected goods
 				MoveUnit(returnPoint.position,resourcePoint);
@@ -375,7 +373,7 @@ public class Unit : MonoBehaviour {
 				AddResources();
 				collectedAmount=0;
 				returning = false;
-				TargetReached=false;
+
 			}
 		}
 	}
@@ -403,6 +401,7 @@ public class Unit : MonoBehaviour {
 	//Moves the unit from one point to another
 	public void MoveUnit(Vector3 from, Vector3 to){
 		PathRequestController.RequestPath(from,to,OnPathFound);
+		TargetReached=false;
 	}
 	//If the PathRequestController finds a path follow it
     public void OnPathFound(Vector3[] newPath, bool success)
