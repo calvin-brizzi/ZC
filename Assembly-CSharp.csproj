@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{9B1EE227-2B4D-FA9A-170E-482C362394BF}</ProjectGuid>
+	<ProjectGuid>{A82F04ED-1BD5-BDFA-AD90-7C4E31C92627}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -61,6 +61,7 @@
      <Compile Include="Assets\AIScripts\Unit.cs" />
      <Compile Include="Assets\AIScripts\UnitMonitor.cs" />
      <Compile Include="Assets\GridMaker.cs" />
+     <Compile Include="Assets\HubaHuba.cs" />
      <Compile Include="Assets\NetScripts\BinarySerialization.cs" />
      <Compile Include="Assets\NetScripts\ConfirmedCommands.cs" />
      <Compile Include="Assets\NetScripts\ICommand.cs" />
@@ -82,6 +83,7 @@
      <Compile Include="Assets\UIAssets\Scripts\newSS\Click.cs" />
      <Compile Include="Assets\UIPrefabs\move.cs" />
      <Compile Include="Assets\build.cs" />
+     <Compile Include="Assets\graveDigger.cs" />
      <Compile Include="Assets\transparent.cs" />
      <Compile Include="Assets\visible.cs" />
      <None Include="Assets\StencilShaders\Masks\StencilMask_4.shader" />

@@ -9,9 +9,10 @@ public class Click : MonoBehaviour {
 	public GameObject [] builder;
 	public GameObject obj;
 	GameObject currentSchool;
+	int p = 0;
 	// Use this for initialization
 	void Start () {
-	
+		p = this.GetComponent<AICamera> ().team;
 		for(int i = 0;i<units.Length;i++){
 			units[i].SetActive (false);
 		}
@@ -58,28 +59,42 @@ public class Click : MonoBehaviour {
 
 	public void loveHotel(){
 		print ("TRYS");
-		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
-		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
-		print (temp.transform.name);
-		temp.transform.SendMessage ("set",0,SendMessageOptions.DontRequireReceiver);;
+		int resource = this.GetComponent<Player> ().getLava (p - 1);
+		if (resource > 600) {
+			this.GetComponent<Player>().takeLava(600,p-1);
+			Instantiate (obj, new Vector3 (0, 0, 0), Quaternion.identity);
+			GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+			print (temp.transform.name);
+			temp.transform.SendMessage ("set", 0, SendMessageOptions.DontRequireReceiver);
+		}
 
 	}
 	public void zombieSchool(){
-		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
-		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
-		print (temp.transform.name);
-		temp.transform.SendMessage ("set",2,SendMessageOptions.DontRequireReceiver);;
+
+		int resource = this.GetComponent<Player> ().getLava (p - 1);
+		if (resource > 700) {
+			this.GetComponent<Player>().takeLava(700,p-1);
+			Instantiate (obj, new Vector3 (0, 0, 0), Quaternion.identity);
+			GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+			print (temp.transform.name);
+			temp.transform.SendMessage ("set", 2, SendMessageOptions.DontRequireReceiver);
+		}
 		
 	}
 	public void graveyard(){
-		Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
-		GameObject temp = GameObject.FindGameObjectWithTag ("Build");
-		print (temp.transform.name);
-		temp.transform.SendMessage ("set",1,SendMessageOptions.DontRequireReceiver);;
+		int resource = this.GetComponent<Player> ().getLava (p - 1);
+		if(resource>400){
+			this.GetComponent<Player>().takeLava(400,p-1);
+			Instantiate (obj,new Vector3(0,0,0),Quaternion.identity);
+			GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+			print (temp.transform.name);
+			temp.transform.SendMessage ("set",1,SendMessageOptions.DontRequireReceiver);
+		}
 		
 	}
 	public void unit(int x){
 		if (x == 0) {
+
 			Transform point = currentSchool.transform.GetChild(2);
 			print ("GRUNT");
 		} else if (x == 1) {
