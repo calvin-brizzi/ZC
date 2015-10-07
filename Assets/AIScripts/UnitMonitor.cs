@@ -28,15 +28,4 @@ public class UnitMonitor : MonoBehaviour {
 		return (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
 	}
 
-	public static void CreateGridFormation(){
-		Vector3 targetPosition = new Vector3 (0,0,0);
-		for (int i =0; i<selectedUnits.Count; i++) {
-			GameObject unitInArrayList = selectedUnits[i] as GameObject;
-			//currentPosition=unitInArrayList.transform.position;
-			if(unitInArrayList.GetComponent<Unit>().TargetReached){
-				unitInArrayList.GetComponent<Unit>().MoveUnit(unitInArrayList.transform.position,new Vector3(0,0,0));
-			}
-		}
-	}
-
 }

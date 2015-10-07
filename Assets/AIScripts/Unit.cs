@@ -141,7 +141,6 @@ public class Unit : MonoBehaviour {
 				collectGoods=false;
 				collectedAmount=currentLoad;
 				currentLoad=0;
-
 				StartCoroutine("FollowPath");
 			}
 			if (unitClass == Type.Grunt && collectGoods && MAX_LOAD > currentLoad && currentResource!=null){// While gathering goods increase current load
@@ -274,15 +273,18 @@ public class Unit : MonoBehaviour {
 	}
 	void OnCollisionStay(Collision col){
 		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null) {
-			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && col.gameObject.GetComponent<Unit> ().state==State.Idle){
-				TargetReached = true;
+			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && col.gameObject.GetComponent<Unit> ().state==State.Idle ){
+				if(Vector3.Distance(mouseClick,col.gameObject.GetComponent<Unit>().mouseClick)==0){
+					TargetReached = true;
+				}
+
 			}
 		}
 	}
 	//Perimeter check to see if enemies are close by and if so start attacking them
 	int CheckForEnemies(){
 		int returnAmount = 0;
-		if (!attacking && state!=State.Moving) {
+		if (!attacking && state!=State.Moving && state!=State.Attacking) {
 			int count = 0;
 			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange+4,layerMask); // Returns an array of all enemies in attackrange+4 area
 			for (var i =0; i< nearbyEnemy.Length; i++) {
@@ -294,8 +296,10 @@ public class Unit : MonoBehaviour {
 					count ++;//Numbers of enemies
 				}
 			}
+			print (returnAmount);
 			returnAmount =count;
 		}
+
 		return returnAmount;
 	}
 	//Checks the state of the unit and plays the correct animation
@@ -461,7 +465,6 @@ public class Unit : MonoBehaviour {
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
 					notOverrideable=false;
 					TargetReached=true;
-					//UnitMonitor.CreateGridFormation();
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather();
 					}
