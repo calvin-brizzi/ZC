@@ -273,8 +273,8 @@ public class Unit : MonoBehaviour {
 		}
 	}
 	void OnCollisionStay(Collision col){
-		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null && UnitMonitor.selectedUnits.Contains(col.gameObject)) {
-			if (col.gameObject.GetComponent<Unit> ().TargetReached == true){
+		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null) {
+			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && col.gameObject.GetComponent<Unit> ().state==State.Idle){
 				TargetReached = true;
 			}
 		}
@@ -430,7 +430,6 @@ public class Unit : MonoBehaviour {
     {
 		if (this.health > 0 && path != null && path.Length>0) {
 			state=State.Moving;
-
 			//Play moving animation
 			path = SmoothPath(path);
 			int targetPosition = 0;
@@ -462,6 +461,7 @@ public class Unit : MonoBehaviour {
 				if(transform.position.x == path[path.Length-1].x && transform.position.z == path[path.Length-1].z){
 					notOverrideable=false;
 					TargetReached=true;
+					//UnitMonitor.CreateGridFormation();
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather();
 					}
