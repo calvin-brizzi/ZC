@@ -29,7 +29,7 @@ public class Unit : MonoBehaviour {
 	int collectedAmount;
 	float duration;
 	float coolDown;//To prevent rapidly clicking the same point over and over and therefore causing issues
-    Vector3[] path;
+    public Vector3[] path;
 	PathRequestController request;
 	GameObject currentResource;
 	bool gathering;
@@ -151,7 +151,6 @@ public class Unit : MonoBehaviour {
 				collectedAmount=currentLoad;
 			}
 			//////////
-			print (EventSystem.current.IsPointerOverGameObject());
 			if ( Input.GetMouseButton (0)&& !EventSystem.current.IsPointerOverGameObject()) { // Helps the selection of troops either multiple or single troop selection
 
 				if(!clicked){
@@ -199,7 +198,6 @@ public class Unit : MonoBehaviour {
 					mouseClick = hit.point;
 					notOverrideable = true;
 					instructedAttack=false;
-					print(hit.collider.gameObject.tag);
 					Transform attackPoint = null;
 					//If enemy unit attack
 					if((hit.collider.gameObject.tag=="Unit" || hit.collider.gameObject.tag=="Grunt")&& hit.collider.gameObject.GetComponent<Unit>().team!=this.team){
@@ -424,6 +422,9 @@ public class Unit : MonoBehaviour {
     IEnumerator FollowPath()
     {
 		if (this.health > 0 && path != null && path.Length>0) {
+			if(!attacking && !gathering && !returning){
+				UnitMonitor.CreateWaypointGrid();
+			}
 			state=State.Moving;
 			//Play moving animation
 			path = SmoothPath(path);

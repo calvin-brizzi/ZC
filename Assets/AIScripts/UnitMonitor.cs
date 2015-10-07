@@ -32,4 +32,15 @@ public class UnitMonitor : MonoBehaviour {
 		return (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
 	}
 
+	public static void CreateWaypointGrid(){
+		print (selectedUnits.Count);
+		for (int i =0; i<selectedUnits.Count; i++) {
+			GameObject unitInArrayList = selectedUnits [i] as GameObject;
+			Vector3[] path = unitInArrayList.GetComponent<Unit> ().path;
+			if(path!=null){
+				unitInArrayList.GetComponent<Unit> ().path[path.Length-1]= path[path.Length-1]+new Vector3(2*unitCount,0,2*unitCount);
+			}
+		}
+	}
+
 }

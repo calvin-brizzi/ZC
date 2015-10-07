@@ -4607,6 +4607,7 @@ MonoBehaviour:
   attackHitSoundUnit: {fileID: 0}
   bowDraw: {fileID: 0}
   gatherConfirmation: {fileID: 0}
+  path: []
   TargetReached: 0
   textures:
   - {fileID: 2800000, guid: 5c932875a86b4cd49ab874483a1ae20f, type: 3}
