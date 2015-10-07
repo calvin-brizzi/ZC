@@ -43,6 +43,7 @@ GameObject:
   - 95: {fileID: 9581998}
   - 65: {fileID: 6517242}
   - 114: {fileID: 11426278}
+  - 114: {fileID: 11406638}
   m_Layer: 0
   m_Name: Love Hotel Prefab
   m_TagString: Home Base
@@ -97,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -96, y: 0, z: -334}
+  m_LocalPosition: {x: -96, y: -7.4000001, z: -334}
   m_LocalScale: {x: 15, y: 6, z: 15}
   m_Children:
   - {fileID: 401922}
@@ -183,6 +184,17 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11406638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3784eab73eee54283d3ba26f9134a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11426278
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -25,34 +25,34 @@ public class Player : MonoBehaviour {
 		houseUI.GetComponent<Text> ().text = housing[p-1]+"";
 	}
 
-	int getHousing(){
-		return housing [p - 1];
+	public int getHousing(int y){
+		return housing [y];
 	}
 
-	void addHousing(int x){
-		housing [p - 1] += x;
+	public void addHousing(int x,int y){
+		housing [y] += x;
 	}
 
-	void allocateHouseing(int x){
-		housing [p - 1] -= x;
+	public void allocateHousing(int x,int y){
+		housing [y] -= x;
 	}
-	int getLava(){
-		return lava [p - 1];
+	public int getLava(int y){
+		return lava [y];
 	}
-	int getHumans(){
-		return humans [p - 1];
+	public int getHumans(int y){
+		return humans [y];
 	}
-	void takeLava(int x){
-		lava [p - 1] = lava [p - 1] - x;
+	public void takeLava(int x,int y){
+		lava [y] = lava [y] - x;
 	}
-	void takeHumans(int x){
-		humans[p - 1] = humans [p - 1] - x;
+	public void takeHumans(int x,int y){
+		humans[y] = humans [y] - x;
 	}
-	void placeLava(int x){
-		lava [p - 1] = lava [p - 1] + x;
+	public void placeLava(int x,int y){
+		lava [y] = lava [y] + x;
 	}
-	void placeHumans(int x){
-		humans[p - 1] = humans [p - 1] + x;
+	public void placeHumans(int x,int y){
+		humans[y] = humans [y] + x;
 	}
 
 
