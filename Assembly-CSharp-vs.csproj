@@ -59,6 +59,7 @@
      <Compile Include="Assets\AIScripts\PathRequestController.cs" />
      <Compile Include="Assets\AIScripts\Resource.cs" />
      <Compile Include="Assets\AIScripts\Unit.cs" />
+     <Compile Include="Assets\AIScripts\UnitCommands.cs" />
      <Compile Include="Assets\AIScripts\UnitMonitor.cs" />
      <Compile Include="Assets\GridMaker.cs" />
      <Compile Include="Assets\HubaHuba.cs" />

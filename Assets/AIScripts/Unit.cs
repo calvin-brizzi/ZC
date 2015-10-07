@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.EventSystems;
 public class Unit : MonoBehaviour {
 	public GameObject marker;
 	int idleStateHash;
@@ -151,13 +151,15 @@ public class Unit : MonoBehaviour {
 				collectedAmount=currentLoad;
 			}
 			//////////
-			if (renderer.isVisible && Input.GetMouseButton (0)) { // Helps the selection of troops either multiple or single troop selection
+			print (EventSystem.current.IsPointerOverGameObject());
+			if ( Input.GetMouseButton (0)&& !EventSystem.current.IsPointerOverGameObject()) { // Helps the selection of troops either multiple or single troop selection
+
 				if(!clicked){
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
 					cameraPosition.y=Screen.height-cameraPosition.y;
 					selected=AICamera.selectedArea.Contains (cameraPosition) ;
 					GameObject aiCamera=GameObject.FindGameObjectWithTag("MainCamera");
-					if(selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached()&& this.team == aiCamera.GetComponent<AICamera>().team){
+					if(renderer.isVisible &&selected && !UnitMonitor.selectedUnits.Contains(this.gameObject) && UnitMonitor.LimitNotReached()&& this.team == aiCamera.GetComponent<AICamera>().team){
 						UnitMonitor.AddUnit(this.gameObject);
 						wasSelected=true;
 						audio.PlayOneShot(selectionConfirmation);
@@ -171,13 +173,13 @@ public class Unit : MonoBehaviour {
 					}
 				}
 				//Create the particle effect object that shows which object is selected
-				if(wasSelected && glow == null){
+				if( wasSelected && glow == null){
 					glow = (GameObject)GameObject.Instantiate(glowSelection);
 					glow.transform.parent=transform;
 					glow.transform.localPosition=new Vector3(0,0,0);
 				}
 				//If unselected remove it
-				else if(!wasSelected && glow!=null){
+				else if(renderer.isVisible &&!wasSelected && glow!=null){
 					GameObject.Destroy (glow);
 					glow=null;
 				}
@@ -296,7 +298,6 @@ public class Unit : MonoBehaviour {
 					count ++;//Numbers of enemies
 				}
 			}
-			print (count);
 			returnAmount =count;
 		}
 
@@ -363,10 +364,8 @@ public class Unit : MonoBehaviour {
 	}
 	//Starts the gathering movement of the grunt
 	public void Gather(){
-		Debug.Log ("Gathering");
 		var returnPoint = mainBuilding.transform.Find ("ReturnPoint");
 		if(returnPoint){
-			Debug.Log("Returning");
 			if(!returning){//While the unit is collecting goods
 				MoveUnit(resourcePoint,returnPoint.position);
 				returning=true;
@@ -383,7 +382,6 @@ public class Unit : MonoBehaviour {
 	}
 
 	void AddResources(){
-		print ("Adding "+collectedAmount);
 		//Increase lava resource by x amount
 		Camera.main.GetComponent<Player> ().lava [team-1] += collectedAmount;
 	}
@@ -396,12 +394,6 @@ public class Unit : MonoBehaviour {
 		transform.LookAt (target.transform);
 	}
 
-	void StopAttacking(){
-		this.target = null;
-		state = State.Idle;
-		attacking = false;
-	}
-	
 	//Moves the unit from one point to another
 	public void MoveUnit(Vector3 from, Vector3 to){
 		PathRequestController.RequestPath(from,to,OnPathFound);
@@ -426,7 +418,6 @@ public class Unit : MonoBehaviour {
 			StopCoroutine ("FollowPath");
 			collectGoods=true;
 			state=State.Gathering;
-			//Play gathering animation
 		}
     }
 	//Moves the unit along the path
@@ -462,7 +453,6 @@ public class Unit : MonoBehaviour {
 					if(targetType!=TargetType.Building){
 						instructedAttack=false;//So when opponent moves unit does keep attacking
 					}
-					print ("Attacking");
 					StopCoroutine ("FollowPath");
 				}
 
