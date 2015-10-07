@@ -62,6 +62,7 @@ public class Unit : MonoBehaviour {
 	public State state;
 	int layerMask;
 	float StoppingDistance;
+	Vector3 direction;
 	void Awake(){
 		//Sets the damge values depending on the class
 		if (unitClass == Type.Grunt) {
@@ -271,12 +272,11 @@ public class Unit : MonoBehaviour {
 			}
 		}
 	}
+	//Deals with collisdion between units on the same team
 	void OnCollisionStay(Collision col){
 		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null) {
-			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && col.gameObject.GetComponent<Unit> ().state==State.Idle ){
-				if(Vector3.Distance(mouseClick,col.gameObject.GetComponent<Unit>().mouseClick)==0){
-					TargetReached = true;
-				}
+			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && (col.gameObject.GetComponent<Unit> ().state==State.Idle && state==State.Moving)){
+				TargetReached=true;
 
 			}
 		}
@@ -296,7 +296,7 @@ public class Unit : MonoBehaviour {
 					count ++;//Numbers of enemies
 				}
 			}
-			print (returnAmount);
+			print (count);
 			returnAmount =count;
 		}
 
@@ -448,7 +448,11 @@ public class Unit : MonoBehaviour {
 					waypoint = path [targetPosition];
 				}
 				waypoint.y = transform.position.y;//So that the units always remain the same height
+				direction = transform.position-waypoint;
+				var distance = direction.magnitude;
+				direction /= distance;
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
+
 				transform.LookAt(waypoint);
 				yield return null;
 				//print (target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable);
