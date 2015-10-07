@@ -276,7 +276,7 @@ public class Unit : MonoBehaviour {
 	void OnCollisionStay(Collision col){
 		if (!TargetReached && col.gameObject.GetComponent<Unit>()!=null) {
 			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && (col.gameObject.GetComponent<Unit> ().state==State.Idle && state==State.Moving)){
-				//TargetReached=true;
+				TargetReached=true;
 
 			}
 		}
