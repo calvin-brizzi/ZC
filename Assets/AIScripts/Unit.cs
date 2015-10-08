@@ -113,7 +113,7 @@ public class Unit : MonoBehaviour
 
 		health = 100;
 		attacking = false;
-		gameObject.renderer.material.mainTexture = textures [team - 1];
+		//gameObject.renderer.material.mainTexture = textures [team - 1];
 	 	
 		//Since only grunt unit has a gathering animation
 		if (unitClass == Type.Grunt) {

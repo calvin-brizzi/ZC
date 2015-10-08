@@ -3545,8 +3545,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 80.7755127, y: -7, z: -422.766907}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 3.28999996, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 469460}
   - {fileID: 469552}
@@ -4352,7 +4352,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 9702341b90d09584191ae9c738f75987, type: 2}
+  - {fileID: 2100000, guid: c055f5d6d09866c4b8cca10714659461, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -4460,7 +4460,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color:
+    r: 0
+    g: 0
+    b: 0
+    a: 1
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -4469,6 +4473,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+  m_EventAlphaThreshold: 1
 --- !u!114 &11469442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4481,7 +4486,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color:
+    r: 1
+    g: 0
+    b: 0
+    a: 1
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -4490,6 +4499,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+  m_EventAlphaThreshold: 1
 --- !u!114 &11469444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4551,7 +4561,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: .580882311, b: .220334679, a: 1}
+  m_Color:
+    r: 0
+    g: .580882311
+    b: .220334679
+    a: 1
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -4560,6 +4574,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+  m_EventAlphaThreshold: 1
 --- !u!114 &11469450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4571,11 +4586,10 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  ignoreReversedGraphics: 1
-  blockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask: {}
+  m_Canvas: {fileID: 0}
 --- !u!114 &11469452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4597,6 +4611,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_Canvas: {fileID: 0}
 --- !u!136 &13669440
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -4622,7 +4637,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 222dc14320474474c9f1d93fca84c8be, type: 2}
+  - {fileID: 2100000, guid: 82407dce4d89ebb43a43cd0875a9d12e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -4921,7 +4936,7 @@ SkinnedMeshRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 9702341b90d09584191ae9c738f75987, type: 2}
+  - {fileID: 2100000, guid: c055f5d6d09866c4b8cca10714659461, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
