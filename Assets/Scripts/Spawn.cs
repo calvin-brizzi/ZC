@@ -74,11 +74,11 @@ public class Spawn : MonoBehaviour {
 				int cls = (int)queue[0];
 				queue.RemoveAt(0);
 				if(cls ==0){
-					Instantiate (grunt, spawnpoint, Quaternion.identity);
+					Network.Instantiate (grunt, spawnpoint, Quaternion.identity,0);
 				}else if(cls ==1){
-					Instantiate (brute, spawnpoint, Quaternion.identity);
+					Network.Instantiate (brute, spawnpoint, Quaternion.identity,0);
 				}else{
-					Instantiate (archer, spawnpoint, Quaternion.identity);
+					Network.Instantiate (archer, spawnpoint, Quaternion.identity,0);
 				}
 				if(queue.Count>0){
 					cls = (int)queue[0];

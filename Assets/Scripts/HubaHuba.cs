@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿/* Adds humans to the resources every few steps */
+
+using UnityEngine;
 using System.Collections;
 
 public class HubaHuba : MonoBehaviour {
