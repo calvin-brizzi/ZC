@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cbd5ccace57524cbd445bf35444c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 100, y: 100}
+  gridSize: {x: 370, y: 370}
   obstacle:
     serializedVersion: 2
     m_Bits: 256

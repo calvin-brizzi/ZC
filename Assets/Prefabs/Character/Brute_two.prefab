@@ -4563,6 +4563,7 @@ MonoBehaviour:
   attackHitSoundUnit: {fileID: 8300000, guid: 8c681843dfce6e8438ef5eb3c8f48365, type: 3}
   bowDraw: {fileID: 0}
   gatherConfirmation: {fileID: 0}
+  StoppingDistance: 1
 --- !u!114 &11479858
 MonoBehaviour:
   m_ObjectHideFlags: 1

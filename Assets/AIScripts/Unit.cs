@@ -102,12 +102,12 @@ public class Unit : MonoBehaviour
 
 	private GameObject glow;
 	int layerMask;
-	float StoppingDistance;
+	public float StoppingDistance;
 	Vector3 direction;
 
 	void Awake ()
 	{
-		StoppingDistance = 10;
+		//StoppingDistance = 10;
 		//Sets the damge values depending on the class
 		if (unitClass == Type.Grunt) {
 			damage = 1;
@@ -191,7 +191,6 @@ public class Unit : MonoBehaviour
 			//If target is out of range or dead remove it as target
 			if (target != null && !instructedAttack && Vector3.Distance (target.transform.position, transform.position) >= ((float)attackRange + 4) || targetHealth <= 0) {
 				target = null;
-				//print ("B");
 				attacking = false;
 				if (state != State.Moving) {
 					state = State.Idle;
@@ -213,9 +212,8 @@ public class Unit : MonoBehaviour
 				collectedAmount = currentLoad;
 			}
 
-			if (Input.GetMouseButton (0) && !EventSystem.current.IsPointerOverGameObject ()) {
+			if (Input.GetMouseButton (0)){ //&& !EventSystem.current.IsPointerOverGameObject ()) {
 				// Helps the selection of troops either multiple or single troop selection
-
 				if (!clicked) {
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
 					cameraPosition.y = Screen.height - cameraPosition.y;
@@ -233,7 +231,6 @@ public class Unit : MonoBehaviour
 						TargetReached = false;
 					}
 				}
-
 				//Create the particle effect object that shows which object is selected
 				if (wasSelected && glow == null) {
 					glow = (GameObject)GameObject.Instantiate (glowSelection);
@@ -457,6 +454,7 @@ public class Unit : MonoBehaviour
 			clicked = true;
 			wasSelected = true;
 			audio.PlayOneShot (selectionConfirmation);
+			print ("Here");
 		}
 	}
 
