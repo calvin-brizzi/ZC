@@ -72,6 +72,7 @@ public class Unit : MonoBehaviour
 	int gatherSpeed;
 	int collectedAmount;
 	float duration;
+	int deathcount = 0;
 
 	//To prevent rapidly clicking the same point over and over and therefore causing issues
 	float coolDown;
@@ -157,24 +158,24 @@ public class Unit : MonoBehaviour
 	{
 		if (state != State.Dead) { // Unit alive
 
-			if(building){
+			if (building) {
 
 
-				if(currentConstruction){
+				if (currentConstruction) {
 					Vector3 dist = this.transform.position - currentConstruction.transform.position;
 					print (dist.magnitude);
-					if(dist.magnitude<6){
-						currentConstruction.GetComponent<build>().percentage+=1;
-						currentConstruction.GetComponent<build>().t = team;
+					if (dist.magnitude < 6) {
+						currentConstruction.GetComponent<build> ().percentage += 1;
+						currentConstruction.GetComponent<build> ().t = team;
 					}
 				}
 			}
 
-			if(Input.GetKey(KeyCode.P)){
-				patrolPointSelection=true;
+			if (Input.GetKey (KeyCode.P)) {
+				patrolPointSelection = true;
 				print ("Set patrol points");
-				patroling=false;
-				patrolPointCount=0;
+				patroling = false;
+				patrolPointCount = 0;
 			}
 			if (TargetReached && !attacking) {
 				state = State.Idle;
@@ -226,7 +227,7 @@ public class Unit : MonoBehaviour
 				collectedAmount = currentLoad;
 			}
 
-			if (Input.GetMouseButton (0)){ //&& !EventSystem.current.IsPointerOverGameObject ()) {
+			if (Input.GetMouseButton (0)) { //&& !EventSystem.current.IsPointerOverGameObject ()) {
 				// Helps the selection of troops either multiple or single troop selection
 				if (!clicked) {
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
@@ -259,28 +260,27 @@ public class Unit : MonoBehaviour
 				}
 			}
 			//Makes the units setup a patrol point and patrol between two points
-			if(Input.GetMouseButtonDown (1) && patrolPointSelection && wasSelected){
+			if (Input.GetMouseButtonDown (1) && patrolPointSelection && wasSelected) {
 				RaycastHit hit;
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				if (Physics.Raycast (ray, out hit)) {
 					mouseClick = hit.point;
-					if(patrolPointCount==0){
-						patrolPoint1=mouseClick;
-						audio.PlayOneShot(moveConfirmation);
-					}else if(patrolPointCount==1){
-						patrolPoint2=mouseClick;
-						patrolPointSelection=false;
-						patroling=true;
-						patrolPointCount=0;
-						audio.PlayOneShot(moveConfirmation);
+					if (patrolPointCount == 0) {
+						patrolPoint1 = mouseClick;
+						audio.PlayOneShot (moveConfirmation);
+					} else if (patrolPointCount == 1) {
+						patrolPoint2 = mouseClick;
+						patrolPointSelection = false;
+						patroling = true;
+						patrolPointCount = 0;
+						audio.PlayOneShot (moveConfirmation);
 					}
 					patrolPointCount++;
-					if(patroling){
-						MoveUnit(transform.position,patrolPoint1);
+					if (patroling) {
+						MoveUnit (transform.position, patrolPoint1);
 					}
 				}
-			}
-			else if (Input.GetMouseButtonDown (1) && wasSelected) { 
+			} else if (Input.GetMouseButtonDown (1) && wasSelected) { 
 				// Detects a players right click  and moves the selected troops top that position
 				path = null;
 				//Stops the players movement
@@ -321,20 +321,18 @@ public class Unit : MonoBehaviour
 
 					//If resource and grunt start gathering
 
-					if(hit.collider.gameObject.tag == "Scafold" && unitClass.Equals (Type.Grunt)){
+					if (hit.collider.gameObject.tag == "Scafold" && unitClass.Equals (Type.Grunt)) {
 
 						var buildPoint = hit.transform.FindChild ("BuildPoint");
-						if(buildPoint){
+						if (buildPoint) {
 							building = true;
 							print (buildPoint.localPosition);
-							MoveUnit (transform.position,buildPoint.position);
+							MoveUnit (transform.position, buildPoint.position);
 							currentConstruction = buildPoint.gameObject;
 						}
 
 
-					}
-
-					else if (hit.collider.gameObject.tag == "Resource" && unitClass.Equals (Type.Grunt)) {
+					} else if (hit.collider.gameObject.tag == "Resource" && unitClass.Equals (Type.Grunt)) {
 						audio.PlayOneShot (gatherConfirmation);
 						currentResource = hit.transform.gameObject;
 
@@ -357,7 +355,7 @@ public class Unit : MonoBehaviour
 					} else if (hit.collider.gameObject.tag == "Resource" || (hit.collider.gameObject.tag == "Home Base" && !unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team)) {
 						//If not grunt just stop moving
 						state = State.Idle;
-					}else if (hit.collider.gameObject.tag == "Home Base" && unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team) {
+					} else if (hit.collider.gameObject.tag == "Home Base" && unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team) {
 						//Return to homebase and deposit goods
 						var returnPoint = hit.transform.Find ("ReturnPoint");
 						attacking = false;
@@ -385,6 +383,8 @@ public class Unit : MonoBehaviour
 					}
 				}
 			}
+		} else {
+			CheckState();
 		}
 	}
 
@@ -443,9 +443,14 @@ public class Unit : MonoBehaviour
 		} else if (state == State.Idle) {
 			anim.Play (idleStateHash);
 		} else if (state == State.Dead) {
-			anim.Play (deathStateHash);
-			StopCoroutine ("FollowPath");
-			Invoke ("RemoveUnit", 1);
+			if(deathcount == 0){
+				anim.Play (deathStateHash);
+				StopCoroutine ("FollowPath");
+			} 
+			deathcount++;
+			if (deathcount  > 160){
+				RemoveUnit();
+			}
 		} else if (state == State.Building) {
 			//Call build here
 		}
