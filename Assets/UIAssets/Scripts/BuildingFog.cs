@@ -31,17 +31,17 @@ public class BuildingFog : MonoBehaviour {
 		while (i<hitColliders.Length) {
 			try{
 				check= hitColliders[i].gameObject.GetComponent<DestructableBuilding>().team;
-				print ("Collided with a  building");
+				//print ("Collided with a  building");
 			}catch{
 
 				try{
 					check= hitColliders[i].gameObject.GetComponent<Unit>().team;
-					print ("collided with unit");
+					//print ("collided with unit");
 				}catch{
 					check = 0;
 				}
 			}
-			print (check);
+			//print (check);
 			if(check!=0){
 				if(check!=team){
 					count++;

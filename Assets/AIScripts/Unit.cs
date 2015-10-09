@@ -40,6 +40,7 @@ public class Unit : MonoBehaviour
 	{
 		Gathering,
 		Attacking,
+		Building,
 		Moving,
 		Idle,
 		Dead}
@@ -87,11 +88,16 @@ public class Unit : MonoBehaviour
 	bool clicked;
 	bool collectGoods;
 	bool attacking;
+	bool patrolPointSelection;
+	bool patroling;
 
 	bool instructedAttack = false;
 	int NumberOfEnemies = 0;
+	int patrolPointCount=0;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
+	Vector3 patrolPoint1;
+	Vector3 patrolPoint2;
 	Animator anim;
 	GameObject target;
 
@@ -102,6 +108,7 @@ public class Unit : MonoBehaviour
 
 	void Awake ()
 	{
+		StoppingDistance = 10;
 		//Sets the damge values depending on the class
 		if (unitClass == Type.Grunt) {
 			damage = 1;
@@ -149,8 +156,13 @@ public class Unit : MonoBehaviour
 	void FixedUpdate ()
 	{
 		if (state != State.Dead) { // Unit alive
-			StoppingDistance = collider.bounds.extents.z;
 
+			if(Input.GetKey(KeyCode.P)){
+				patrolPointSelection=true;
+				print ("Set patrol points");
+				patroling=false;
+				patrolPointCount=0;
+			}
 			if (TargetReached) {
 				state = State.Idle;
 			}
@@ -235,8 +247,31 @@ public class Unit : MonoBehaviour
 					glow = null;
 				}
 			}
-
-			if (Input.GetMouseButtonDown (1) && wasSelected) { 
+			//Makes the units setup a patrol point and patrol between two points
+			if(Input.GetMouseButtonDown (1) && patrolPointSelection && wasSelected){
+				RaycastHit hit;
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				if (Physics.Raycast (ray, out hit)) {
+					mouseClick = hit.point;
+					if(patrolPointCount==0){
+						patrolPoint1=mouseClick;
+						print("Point1");
+						audio.PlayOneShot(moveConfirmation);
+					}else if(patrolPointCount==1){
+						patrolPoint2=mouseClick;
+						patrolPointSelection=false;
+						patroling=true;
+						patrolPointCount=0;
+						audio.PlayOneShot(moveConfirmation);
+						print("Point2");
+					}
+					patrolPointCount++;
+					if(patroling){
+						MoveUnit(transform.position,patrolPoint1);
+					}
+				}
+			}
+			else if (Input.GetMouseButtonDown (1) && wasSelected) { 
 				// Detects a players right click  and moves the selected troops top that position
 				path = null;
 				//Stops the players movement
@@ -251,7 +286,7 @@ public class Unit : MonoBehaviour
 					notOverrideable = true;
 					instructedAttack = false;
 					Transform attackPoint = null;
-
+					patroling = false;
 					//If enemy unit attack
 					if ((hit.collider.gameObject.tag == "Unit" || hit.collider.gameObject.tag == "Grunt") && hit.collider.gameObject.GetComponent<Unit> ().team != this.team) {
 						audio.PlayOneShot (attackConfirmation);
@@ -339,12 +374,16 @@ public class Unit : MonoBehaviour
 			}
 		}
 	}
-
+	void Patrol(Vector3 point1, Vector3 point2){
+		MoveUnit (point1, point2);
+		var temp = point1;
+		patrolPoint1 = point2;
+		patrolPoint2 = temp;
+	}
 	int CheckForEnemies ()
 	{
 		//Perimeter check to see if enemies are close by and if so start attacking them
 		int returnAmount = 0;
-
 		if (!attacking && state != State.Moving && state != State.Attacking) {
 			int count = 0;
 			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange + 4, layerMask); 
@@ -384,6 +423,8 @@ public class Unit : MonoBehaviour
 			anim.Play (deathStateHash);
 			StopCoroutine ("FollowPath");
 			Invoke ("RemoveUnit", 1);
+		} else if (state == State.Building) {
+			//Call build here
 		}
 	}
 
@@ -501,7 +542,7 @@ public class Unit : MonoBehaviour
 	{
 		if (this.health > 0 && path != null && path.Length > 0) {
 			if (!attacking && !gathering && !returning) {
-				UnitMonitor.CreateWaypointGrid ();
+				//UnitMonitor.CreateWaypointGrid ();
 			}
 			state = State.Moving;
 			//Play moving animation
@@ -518,11 +559,11 @@ public class Unit : MonoBehaviour
 					waypoint = path [targetPosition];
 				}
 				waypoint.y = transform.position.y;//So that the units always remain the same height
-				direction = transform.position - waypoint;
+				direction = waypoint-transform.position;
 				var distance = direction.magnitude;
 				direction /= distance;
 				transform.position = Vector3.MoveTowards (transform.position, waypoint, speed * Time.deltaTime);
-
+				//rigidbody.MovePosition(direction*speed * Time.deltaTime);
 				transform.LookAt (waypoint);
 				yield return null;
 				//print (target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable);
@@ -535,11 +576,14 @@ public class Unit : MonoBehaviour
 					StopCoroutine ("FollowPath");
 				}
 
-				if (transform.position.x == path [path.Length - 1].x && transform.position.z == path [path.Length - 1].z) {
+				if (Vector3.Distance(transform.position,path [path.Length - 1])<StoppingDistance) {
 					notOverrideable = false;
 					TargetReached = true;
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather ();
+					}else if(patroling){
+						Patrol(patrolPoint1,patrolPoint2);
+						print ("Changepoint");
 					} else if (depositing) { // This is for when a grunt is carrying good and the player deposits it manuallly
 						depositing = false;
 						//Add the collectedAmount to the total resources
