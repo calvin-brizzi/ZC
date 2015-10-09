@@ -90,7 +90,6 @@ public class Unit : MonoBehaviour
 	bool attacking;
 	bool patrolPointSelection;
 	bool patroling;
-
 	bool instructedAttack = false;
 	int NumberOfEnemies = 0;
 	int patrolPointCount=0;
@@ -163,12 +162,13 @@ public class Unit : MonoBehaviour
 				patroling=false;
 				patrolPointCount=0;
 			}
-			if (TargetReached) {
+			if (TargetReached && !attacking) {
 				state = State.Idle;
 			}
 
 			if (attacking && target != null) {
 				transform.LookAt (target.transform);//Makes unit look at current attack target
+
 			}
 
 			if (health <= 0) {//Checks to see if target is dead
@@ -188,10 +188,10 @@ public class Unit : MonoBehaviour
 					targetHealth = target.gameObject.GetComponent<DestructableBuilding> ().health;
 				}
 			}
-
 			//If target is out of range or dead remove it as target
 			if (target != null && !instructedAttack && Vector3.Distance (target.transform.position, transform.position) >= ((float)attackRange + 4) || targetHealth <= 0) {
 				target = null;
+				//print ("B");
 				attacking = false;
 				if (state != State.Moving) {
 					state = State.Idle;
@@ -255,7 +255,6 @@ public class Unit : MonoBehaviour
 					mouseClick = hit.point;
 					if(patrolPointCount==0){
 						patrolPoint1=mouseClick;
-						print("Point1");
 						audio.PlayOneShot(moveConfirmation);
 					}else if(patrolPointCount==1){
 						patrolPoint2=mouseClick;
@@ -263,7 +262,6 @@ public class Unit : MonoBehaviour
 						patroling=true;
 						patrolPointCount=0;
 						audio.PlayOneShot(moveConfirmation);
-						print("Point2");
 					}
 					patrolPointCount++;
 					if(patroling){
@@ -386,7 +384,7 @@ public class Unit : MonoBehaviour
 		int returnAmount = 0;
 		if (!attacking && state != State.Moving && state != State.Attacking) {
 			int count = 0;
-			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange + 4, layerMask); 
+			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange + 4); 
 			// Returns an array of all enemies in attackrange+4 area
 
 			for (var i =0; i< nearbyEnemy.Length; i++) {
@@ -501,6 +499,7 @@ public class Unit : MonoBehaviour
 	//Starts an attack on a specific unit
 	void Attack (GameObject targetObj)
 	{
+		print ("Attack");
 		this.target = targetObj;
 		targetType = TargetType.Unit;
 		state = State.Attacking;
@@ -566,8 +565,9 @@ public class Unit : MonoBehaviour
 				//rigidbody.MovePosition(direction*speed * Time.deltaTime);
 				transform.LookAt (waypoint);
 				yield return null;
-				//print (target!= null && attacking && (Vector3.Distance(target.transform.position,transform.position)<=((float)attackRange+4)|| (targetType==TargetType.Building && Vector3.Distance(target.transform.Find("AttackPoint").position,transform.position)<=((float)attackRange+30)))&& ! notOverrideable);
+				print (attacking );
 				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange + 4) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange + 30))) && ! notOverrideable) {
+					print ("Here");
 					attacking = false;
 					state = State.Attacking;
 					if (targetType != TargetType.Building) {
