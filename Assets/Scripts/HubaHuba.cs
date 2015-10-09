@@ -22,7 +22,7 @@ public class HubaHuba : MonoBehaviour {
 		currentTime = Time.time;
 		if (currentTime > nextHuman) {
 			nextHuman = currentTime + delay;
-			Camera.main.GetComponent<Player> ().placeHumans(1,team-1);
+			//Camera.main.GetComponent<Player> ().placeHumans(1,team-1);
 		}
 
 	}

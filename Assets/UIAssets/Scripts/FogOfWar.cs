@@ -7,6 +7,7 @@ public class FogOfWar : MonoBehaviour {
 	string test;
 	// Use this for initialization
 	void Start () {
+
 		team = daddy.GetComponent<Unit> ().team;
 		if (team == 1) {
 			test = "P1";
@@ -14,16 +15,12 @@ public class FogOfWar : MonoBehaviour {
 			test = "P2";
 		}
 	}
-	void changeAll(GameObject x,string y){
-		foreach (Transform child in x.transform) {
-			child.gameObject.layer = LayerMask.NameToLayer(y);
-			print ("CHANGING");
-		}
-	}
+
 
 	// Update is called once per frame
 	void Update () {
-		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 50f);
+
+		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 5f);
 		int i = 0;
 		int count = 0;
 		int check;
@@ -51,11 +48,12 @@ public class FogOfWar : MonoBehaviour {
 		}
 		//print ("IN RANGE "+count+" "+test);
 		if (count > 0) {
-			changeAll (this.gameObject,"P3");
+
 			this.gameObject.layer = LayerMask.NameToLayer("P3");
 		} else {
 			//print ("REVERT");
 			this.gameObject.layer = LayerMask.NameToLayer(test);
 		}
+
 	}
 }
