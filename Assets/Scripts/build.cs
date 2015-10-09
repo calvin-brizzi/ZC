@@ -4,6 +4,8 @@ using System.Collections;
 public class build : MonoBehaviour {
 	public int percentage =2000;
 	public GameObject prefab;
+	public GameObject daddy;
+	public int t;
 	// Use this for initialization
 	void Start () {
 	
@@ -12,16 +14,18 @@ public class build : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (percentage >= 100) {
-			Instantiate (prefab,this.transform.position,Quaternion.identity);
-			Destroy (this.gameObject);
+			GameObject x = (GameObject)Instantiate (prefab,daddy.gameObject.transform.position,Quaternion.identity);
+			x.GetComponent<DestructableBuilding>().team = t;
+			Destroy (daddy.gameObject);
 			print ("runs");
 			GameObject a=GameObject.FindGameObjectWithTag("A*");
 			a.GetComponent<Grid>().ReCreateGrid();
 		}
 	}
 
-	public void building(int x){
-		percentage += x;
+	public void builder(){
+		print (percentage);
+		percentage += 10;
 
 	}
 }

@@ -78,7 +78,8 @@ public class Unit : MonoBehaviour
 
 	PathRequestController request;
 	GameObject currentResource;
-
+	GameObject currentConstruction;
+	bool building;
 	bool gathering;
 	bool returning;
 	bool selected;
@@ -155,6 +156,19 @@ public class Unit : MonoBehaviour
 	void FixedUpdate ()
 	{
 		if (state != State.Dead) { // Unit alive
+
+			if(building){
+
+
+				if(currentConstruction){
+					Vector3 dist = this.transform.position - currentConstruction.transform.position;
+					print (dist.magnitude);
+					if(dist.magnitude<6){
+						currentConstruction.GetComponent<build>().percentage+=1;
+						currentConstruction.GetComponent<build>().t = team;
+					}
+				}
+			}
 
 			if(Input.GetKey(KeyCode.P)){
 				patrolPointSelection=true;
@@ -306,7 +320,21 @@ public class Unit : MonoBehaviour
 					}
 
 					//If resource and grunt start gathering
-					if (hit.collider.gameObject.tag == "Resource" && unitClass.Equals (Type.Grunt)) {
+
+					if(hit.collider.gameObject.tag == "Scafold" && unitClass.Equals (Type.Grunt)){
+
+						var buildPoint = hit.transform.FindChild ("BuildPoint");
+						if(buildPoint){
+							building = true;
+							print (buildPoint.localPosition);
+							MoveUnit (transform.position,buildPoint.position);
+							currentConstruction = buildPoint.gameObject;
+						}
+
+
+					}
+
+					else if (hit.collider.gameObject.tag == "Resource" && unitClass.Equals (Type.Grunt)) {
 						audio.PlayOneShot (gatherConfirmation);
 						currentResource = hit.transform.gameObject;
 
@@ -343,7 +371,7 @@ public class Unit : MonoBehaviour
 						if (!attacking) {
 							audio.PlayOneShot (moveConfirmation);
 						}
-
+						building = false;
 						gathering = false;
 						returning = false;
 						collectGoods = false;
@@ -563,7 +591,7 @@ public class Unit : MonoBehaviour
 				//rigidbody.MovePosition(direction*speed * Time.deltaTime);
 				transform.LookAt (waypoint);
 				yield return null;
-				print (attacking );
+				//print (attacking );
 				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange + 4) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange + 30))) && ! notOverrideable) {
 					print ("Here");
 					attacking = false;

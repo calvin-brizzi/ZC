@@ -138,7 +138,7 @@ public class Click : MonoBehaviour {
 				}
 				if(hit.transform.tag == "School"){
 					currentSchool = hit.transform.gameObject;
-					print ("CURRENT SCHOOL");
+					//print ("CURRENT SCHOOL");
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);
 					}
@@ -154,7 +154,7 @@ public class Click : MonoBehaviour {
 
 				}
 				if(hit.transform.tag == "Grunt"){
-					print ("THIS WORKS THO");
+					//print ("THIS WORKS THO");
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);
 					}

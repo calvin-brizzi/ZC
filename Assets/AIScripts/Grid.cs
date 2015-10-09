@@ -22,13 +22,13 @@ public class Grid : MonoBehaviour {
 	//Recreates the grid for when objects are removed and need to update the grid
 	public void ReCreateGrid()
 	{
-		Debug.Log ("ReCreate Grid");
+		//Debug.Log ("ReCreate Grid");
 		Invoke ("CreateGrid",0.3f);
 	}
 	//Creates the grid of a specific size
     public void CreateGrid()
     {
-		Debug.Log ("Create Grid");
+		//Debug.Log ("Create Grid");
         grid = new Node[gridSizeX,gridSizeY]; // Array of nodes
         Vector3 bottomLeft = transform.position - Vector3.right*gridSize.x/2 - Vector3.forward*gridSize.y/2;//Bottom left corner since the object is in the middle of the map
         for (int x = 0; x < gridSizeX; x++)

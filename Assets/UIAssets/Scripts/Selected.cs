@@ -43,19 +43,21 @@ public class Selected : MonoBehaviour {
 
 			}
 			if(!colide){
-				print ("THIS MANY"+objects.Count);
+				//print ("THIS MANY"+objects.Count);
 				if(objects.Count >0){
 					for(int i = 0;i<objects.Count;i++){
-						print ("DESTROY");
+						//print ("DESTROY");
 						GameObject temp = objects[i];
 						Destroy (temp);
 						
 					}
 					
 				}
-				print ("THIS MANY"+objects.Count);
+				//print ("THIS MANY"+objects.Count);
 				sel = false;
-				Instantiate (buildings[current],this.transform.position,Quaternion.identity);
+				Vector3 pos = this.transform.position;
+				pos.y = -0.7f;
+				Instantiate (buildings[current],pos,Quaternion.identity);
 				Destroy (this.gameObject);
 				////////////Recalls the create grid to make the grid after building///////////////
 				GameObject a=GameObject.FindGameObjectWithTag("A*");
@@ -81,11 +83,11 @@ public class Selected : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider coll){
-		print ("TRIGGERED");
+		//print ("TRIGGERED");
 		if (coll.gameObject.name == "Terrain") {
 
 		} else {
-			print ("added");
+			//print ("added");
 			objects.Add (coll.gameObject);
 			colide = true;
 			
@@ -97,7 +99,7 @@ public class Selected : MonoBehaviour {
 		if (coll.gameObject.name == "Terrain") {
 			
 		} else {
-			print ("removed");
+			//print ("removed");
 			objects.Remove(coll.gameObject);
 			colide = false;
 			

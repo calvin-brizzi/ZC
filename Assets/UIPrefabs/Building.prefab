@@ -47,7 +47,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -262.700012, y: -6.5, z: -334.799988}
+  m_LocalPosition: {x: 369.169312, y: -6.5, z: -383.100098}
   m_LocalScale: {x: 49.3622131, y: 1, z: 35.891571}
   m_Children:
   - {fileID: 431708}
@@ -129,8 +129,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .650979578, y: -2.20793152, z: .3990058}
-  m_Center: {x: .174510464, y: 1.59536314, z: -.300496608}
+  m_Size: {x: .650979578, y: -2.20793152, z: .343452334}
+  m_Center: {x: .174510568, y: 1.59536314, z: -.328273654}
 --- !u!65 &6500242
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -179,9 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings:
-  - {fileID: 181998, guid: 0d8b12b3e1491c34e8b9a8ef572fe0df, type: 2}
-  - {fileID: 179472, guid: e52a77a8cb108ad4b85500a70d9e701a, type: 2}
-  - {fileID: 123170, guid: 748e194667b37eb4f9248237ade52d1a, type: 2}
+  - {fileID: 169568, guid: 364588b2713cb3c40819c7efe6ffb35d, type: 2}
+  - {fileID: 128932, guid: 51767dd104e53584880dbf13c87b3174, type: 2}
+  - {fileID: 176954, guid: 9654ae396aa16d744b12781c3a36425d, type: 2}
 --- !u!212 &21231708
 SpriteRenderer:
   m_ObjectHideFlags: 1
