@@ -78,6 +78,7 @@
      <Compile Include="Assets\Scripts\graveDigger.cs" />
      <Compile Include="Assets\Scripts\transparent.cs" />
      <Compile Include="Assets\Scripts\visible.cs" />
+     <Compile Include="Assets\UIAssets\Scripts\BuildingFog.cs" />
      <Compile Include="Assets\UIAssets\Scripts\CamerControl.cs" />
      <Compile Include="Assets\UIAssets\Scripts\FogOfWar.cs" />
      <Compile Include="Assets\UIAssets\Scripts\NewBehaviourScript.cs" />
