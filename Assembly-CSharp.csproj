@@ -78,6 +78,8 @@
      <Compile Include="Assets\Scripts\graveDigger.cs" />
      <Compile Include="Assets\Scripts\transparent.cs" />
      <Compile Include="Assets\Scripts\visible.cs" />
+     <Compile Include="Assets\SetupMap.cs" />
+     <Compile Include="Assets\TowerShoot.cs" />
      <Compile Include="Assets\UIAssets\Scripts\BuildingFog.cs" />
      <Compile Include="Assets\UIAssets\Scripts\CamerControl.cs" />
      <Compile Include="Assets\UIAssets\Scripts\FogOfWar.cs" />
@@ -87,7 +89,9 @@
      <Compile Include="Assets\UIAssets\Scripts\TerrainGenerator.cs" />
      <Compile Include="Assets\UIAssets\Scripts\UISelect.cs" />
      <Compile Include="Assets\UIAssets\Scripts\newSS\Click.cs" />
+     <Compile Include="Assets\UIFogOfwar.cs" />
      <Compile Include="Assets\UIPrefabs\move.cs" />
+     <Compile Include="Assets\setUIColour.cs" />
      <None Include="Assets\StencilShaders\Masks\StencilMask_4.shader" />
      <None Include="Assets\StencilShaders\Portal_2_Shaders\Stencil_02_Alpha-Diffuse.shader" />
      <None Include="Assets\StencilShaders\Portal_1_Shaders\Stencil_01_Normal-Diffuse.shader" />

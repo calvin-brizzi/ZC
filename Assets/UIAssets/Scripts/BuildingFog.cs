@@ -15,16 +15,10 @@ public class BuildingFog : MonoBehaviour {
 			test = "P2";
 		}
 	}
-	void changeAll(GameObject x,string y){
-		foreach (Transform child in x.transform) {
-			child.gameObject.layer = LayerMask.NameToLayer(y);
-			print ("CHANGING");
-		}
-	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 50f);
+		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 15f);
 		int i = 0;
 		int count = 0;
 		int check=0;
@@ -53,7 +47,7 @@ public class BuildingFog : MonoBehaviour {
 		}
 		//print ("IN RANGE "+count+" "+test);
 		if (count > 0) {
-			changeAll (this.gameObject,"P3");
+		
 			this.gameObject.layer = LayerMask.NameToLayer("P3");
 		} else {
 			//print ("REVERT");

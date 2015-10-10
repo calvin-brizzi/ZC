@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &139248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 439248}
+  - 33: {fileID: 3339248}
+  - 23: {fileID: 2339248}
+  - 95: {fileID: 9539248}
+  - 65: {fileID: 6539248}
+  m_Layer: 0
+  m_Name: Zombie School Scaffolding
+  m_TagString: Prop
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &176950
 GameObject:
   m_ObjectHideFlags: 1
@@ -49,6 +68,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &439248
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139248}
+  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: 1.43184662, y: -5.45913839, z: .293976426}
+  m_LocalScale: {x: 13.080966, y: 17.4961777, z: 33.5684738}
+  m_Children: []
+  m_Father: {fileID: 476954}
+  m_RootOrder: 1
 --- !u!4 &476950
 Transform:
   m_ObjectHideFlags: 1
@@ -68,8 +99,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.19999981, z: 0}
-  m_LocalScale: {x: 50, y: 2, z: 33.6450157}
+  m_LocalPosition: {x: 0, y: -8.67409992, z: 0}
+  m_LocalScale: {x: 61.1710777, y: 5.77143097, z: 43.0537949}
   m_Children:
   - {fileID: 476950}
   m_Father: {fileID: 476954}
@@ -81,19 +112,40 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 112.954224, y: .711741328, z: 109.649811}
+  m_LocalPosition: {x: 6.4269104, y: .711741328, z: 11.0975952}
   m_LocalScale: {x: .0580298416, y: .091908522, z: .0421953611}
   m_Children:
   - {fileID: 476952}
+  - {fileID: 439248}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!23 &2339248
+Renderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139248}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 77955669342cd78499ef9eedc5bf3432, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!23 &2376954
 Renderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176952}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -107,6 +159,13 @@ Renderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!33 &3339248
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139248}
+  m_Mesh: {fileID: 4300000, guid: 8e6f495bceb7758439f49189571d59d9, type: 3}
 --- !u!33 &3376954
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -114,6 +173,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 176952}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6539248
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.7530539, y: 1.22381866, z: 1.63151276}
+  m_Center: {x: -1.72694899e-06, y: .3063806, z: 8.02228021e-14}
 --- !u!65 &6576954
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -126,6 +197,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 6.53614616, z: 1}
   m_Center: {x: 0, y: .656000137, z: 0}
+--- !u!95 &9539248
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139248}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8e6f495bceb7758439f49189571d59d9, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11476954
 MonoBehaviour:
   m_ObjectHideFlags: 1

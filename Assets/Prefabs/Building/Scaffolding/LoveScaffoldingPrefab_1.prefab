@@ -49,6 +49,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &178708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 478708}
+  - 33: {fileID: 3378708}
+  - 23: {fileID: 2378708}
+  - 95: {fileID: 9578708}
+  m_Layer: 0
+  m_Name: Love Hotel Scaffolding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &469564
 Transform:
   m_ObjectHideFlags: 1
@@ -68,12 +86,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.19999981, z: 0}
+  m_LocalPosition: {x: -6, y: -4.80000019, z: -4.0999999}
   m_LocalScale: {x: 50, y: 2, z: 33.5811958}
   m_Children:
   - {fileID: 469564}
   m_Father: {fileID: 469568}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &469568
 Transform:
   m_ObjectHideFlags: 1
@@ -81,11 +99,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 109.934357, y: .711741328, z: 106.884613}
+  m_LocalPosition: {x: 11.871582, y: .711741328, z: 10.4203491}
   m_LocalScale: {x: .0580298416, y: .091908522, z: .0421953611}
   m_Children:
+  - {fileID: 478708}
   - {fileID: 469566}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &478708
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178708}
+  m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.80000019, y: -6.80000019, z: -5.9000001}
+  m_LocalScale: {x: 18.0344925, y: 10.8803835, z: 17.2807026}
+  m_Children: []
+  m_Father: {fileID: 469568}
   m_RootOrder: 0
 --- !u!23 &2369564
 Renderer:
@@ -93,13 +124,33 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 7c2ff195f9266d14bb9213bc92246d63, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2378708
+Renderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178708}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 7af906ee09db8274190e9781a256a359, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -114,6 +165,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169566}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3378708
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178708}
+  m_Mesh: {fileID: 4300000, guid: f9750d6e1ad1ea348b52f71f044e9248, type: 3}
 --- !u!65 &6569564
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -126,6 +184,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 7.45797157, z: .999999881}
   m_Center: {x: 0, y: .293274879, z: 0}
+--- !u!95 &9578708
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 178708}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: f9750d6e1ad1ea348b52f71f044e9248, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11469564
 MonoBehaviour:
   m_ObjectHideFlags: 1
