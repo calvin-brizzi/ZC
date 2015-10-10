@@ -14,8 +14,11 @@ public class build : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (percentage >= 100) {
-			GameObject x = (GameObject)Instantiate (prefab,daddy.gameObject.transform.position,Quaternion.identity);
+			Vector3 gm = daddy.gameObject.transform.position;
+			gm.y = 0.08f;
+			GameObject x = (GameObject)Instantiate (prefab,gm,Quaternion.identity);
 			x.GetComponent<DestructableBuilding>().team = t;
+			print (gameObject.transform.position);
 			Destroy (daddy.gameObject);
 			print ("runs");
 			GameObject a=GameObject.FindGameObjectWithTag("A*");

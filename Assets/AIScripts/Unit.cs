@@ -166,7 +166,7 @@ public class Unit : MonoBehaviour
 				if (currentConstruction) {
 					Vector3 dist = this.transform.position - currentConstruction.transform.position;
 					print (dist.magnitude);
-					if (dist.magnitude < 6) {
+					if (dist.magnitude < 2) {
 						currentConstruction.GetComponent<build> ().percentage += 1;
 						currentConstruction.GetComponent<build> ().t = team;
 					}

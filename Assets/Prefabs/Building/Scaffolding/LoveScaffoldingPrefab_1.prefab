@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 469568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LoveScaffoldingPrefab_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,8 +81,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 339.704224, y: .199999809, z: -427.977234}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 109.934357, y: .711741328, z: 106.884613}
+  m_LocalScale: {x: .0580298416, y: .091908522, z: .0421953611}
   m_Children:
   - {fileID: 469566}
   m_Father: {fileID: 0}
@@ -124,8 +124,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 7.45797157, z: .999999881}
+  m_Center: {x: 0, y: .293274879, z: 0}
 --- !u!114 &11469564
 MonoBehaviour:
   m_ObjectHideFlags: 1

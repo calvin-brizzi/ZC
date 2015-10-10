@@ -56,7 +56,7 @@ public class Selected : MonoBehaviour {
 				//print ("THIS MANY"+objects.Count);
 				sel = false;
 				Vector3 pos = this.transform.position;
-				pos.y = -0.7f;
+				pos.y = 1.0f;
 				Instantiate (buildings[current],pos,Quaternion.identity);
 				Destroy (this.gameObject);
 				////////////Recalls the create grid to make the grid after building///////////////

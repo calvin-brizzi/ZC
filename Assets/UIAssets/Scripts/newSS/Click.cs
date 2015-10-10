@@ -119,7 +119,7 @@ public class Click : MonoBehaviour {
 			Debug.DrawRay (ray.origin,ray.direction*100,Color.yellow);
 			if(Physics.Raycast (ray,out hit,1700)){
 				//print("AHH");
-				if(hit.transform.tag == "Axeman" || hit.transform.tag == "Archer"){
+				if(hit.transform.tag == "Unit"){
 ;
 					for(int i = 0;i<grunt.Length;i++){
 						grunt[i].SetActive (false);

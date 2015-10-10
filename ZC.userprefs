@@ -1,13 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UIAssets\Scripts\Selected.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AIScripts\Grid.cs">
     <Files>
-      <File FileName="Assets\AIScripts\Unit.cs" Line="168" Column="58" />
-      <File FileName="Assets\UIAssets\Scripts\Selected.cs" Line="59" Column="17" />
-      <File FileName="Assets\AIScripts\Grid.cs" Line="97" Column="1" />
-      <File FileName="Assets\UIAssets\Scripts\newSS\Click.cs" Line="181" Column="1" />
-      <File FileName="Assets\Scripts\build.cs" Line="8" Column="15" />
-      <File FileName="Assets\UIAssets\Scripts\Resize.cs" Line="18" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\FogOfWar.cs" Line="24" Column="79" />
+      <File FileName="Assets\AIScripts\Unit.cs" Line="670" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\Selected.cs" Line="59" Column="16" />
+      <File FileName="Assets\AIScripts\Grid.cs" Line="1" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\newSS\Click.cs" Line="122" Column="35" />
+      <File FileName="Assets\Scripts\build.cs" Line="18" Column="14" />
+      <File FileName="Assets\UIAssets\Scripts\Resize.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="24" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

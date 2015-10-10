@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		p = this.GetComponent<AICamera> ().team;
 		lavaUI.GetComponent<Text> ().text = lava[p-1]+"";
 		humansUI.GetComponent<Text> ().text = humans[p-1]+"";
 		houseUI.GetComponent<Text> ().text = housing[p-1]+"";
