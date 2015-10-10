@@ -4,6 +4,7 @@ using System.Collections;
 public class FogOfWar : MonoBehaviour {
 	int team;
 	public GameObject daddy;
+	public GameObject[] children;
 	string test;
 	// Use this for initialization
 	void Start () {
@@ -20,7 +21,7 @@ public class FogOfWar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 5f);
+		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 15f);
 		int i = 0;
 		int count = 0;
 		int check;
@@ -48,11 +49,15 @@ public class FogOfWar : MonoBehaviour {
 		}
 		//print ("IN RANGE "+count+" "+test);
 		if (count > 0) {
+			for(int h =0;h<children.Length;h++){
+				children[h].gameObject.layer = LayerMask.NameToLayer("P3");
+			}
 
-			this.gameObject.layer = LayerMask.NameToLayer("P3");
 		} else {
 			//print ("REVERT");
-			this.gameObject.layer = LayerMask.NameToLayer(test);
+			for(int h =0;h<children.Length;h++){
+				children[h].gameObject.layer = LayerMask.NameToLayer(test);
+			}
 		}
 
 	}
