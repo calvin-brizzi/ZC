@@ -4,7 +4,7 @@ using System.Collections;
 //Stores a list of all selected objects
 public class UnitMonitor : MonoBehaviour {
 	public static ArrayList selectedUnits = new ArrayList();
-	static int MAX_UNITS_SELECTED = 25; 
+	static int MAX_UNITS_SELECTED = 20; 
 	public static int unitCount;
 	//Removes unit from selection
 	public static void RemoveUnit(GameObject unit){
@@ -38,7 +38,7 @@ public class UnitMonitor : MonoBehaviour {
 			GameObject unitInArrayList = selectedUnits [i] as GameObject;
 			Vector3[] path = unitInArrayList.GetComponent<Unit> ().path;
 			if(path!=null){
-				unitInArrayList.GetComponent<Unit> ().path[path.Length-1]= path[path.Length-1]+new Vector3(2*unitCount,0,2*unitCount);
+				unitInArrayList.GetComponent<Unit> ().path[path.Length-1]= path[path.Length-1]+new Vector3(0.2f*unitCount,0,0.2f*unitCount);
 			}
 		}
 	}

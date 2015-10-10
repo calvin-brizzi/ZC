@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour
 	// All out public resources
 	public int health;
 	public int speed;
-	public int attackRange;
+	public float attackRange;
 	public int team;
 
 	public GameObject marker;
@@ -111,6 +111,8 @@ public class Unit : MonoBehaviour
 	{
 		//StoppingDistance = 10;
 		//Sets the damge values depending on the class
+		transform.FindChild("Health Bar").gameObject.renderer.enabled=false;
+		transform.FindChild("Health Bar").transform.FindChild("Bar").gameObject.renderer.enabled=false;
 		if (unitClass == Type.Grunt) {
 			damage = 1;
 		} else if (unitClass == Type.Warrior) {
@@ -204,7 +206,7 @@ public class Unit : MonoBehaviour
 				}
 			}
 			//If target is out of range or dead remove it as target
-			if (target != null && !instructedAttack && Vector3.Distance (target.transform.position, transform.position) >= ((float)attackRange + 4) || targetHealth <= 0) {
+			if (target != null && !instructedAttack && Vector3.Distance (target.transform.position, transform.position) >= ((float)attackRange) || targetHealth <= 0) {
 				target = null;
 				attacking = false;
 				if (state != State.Moving) {
@@ -251,12 +253,20 @@ public class Unit : MonoBehaviour
 					glow = (GameObject)GameObject.Instantiate (glowSelection);
 					glow.transform.parent = transform;
 					glow.transform.localPosition = new Vector3 (0, 0, 0);
+					if(transform.FindChild("Health Bar")){
+						transform.FindChild("Health Bar").gameObject.renderer.enabled=true;
+						transform.FindChild("Health Bar").transform.FindChild("Bar").gameObject.renderer.enabled=true;
+					}
 				}
 
 				//If unselected remove it
 				else if (renderer.isVisible && !wasSelected && glow != null) {
 					GameObject.Destroy (glow);
 					glow = null;
+					if(transform.FindChild("Health Bar")){
+						transform.FindChild("Health Bar").gameObject.renderer.enabled=false;
+						transform.FindChild("Health Bar").transform.FindChild("Bar").gameObject.renderer.enabled=false;
+					}
 				}
 			}
 			//Makes the units setup a patrol point and patrol between two points
@@ -393,7 +403,9 @@ public class Unit : MonoBehaviour
 		//Deals with collisdion between units on the same team
 		if (!TargetReached && col.gameObject.GetComponent<Unit> () != null) {
 			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && (col.gameObject.GetComponent<Unit> ().state == State.Idle && state == State.Moving)) {
-				TargetReached = true;
+				if(Vector3.Distance(col.gameObject.GetComponent<Unit> ().path[path.Length-1],path[path.Length-1])==0){
+					TargetReached = true;
+				}
 			}
 		}
 	}
@@ -409,9 +421,9 @@ public class Unit : MonoBehaviour
 		int returnAmount = 0;
 		if (!attacking && state != State.Moving && state != State.Attacking) {
 			int count = 0;
-			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange + 4); 
+			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange,layerMask); 
 			// Returns an array of all enemies in attackrange+4 area
-
+			//print ("Here");
 			for (var i =0; i< nearbyEnemy.Length; i++) {
 				Unit unit;
 				unit = nearbyEnemy [i].GetComponent<Unit> () as Unit;
@@ -576,7 +588,7 @@ public class Unit : MonoBehaviour
 			}
 			state = State.Moving;
 			//Play moving animation
-			path = SmoothPath (path);
+			//path = SmoothPath (path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
 			while (true && !TargetReached) {
@@ -597,8 +609,7 @@ public class Unit : MonoBehaviour
 				transform.LookAt (waypoint);
 				yield return null;
 				//print (attacking );
-				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange + 4) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange + 30))) && ! notOverrideable) {
-					print ("Here");
+				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange))) && ! notOverrideable) {
 					attacking = false;
 					state = State.Attacking;
 					if (targetType != TargetType.Building) {
@@ -621,7 +632,7 @@ public class Unit : MonoBehaviour
 						AddResources ();
 						state = State.Idle;
 						collectedAmount = 0;
-					} else if (target != null && attacking && Vector3.Distance (transform.position, target.transform.position) <= attackRange + 30 && ! notOverrideable) {
+					} else if (target != null && attacking && Vector3.Distance (transform.position, target.transform.position) <= attackRange && ! notOverrideable) {
 						Attack (target);
 					} else {
 						state = State.Idle;

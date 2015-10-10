@@ -5,15 +5,15 @@ using System.Collections.Generic;
 public class Grid : MonoBehaviour {
     public Vector2 gridSize;
     public LayerMask obstacle;
-    int nodeDiameter;
+    float nodeDiameter;
    	int gridSizeX;
     int gridSizeY;
-	int nodeRadius;
+	float nodeRadius;
 	Node[,] grid;
 
     void Awake()
     {
-		nodeRadius = 1;
+		nodeRadius = 0.5f;
         nodeDiameter = nodeRadius*2;
         gridSizeX = Mathf.RoundToInt(gridSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridSize.y / nodeDiameter);
