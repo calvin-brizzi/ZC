@@ -47,7 +47,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 129.800003, y: 1.10000002, z: 129.600006}
+  m_LocalPosition: {x: 13.0698547, y: .101329848, z: 4.65170288}
   m_LocalScale: {x: 2.8798151, y: .102659687, z: 2.42867136}
   m_Children:
   - {fileID: 431708}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildings:
   - {fileID: 169568, guid: 364588b2713cb3c40819c7efe6ffb35d, type: 2}
-  - {fileID: 128932, guid: 51767dd104e53584880dbf13c87b3174, type: 2}
+  - {fileID: 165678, guid: cf832095ec3ae624983a6d4d395ab1bf, type: 2}
   - {fileID: 176954, guid: 9654ae396aa16d744b12781c3a36425d, type: 2}
 --- !u!212 &21231708
 SpriteRenderer:
