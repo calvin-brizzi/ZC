@@ -1387,6 +1387,7 @@ GameObject:
   - 114: {fileID: 11469446}
   - 54: {fileID: 5469440}
   - 114: {fileID: 11465464}
+  - 148: {fileID: 14830792}
   m_Layer: 10
   m_Name: Brute_one
   m_TagString: Unit
@@ -5049,6 +5050,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -.0624592043, y: -1.69237363, z: -.153827488}
     m_Extent: {x: .00527409092, y: .00510382652, z: .00537213683}
   m_DirtyAABB: 0
+--- !u!148 &14830792
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169622}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 469618}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21231012
 SpriteRenderer:
   m_ObjectHideFlags: 1

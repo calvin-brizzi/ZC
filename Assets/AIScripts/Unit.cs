@@ -175,25 +175,25 @@ public class Unit : MonoBehaviour
 				}
 			}
 
-			if (Input.GetKey (KeyCode.P)) {
+			if (Input.GetKeyDown (KeyCode.P) && !patrolPointSelection) {
 				patrolPointSelection = true;
 				print ("Set patrol points");
 				patroling = false;
 				patrolPointCount = 0;
 			}
-			if (TargetReached && !attacking) {
-				state = State.Idle;
-                nv.RPC("setState", RPCMode.All, (int)State.Idle);
-			}
 
-			if (attacking && target != null) {
+			if (TargetReached && !attacking && state!=State.Idle) {
+				state = State.Idle;
+				nv.RPC("setState", RPCMode.All, (int)State.Idle);
+			}
+			if (state!=State.Idle && attacking && target != null) {
 				transform.LookAt (target.transform);//Makes unit look at current attack target
 
 			}
 
 			if (health <= 0) {//Checks to see if target is dead
 				state = State.Dead;
-                nv.RPC("setState", RPCMode.All, (int)State.Idle);
+                nv.RPC("setState", RPCMode.All, (int)State.Dead);
 				audio.PlayOneShot (death);
 			}
 
@@ -210,7 +210,7 @@ public class Unit : MonoBehaviour
 				}
 			}
 			//If target is out of range or dead remove it as target
-			if (target != null && !instructedAttack && Vector3.Distance (target.transform.position, transform.position) >= ((float)attackRange) || targetHealth <= 0) {
+			if (state!=State.Idle && target != null && !instructedAttack && Vector3.Distance (target.transform.position, transform.position) >= ((float)attackRange) || targetHealth <= 0) {
 				target = null;
 				attacking = false;
 				if (state != State.Moving) {
@@ -234,7 +234,7 @@ public class Unit : MonoBehaviour
 				collectedAmount = currentLoad;
 			}
 
-			if (Input.GetMouseButton (0)) { //&& !EventSystem.current.IsPointerOverGameObject ()) {
+			if (Input.GetMouseButton (0)&& !EventSystem.current.IsPointerOverGameObject ()) {
 				// Helps the selection of troops either multiple or single troop selection
 				if (!clicked) {
 					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
@@ -281,8 +281,11 @@ public class Unit : MonoBehaviour
 				if (Physics.Raycast (ray, out hit)) {
 					mouseClick = hit.point;
 					if (patrolPointCount == 0) {
+						patrolPointCount = 0;
 						patrolPoint1 = mouseClick;
 						audio.PlayOneShot (moveConfirmation);
+						MoveUnit (transform.position, patrolPoint1);
+						patrolPointCount++;
 					} else if (patrolPointCount == 1) {
 						patrolPoint2 = mouseClick;
 						patrolPointSelection = false;
@@ -290,12 +293,12 @@ public class Unit : MonoBehaviour
 						patrolPointCount = 0;
 						audio.PlayOneShot (moveConfirmation);
 					}
-					patrolPointCount++;
-					if (patroling) {
-						MoveUnit (transform.position, patrolPoint1);
+
+					if (patroling && !patrolPointSelection) {
+						Patrol(patrolPoint1,patrolPoint2);
 					}
 				}
-			} else if (Input.GetMouseButtonDown (1) && wasSelected) { 
+			} else if (Input.GetMouseButtonDown (1) && wasSelected && !patrolPointSelection) { 
 				// Detects a players right click  and moves the selected troops top that position
 				path = null;
 				//Stops the players movement
@@ -407,7 +410,7 @@ public class Unit : MonoBehaviour
 	void OnCollisionStay (Collision col)
 	{
 		//Deals with collisdion between units on the same team
-		if (!TargetReached && col.gameObject.GetComponent<Unit> () != null) {
+		if (!TargetReached && col.gameObject.GetComponent<Unit> () != null &&!patroling) {
 			if (col.gameObject.GetComponent<Unit> ().TargetReached == true && (col.gameObject.GetComponent<Unit> ().state == State.Idle && state == State.Moving)) {
 				if(Vector3.Distance(col.gameObject.GetComponent<Unit> ().path[path.Length-1],path[path.Length-1])==0){
 					TargetReached = true;
@@ -425,10 +428,10 @@ public class Unit : MonoBehaviour
 	{
 		//Perimeter check to see if enemies are close by and if so start attacking them
 		int returnAmount = 0;
-		if (!attacking && state != State.Moving && state != State.Attacking) {
+		if (!attacking && state != State.Moving && state != State.Gathering) {
 			int count = 0;
 			Collider[] nearbyEnemy = Physics.OverlapSphere (transform.position, attackRange,layerMask); 
-			// Returns an array of all enemies in attackrange+4 area
+			// Returns an array of all enemies in attackrange area
 			//print ("Here");
 			for (var i =0; i< nearbyEnemy.Length; i++) {
 				Unit unit;
@@ -452,7 +455,6 @@ public class Unit : MonoBehaviour
 			anim.Play (runStateHash);
 		} else if (state == State.Attacking) {
 			anim.Play (attackStateHash);
-
 			if (target != null) {
 				DoDamage ();
 			}
@@ -464,14 +466,12 @@ public class Unit : MonoBehaviour
 			if(deathcount == 0){
 				anim.Play (deathStateHash);
 				StopCoroutine ("FollowPath");
-			RemoveUnit();
+				RemoveUnit();
 			} 
 			deathcount++;
 			if (deathcount  > 160){
 				RemoveUnit();
 			}
-		} else if (state == State.Building) {
-			//Call build here
 		}
 	}
 
@@ -506,7 +506,6 @@ public class Unit : MonoBehaviour
 			clicked = true;
 			wasSelected = true;
 			audio.PlayOneShot (selectionConfirmation);
-			print ("Here");
 		}
 	}
 
@@ -619,7 +618,7 @@ public class Unit : MonoBehaviour
 				transform.LookAt (waypoint);
 				yield return null;
 				//print (attacking );
-				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange))) && ! notOverrideable) {
+				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange+2))) && ! notOverrideable) {
 					attacking = false;
 					state = State.Attacking;
                     nv.RPC("setState", RPCMode.All, (int)State.Attacking);
@@ -631,10 +630,14 @@ public class Unit : MonoBehaviour
 
 				if (Vector3.Distance(transform.position,path [path.Length - 1])<StoppingDistance) {
 					notOverrideable = false;
-					TargetReached = true;
+					if(!patroling){
+						TargetReached = true;
+					}
 					if (gathering) { //So that the gathering movement happens automatically
 						Gather ();
-					}else if(patroling){
+					}
+
+					else if(patroling){
 						Patrol(patrolPoint1,patrolPoint2);
 						print ("Changepoint");
 					} else if (depositing) { // This is for when a grunt is carrying good and the player deposits it manuallly

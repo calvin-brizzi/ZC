@@ -2259,6 +2259,7 @@ GameObject:
   - 114: {fileID: 11434514}
   - 54: {fileID: 5434502}
   - 114: {fileID: 11422092}
+  - 148: {fileID: 14891310}
   m_Layer: 10
   m_Name: Grunt_two
   m_TagString: Grunt
@@ -5049,6 +5050,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -.35842064, y: -.0115280673, z: -.000231388956}
     m_Extent: {x: .103508025, y: .0855199173, z: .067646265}
   m_DirtyAABB: 0
+--- !u!148 &14891310
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134804}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 434796}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21207812
 SpriteRenderer:
   m_ObjectHideFlags: 1
