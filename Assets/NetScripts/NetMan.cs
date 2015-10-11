@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(NetworkView))]
 
@@ -18,27 +19,72 @@ public class NetMan : MonoBehaviour {
 
 	private NetworkView nv;
 
+    public Canvas joinMenu;
+    public Canvas serverMenu;
+    public Button join;
+    public Button server;
+    public Button exit;
+    public Text ip;
+    public InputField serverIP;
+
+ 
+
 	private void Start() {		
 		players = new Dictionary<string, NetworkPlayer>(NumberOfPlayers);
 		nv = GetComponent<NetworkView>();
 		nv.stateSynchronization = NetworkStateSynchronization.Off;
+        joinMenu = joinMenu.GetComponent<Canvas>();
+        serverMenu = serverMenu.GetComponent<Canvas>();
+        serverIP = serverIP.GetComponent<InputField>();
+
+        join = join.GetComponent<Button>();
+        server = server.GetComponent<Button>();
+
+        joinMenu.enabled = false;
+        serverMenu.enabled = false;
+        ip = ip.GetComponent<Text>();
 	}
+
+    public void serverPressed()
+    {
+        serverMenu.enabled = true;
+        join.enabled = false;
+        server.enabled = false;
+        StartServer();
+        ip.text = ip.text + "\n" + Network.player.ipAddress;
+    }
+
+    public void joinPressed()
+    {
+        joinMenu.enabled = true;
+        join.enabled = false;
+        server.enabled = false;
+    }
+
+    public void ipEntered() {
+        string sip = serverIP.text;
+        Debug.Log(sip);
+        Network.Connect(sip, 25000);
+    }
+
+    public void exitGame() {
+        Application.Quit();
+    }
 
 	private void StartServer()
 	{
 		Network.InitializeServer(2, 25000, !Network.HavePublicAddress());
+        VarMan.Instance.pNum = 1;
 		players.Add (Network.player.ToString(), Network.player);
-
-		//MasterServer.ipAddress = "127.0.0.1";
-		//MasterServer.RegisterHost(typeName, gameName);
 	}
 
 	void OnServerInitialized()
 	{
 		Debug.Log("Server Initializied");
+        //VarMan.Instance.pNum = 1;
 	}
 
-	void OnGUI()
+	void OnGUII()
 	{
 		if (!Network.isClient && !Network.isServer)
 		{
@@ -47,7 +93,7 @@ public class NetMan : MonoBehaviour {
 			if (GUI.Button(new Rect(100, 250, 250, 100), Network.player.ipAddress))
 				Debug.Log("yay");
 			if (GUI.Button(new Rect(400, 100, 300, 100), "Connect to server")){
-				Network.Connect("127.0.0.1",25000);
+				Network.Connect("10.0.0.9",25000);
 				if(OnConnectedToGame != null) {
 					OnConnectedToGame();
 				}
@@ -76,6 +122,7 @@ public class NetMan : MonoBehaviour {
 	void OnConnectedToServer()
 	{
 		Debug.Log("Server Joined");
+        VarMan.Instance.pNum = 2;
 	}
 
 	[RPC]
@@ -86,6 +133,7 @@ public class NetMan : MonoBehaviour {
 	
 	[RPC]
 	public void StartGame() {
+        Application.LoadLevel(1);
 		//send the start of game event
 		if(OnGameStart!=null) {
 			OnGameStart();

@@ -106,6 +106,7 @@ public class Unit : MonoBehaviour
 	int layerMask;
 	public float StoppingDistance;
 	Vector3 direction;
+    NetworkView nv;
 
 	void Awake ()
 	{
@@ -153,6 +154,7 @@ public class Unit : MonoBehaviour
 		layerMask = 1 << 10;
 		damageDelay = 1f;
 		damageWait = 0;
+        nv = this.transform.GetComponent<NetworkView>();
 
 	}
 
@@ -181,6 +183,7 @@ public class Unit : MonoBehaviour
 			}
 			if (TargetReached && !attacking) {
 				state = State.Idle;
+                nv.RPC("setState", RPCMode.All, (int)State.Idle);
 			}
 
 			if (attacking && target != null) {
@@ -190,6 +193,7 @@ public class Unit : MonoBehaviour
 
 			if (health <= 0) {//Checks to see if target is dead
 				state = State.Dead;
+                nv.RPC("setState", RPCMode.All, (int)State.Idle);
 				audio.PlayOneShot (death);
 			}
 
@@ -211,6 +215,7 @@ public class Unit : MonoBehaviour
 				attacking = false;
 				if (state != State.Moving) {
 					state = State.Idle;
+                    nv.RPC("setState", RPCMode.All, (int)State.Idle);
 				}
 			}
 
@@ -365,6 +370,7 @@ public class Unit : MonoBehaviour
 					} else if (hit.collider.gameObject.tag == "Resource" || (hit.collider.gameObject.tag == "Home Base" && !unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team)) {
 						//If not grunt just stop moving
 						state = State.Idle;
+                        nv.RPC("setState", RPCMode.All, (int)State.Idle);
 					} else if (hit.collider.gameObject.tag == "Home Base" && unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team) {
 						//Return to homebase and deposit goods
 						var returnPoint = hit.transform.Find ("ReturnPoint");
@@ -458,6 +464,7 @@ public class Unit : MonoBehaviour
 			if(deathcount == 0){
 				anim.Play (deathStateHash);
 				StopCoroutine ("FollowPath");
+			RemoveUnit();
 			} 
 			deathcount++;
 			if (deathcount  > 160){
@@ -546,6 +553,7 @@ public class Unit : MonoBehaviour
 		this.target = targetObj;
 		targetType = TargetType.Unit;
 		state = State.Attacking;
+        nv.RPC("setState", RPCMode.All, (int)State.Attacking);
 		attacking = true;
 		transform.LookAt (target.transform);
 	}
@@ -575,7 +583,8 @@ public class Unit : MonoBehaviour
 			path = newPath;
 			StopCoroutine ("FollowPath");
 			collectGoods = true;
-			state = State.Gathering;
+            state = State.Gathering;
+            nv.RPC("setState", RPCMode.All, (int)State.Gathering);
 		}
 	}
 
@@ -586,7 +595,8 @@ public class Unit : MonoBehaviour
 			if (!attacking && !gathering && !returning) {
 				//UnitMonitor.CreateWaypointGrid ();
 			}
-			state = State.Moving;
+            state = State.Moving;
+            nv.RPC("setState", RPCMode.All, (int)State.Moving);
 			//Play moving animation
 			//path = SmoothPath (path);
 			int targetPosition = 0;
@@ -612,6 +622,7 @@ public class Unit : MonoBehaviour
 				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange))) && ! notOverrideable) {
 					attacking = false;
 					state = State.Attacking;
+                    nv.RPC("setState", RPCMode.All, (int)State.Attacking);
 					if (targetType != TargetType.Building) {
 						instructedAttack = false;//So when opponent moves unit does keep attacking
 					}
@@ -630,12 +641,14 @@ public class Unit : MonoBehaviour
 						depositing = false;
 						//Add the collectedAmount to the total resources
 						AddResources ();
-						state = State.Idle;
+                        state = State.Idle;
+                        nv.RPC("setState", RPCMode.All, (int)State.Idle);
 						collectedAmount = 0;
 					} else if (target != null && attacking && Vector3.Distance (transform.position, target.transform.position) <= attackRange && ! notOverrideable) {
 						Attack (target);
 					} else {
 						state = State.Idle;
+                        nv.RPC("setState", RPCMode.All, (int)State.Idle);
 
 					}
 				}
@@ -666,4 +679,8 @@ public class Unit : MonoBehaviour
 
 	// TODO CALVIN
 	// Add RPC to set state and take damage
+    [RPC]
+    void setState(int i) {
+        state = (State) i;
+    }
 }

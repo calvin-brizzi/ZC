@@ -6,6 +6,7 @@ public class Spawn : MonoBehaviour {
 	public GameObject brute;
 	public GameObject grunt;
 	public GameObject archer;
+	public GameObject spawner;
 	List<int> queue = new List<int>();
 	float start = -1;
 	float spawnTime;
@@ -14,8 +15,8 @@ public class Spawn : MonoBehaviour {
 	int p;
 	// Use this for initialization
 	void Start () {
-		spawnpoint = this.transform.position;
-		spawnpoint.z = spawnpoint.z - 50;
+		spawnpoint = spawner.transform.position;
+		//spawnpoint.z = spawnpoint.z - 50;
 		p = this.GetComponent<DestructableBuilding> ().team;
 	}
 
