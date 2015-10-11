@@ -5,6 +5,7 @@ public class build : MonoBehaviour {
 	public int percentage =2000;
 	public GameObject prefab;
 	public GameObject daddy;
+	public GameObject secondary;
 	public int t;
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,9 @@ public class build : MonoBehaviour {
 			print (gameObject.transform.position);
 			Destroy (daddy.gameObject);
 			print ("runs");
+			if(secondary){
+				Destroy (secondary.gameObject);
+			}
 			GameObject a=GameObject.FindGameObjectWithTag("A*");
 			a.GetComponent<Grid>().ReCreateGrid();
 		}
