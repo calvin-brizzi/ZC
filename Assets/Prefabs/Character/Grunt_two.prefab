@@ -4472,7 +4472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   speed: 6
-  attackRange: 1.29999995
+  attackRange: 2
   team: 2
   marker: {fileID: 100134, guid: e321877caba812c42a628ac3a1e1edf6, type: 2}
   TargetReached: 0
