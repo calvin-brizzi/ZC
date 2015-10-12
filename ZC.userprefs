@@ -1,24 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UIAssets\Scripts\Selected.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\build.cs">
     <Files>
-      <File FileName="Assets\UIAssets\Scripts\BuildingFog.cs" Line="1" Column="1" />
-      <File FileName="Assets\AIScripts\Unit.cs" Line="1" Column="1" />
-      <File FileName="Assets\UIAssets\Scripts\TowerShoot.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\build.cs" Line="1" Column="1" />
-      <File FileName="Assets\UIAssets\Scripts\FogOfWar.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\build.cs" Line="12" Column="50" />
       <File FileName="Assets\UIAssets\Scripts\Selected.cs" Line="1" Column="1" />
-      <File FileName="Assets\AIScripts\Grid.cs" Line="1" Column="1" />
-      <File FileName="Assets\UIAssets\Scripts\newSS\Click.cs" Line="7" Column="16" />
-      <File FileName="Assets\UIAssets\Scripts\Resize.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
-      <File FileName="Assets\AIScripts\DestructableBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets\AIScripts\AICamera.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\graveDigger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Spawn.cs" Line="1" Column="1" />
-      <File FileName="Assets\NetScripts\NetMan.cs" Line="1" Column="1" />
-      <File FileName="Assets\UIAssets\Scripts\CamerControl.cs" Line="1" Column="1" />
-      <File FileName="Assets\UIAssets\Scripts\TerrainGenerator.cs" Line="9" Column="32" />
+      <File FileName="Assets\AIScripts\Unit.cs" Line="1" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\BuildingFog.cs" Line="1" Column="1" />
+      <File FileName="Assets\UIAssets\Scripts\TowerShoot.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

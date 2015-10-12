@@ -56,7 +56,18 @@ public class Click : MonoBehaviour {
 			builder[i].SetActive (true);
 		}
 	}
-
+	public void tower(){
+		print ("TRYS");
+		int resource = this.GetComponent<Player> ().getLava (p - 1);
+		if (resource > 500) {
+			this.GetComponent<Player>().takeLava(500,p-1);
+			Instantiate (obj, new Vector3 (0, 0, 0), Quaternion.identity);
+			GameObject temp = GameObject.FindGameObjectWithTag ("Build");
+			print (temp.transform.name);
+			temp.transform.SendMessage ("set", 3, SendMessageOptions.DontRequireReceiver);
+		}
+		
+	}
 	public void loveHotel(){
 		print ("TRYS");
 		int resource = this.GetComponent<Player> ().getLava (p - 1);

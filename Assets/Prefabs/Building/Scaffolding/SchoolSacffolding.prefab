@@ -46,7 +46,7 @@ GameObject:
   - 33: {fileID: 3376954}
   - 65: {fileID: 6576954}
   - 23: {fileID: 2376954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Scafold
   m_Icon: {fileID: 0}
@@ -226,6 +226,7 @@ MonoBehaviour:
   percentage: 0
   prefab: {fileID: 123170, guid: 748e194667b37eb4f9248237ade52d1a, type: 2}
   daddy: {fileID: 176954}
+  secondary: {fileID: 0}
   t: 0
 --- !u!1001 &100100000
 Prefab:

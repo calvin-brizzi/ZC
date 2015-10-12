@@ -9,7 +9,7 @@ public class build : MonoBehaviour {
 	public int t;
 	// Use this for initialization
 	void Start () {
-	
+		t = Camera.main.GetComponent<AICamera> ().team;
 	}
 	
 	// Update is called once per frame

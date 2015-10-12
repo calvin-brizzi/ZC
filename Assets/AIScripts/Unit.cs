@@ -167,10 +167,13 @@ public class Unit : MonoBehaviour
 
 				if (currentConstruction) {
 					Vector3 dist = this.transform.position - currentConstruction.transform.position;
-					print (dist.magnitude);
+					//print (dist.magnitude);
 					if (dist.magnitude < 2) {
 						currentConstruction.GetComponent<build> ().percentage += 1;
 						currentConstruction.GetComponent<build> ().t = team;
+					}else{
+						//print ("GO");
+						MoveUnit (transform.position, currentConstruction.transform.position);
 					}
 				}
 			}
@@ -342,9 +345,10 @@ public class Unit : MonoBehaviour
 					//If resource and grunt start gathering
 
 					if (hit.collider.gameObject.tag == "Scafold" && unitClass.Equals (Type.Grunt)) {
-
+						//print ("GO BUILD");
 						var buildPoint = hit.transform.FindChild ("BuildPoint");
 						if (buildPoint) {
+							//print ("SCAFFOLD SET");
 							building = true;
 							print (buildPoint.localPosition);
 							MoveUnit (transform.position, buildPoint.position);

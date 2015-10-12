@@ -47,7 +47,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.0698547, y: .101329848, z: 4.65170288}
+  m_LocalPosition: {x: -12.6098022, y: .101329848, z: -21.0281067}
   m_LocalScale: {x: 2.8798151, y: .102659687, z: 2.42867136}
   m_Children:
   - {fileID: 431708}
@@ -129,8 +129,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .650979578, y: -2.20793152, z: .343452334}
-  m_Center: {x: .174510568, y: 1.59536314, z: -.328273654}
+  m_Size: {x: .972040772, y: -2.20793128, z: .138391018}
+  m_Center: {x: .0139788482, y: 1.5953629, z: -.430802613}
 --- !u!65 &6500242
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -141,8 +141,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .659421384, y: -2.19363403, z: .386733651}
-  m_Center: {x: .170288622, y: 1.70178556, z: .3066324}
+  m_Size: {x: .954280198, y: -2.19363379, z: .130927473}
+  m_Center: {x: .0228591859, y: 1.70178556, z: .434536546}
 --- !u!65 &6500244
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -153,8 +153,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .388698697, y: 2.18927002, z: 1}
-  m_Center: {x: -.30723381, y: 1.61297178, z: 0}
+  m_Size: {x: .0991979316, y: 2.18927002, z: 1}
+  m_Center: {x: -.451983869, y: 1.61297166, z: 0}
 --- !u!65 &6500246
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -165,8 +165,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .33571282, y: -2.20598984, z: 1}
-  m_Center: {x: .341910601, y: 1.61166525, z: 0}
+  m_Size: {x: .145999983, y: -2.2059896, z: 1}
+  m_Center: {x: .436767161, y: 1.61166513, z: 0}
 --- !u!114 &11400238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,6 +182,7 @@ MonoBehaviour:
   - {fileID: 169568, guid: 364588b2713cb3c40819c7efe6ffb35d, type: 2}
   - {fileID: 165678, guid: cf832095ec3ae624983a6d4d395ab1bf, type: 2}
   - {fileID: 176954, guid: 9654ae396aa16d744b12781c3a36425d, type: 2}
+  - {fileID: 183922, guid: c3fc4d7111ffcfc40baa914822aa24ba, type: 2}
 --- !u!212 &21231708
 SpriteRenderer:
   m_ObjectHideFlags: 1
