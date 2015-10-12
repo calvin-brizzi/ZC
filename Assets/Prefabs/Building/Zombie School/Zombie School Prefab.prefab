@@ -103,8 +103,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123170}
-  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 119.6073, y: .0500000007, z: 132.218475}
+  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: 15.8099976, y: -8, z: -3.36000061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432086}
@@ -231,6 +231,7 @@ MonoBehaviour:
   tex:
   - {fileID: 2800000, guid: 32a8e9605a6100445a9417bcc3b4a98e, type: 3}
   - {fileID: 2800000, guid: 564ee74ae523da843b8a3eaab1fab5e4, type: 3}
+  initial: 0
 --- !u!114 &11417240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,6 +273,7 @@ MonoBehaviour:
   brute: {fileID: 169622, guid: 661597c58462c584098fcda37a2f0e42, type: 2}
   grunt: {fileID: 116254, guid: ea14fedfda5dcfb4a8d63b2965d39664, type: 2}
   archer: {fileID: 124576, guid: b5cf6cfd35a23c642b12e58bdf956b2f, type: 2}
+  spawner: {fileID: 135080}
 --- !u!212 &21232086
 SpriteRenderer:
   m_ObjectHideFlags: 1

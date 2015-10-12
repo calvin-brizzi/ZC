@@ -19,7 +19,6 @@ public class Resize : MonoBehaviour {
 		int width = Screen.width;
 		int height = Screen.height;
 
-		RectTransform temp = HUD.transform.GetComponent<RectTransform>();
 		float x = 0.35f;
 		float y = 0.1f;
 

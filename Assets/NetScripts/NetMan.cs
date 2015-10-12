@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
@@ -74,7 +73,7 @@ public class NetMan : MonoBehaviour {
 	private void StartServer()
 	{
 		Network.InitializeServer(2, 25000, !Network.HavePublicAddress());
-        VarMan.Instance.pNum = 1;
+        VarMan.Instance.pNum = 2;
 		players.Add (Network.player.ToString(), Network.player);
 	}
 
@@ -84,25 +83,7 @@ public class NetMan : MonoBehaviour {
         //VarMan.Instance.pNum = 1;
 	}
 
-	void OnGUII()
-	{
-		if (!Network.isClient && !Network.isServer)
-		{
-			if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
-				StartServer();
-			if (GUI.Button(new Rect(100, 250, 250, 100), Network.player.ipAddress))
-				Debug.Log("yay");
-			if (GUI.Button(new Rect(400, 100, 300, 100), "Connect to server")){
-				Network.Connect("10.0.0.9",25000);
-				if(OnConnectedToGame != null) {
-					OnConnectedToGame();
-				}
-
-			}
-
-		}
-	}
-
+	
 	private void OnPlayerConnected (NetworkPlayer player) {
 		players.Add (player.ToString(), player);
 		Debug.Log ("OnPlayerConnected, playerID:" + player.ToString());
@@ -122,7 +103,7 @@ public class NetMan : MonoBehaviour {
 	void OnConnectedToServer()
 	{
 		Debug.Log("Server Joined");
-        VarMan.Instance.pNum = 2;
+        VarMan.Instance.pNum = 1;
 	}
 
 	[RPC]

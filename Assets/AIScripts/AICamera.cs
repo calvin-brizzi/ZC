@@ -9,12 +9,13 @@ public class AICamera : MonoBehaviour {
 
 
 	void Awake(){
-//		if (team == 1) {
-//			
-//			this.camera.cullingMask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4) | (1 << 8) | (1 << 9) | (1 << 10) | (1 << 11) | (1 << 13);
-//		} else {
-//			this.camera.cullingMask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4) | (1 << 8) | (1 << 9) | (1 << 10) | (1 << 12) | (1 << 13);
-//		}
+        team = VarMan.Instance.pNum;
+		if (team == 1) {
+			
+			this.camera.cullingMask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4) | (1 << 8) | (1 << 9) | (1 << 10) | (1 << 11) | (1 << 13);
+		} else {
+			this.camera.cullingMask = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 4) | (1 << 8) | (1 << 9) | (1 << 10) | (1 << 12) | (1 << 13);
+		}
 	}
 	// Update is called once per frame
 	void Update () {

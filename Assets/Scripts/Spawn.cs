@@ -21,7 +21,7 @@ public class Spawn : MonoBehaviour {
 	}
 
 	public void spawnBrute(){
-		print ("TRYS");
+		print ("Spawning Brute");
 
 		int resource = Camera.main.GetComponent<Player> ().getHumans (p -1);
 		if (resource >= 5) {
@@ -36,7 +36,7 @@ public class Spawn : MonoBehaviour {
 
 	}
 	public void spawnArcher(){
-		print ("TRYS");
+		print ("Spawning Archer");
 
 
 		int resource = Camera.main.GetComponent<Player> ().getHumans (p -1);
@@ -52,7 +52,7 @@ public class Spawn : MonoBehaviour {
 
 	}
 	public void spawnGrunt(){
-		print ("TRYS");
+		print ("Spawning Grunt");
 
 
 		int resource = Camera.main.GetComponent<Player> ().getHumans (p -1);
@@ -74,7 +74,7 @@ public class Spawn : MonoBehaviour {
 			if (current > spawnTime) {
 				int cls = (int)queue[0];
 				queue.RemoveAt(0);
-				if(cls ==0){
+				if(cls == 0){
 					Network.Instantiate (grunt, spawnpoint, Quaternion.identity,0);
 				}else if(cls ==1){
 					Network.Instantiate (brute, spawnpoint, Quaternion.identity,0);

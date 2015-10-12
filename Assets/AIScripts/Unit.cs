@@ -71,7 +71,7 @@ public class Unit : MonoBehaviour
 	int MAX_LOAD;
 	int gatherSpeed;
 	int collectedAmount;
-	float duration;
+	//float duration;
 	int deathcount = 0;
 
 	//To prevent rapidly clicking the same point over and over and therefore causing issues
@@ -93,7 +93,7 @@ public class Unit : MonoBehaviour
 	bool patrolPointSelection;
 	bool patroling;
 	bool instructedAttack = false;
-	int NumberOfEnemies = 0;
+	//int NumberOfEnemies = 0;
 	int patrolPointCount=0;
 	GameObject mainBuilding;
 	Vector3 resourcePoint;
@@ -142,7 +142,7 @@ public class Unit : MonoBehaviour
 
 		//Sets variables 
 		collectedAmount = 0;
-		duration = 0.01f;
+		//duration = 0.01f;
 		MAX_LOAD = 300;
 		currentLoad = 0;
 		gatherSpeed = 1;
@@ -186,8 +186,7 @@ public class Unit : MonoBehaviour
 			}
 
 			if (TargetReached && !attacking && state!=State.Idle) {
-				state = State.Idle;
-				nv.RPC("setState", RPCMode.All, (int)State.Idle);
+				changeState(State.Idle);
 			}
 			if (state!=State.Idle && attacking && target != null) {
 				transform.LookAt (target.transform);//Makes unit look at current attack target
@@ -195,14 +194,13 @@ public class Unit : MonoBehaviour
 			}
 
 			if (health <= 0) {//Checks to see if target is dead
-				state = State.Dead;
-                nv.RPC("setState", RPCMode.All, (int)State.Dead);
+                changeState(State.Dead);
 				audio.PlayOneShot (death);
 			}
 
 			CheckState ();//Checks the state of the target
 			if(state!=State.Attacking){
-				int number = CheckForEnemies ();
+				CheckForEnemies ();
 			}
 			int targetHealth = 0;
 
@@ -219,8 +217,7 @@ public class Unit : MonoBehaviour
 				target = null;
 				attacking = false;
 				if (state != State.Moving) {
-					state = State.Idle;
-                    nv.RPC("setState", RPCMode.All, (int)State.Idle);
+                    changeState(State.Idle);
 				}
 			}
 
@@ -242,12 +239,12 @@ public class Unit : MonoBehaviour
 			if (Input.GetMouseButton (0)&& !EventSystem.current.IsPointerOverGameObject ()) {
 				// Helps the selection of troops either multiple or single troop selection
 				if (!clicked) {
-					Vector3 cameraPosition = Camera.mainCamera.WorldToScreenPoint (transform.position);
+					Vector3 cameraPosition = Camera.main.WorldToScreenPoint (transform.position);
 					cameraPosition.y = Screen.height - cameraPosition.y;
 					selected = AICamera.selectedArea.Contains (cameraPosition);
 					GameObject aiCamera = GameObject.FindGameObjectWithTag ("MainCamera");
 
-					if (renderer.isVisible && selected && !UnitMonitor.selectedUnits.Contains (this.gameObject) && UnitMonitor.LimitNotReached () && this.team == aiCamera.GetComponent<AICamera> ().team) {
+					if (renderer.isVisible && selected && !UnitMonitor.selectedUnits.Contains (this.gameObject) && UnitMonitor.LimitNotReached () && this.team == VarMan.Instance.pNum) {
 						UnitMonitor.AddUnit (this.gameObject);
 						wasSelected = true;
 						audio.PlayOneShot (selectionConfirmation);
@@ -256,7 +253,10 @@ public class Unit : MonoBehaviour
 						UnitMonitor.RemoveUnit (this.gameObject);
 						wasSelected = false;
 						TargetReached = false;
-					}
+                    }
+                    else if (this.team != VarMan.Instance.pNum) {
+                        Debug.Log("Not me!");
+                    }
 				}
 				//Create the particle effect object that shows which object is selected
 				if (wasSelected && glow == null) {
@@ -378,8 +378,7 @@ public class Unit : MonoBehaviour
 						}
 					} else if (hit.collider.gameObject.tag == "Resource" || (hit.collider.gameObject.tag == "Home Base" && !unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team)) {
 						//If not grunt just stop moving
-						state = State.Idle;
-                        nv.RPC("setState", RPCMode.All, (int)State.Idle);
+                        changeState(State.Idle);
 					} else if (hit.collider.gameObject.tag == "Home Base" && unitClass.Equals (Type.Grunt) && hit.collider.gameObject.GetComponent<DestructableBuilding> ().team == this.team) {
 						//Return to homebase and deposit goods
 						var returnPoint = hit.transform.Find ("ReturnPoint");
@@ -560,8 +559,7 @@ public class Unit : MonoBehaviour
 		print ("Attack");
 		this.target = targetObj;
 		targetType = TargetType.Unit;
-		state = State.Attacking;
-        nv.RPC("setState", RPCMode.All, (int)State.Attacking);
+        changeState(State.Attacking);
 		attacking = true;
 		transform.LookAt (target.transform);
 	}
@@ -591,8 +589,7 @@ public class Unit : MonoBehaviour
 			path = newPath;
 			StopCoroutine ("FollowPath");
 			collectGoods = true;
-            state = State.Gathering;
-            nv.RPC("setState", RPCMode.All, (int)State.Gathering);
+            changeState(State.Gathering);
 		}
 	}
 
@@ -603,8 +600,7 @@ public class Unit : MonoBehaviour
 			if (!attacking && !gathering && !returning) {
 				//UnitMonitor.CreateWaypointGrid ();
 			}
-            state = State.Moving;
-            nv.RPC("setState", RPCMode.All, (int)State.Moving);
+            changeState(State.Moving);
 			//Play moving animation
 			path = SmoothPath (path);
 			int targetPosition = 0;
@@ -629,8 +625,7 @@ public class Unit : MonoBehaviour
 //				print (attacking );
 				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange+2))) && ! notOverrideable) {
 					attacking = false;
-					state = State.Attacking;
-                    nv.RPC("setState", RPCMode.All, (int)State.Attacking);
+                    changeState(State.Attacking);
 					if (targetType != TargetType.Building) {
 						instructedAttack = false;//So when opponent moves unit does keep attacking
 					}
@@ -653,14 +648,12 @@ public class Unit : MonoBehaviour
 						depositing = false;
 						//Add the collectedAmount to the total resources
 						AddResources ();
-                        state = State.Idle;
-                        nv.RPC("setState", RPCMode.All, (int)State.Idle);
+                        changeState(State.Idle);
 						collectedAmount = 0;
 					} else if (target != null && attacking && Vector3.Distance (transform.position, target.transform.position) <= attackRange && ! notOverrideable) {
 						Attack (target);
 					} else {
-						state = State.Idle;
-                        nv.RPC("setState", RPCMode.All, (int)State.Idle);
+                        changeState(State.Idle);
 
 					}
 				}
@@ -689,8 +682,14 @@ public class Unit : MonoBehaviour
 		}
 	}
 
-	// TODO CALVIN
-	// Add RPC to set state and take damage
+    void changeState(State s) {
+        state = s;
+        if (nv.isMine) { 
+           nv.RPC("setState", RPCMode.All, (int)s);
+        }
+    }
+
+
     [RPC]
     void setState(int i) {
         state = (State) i;

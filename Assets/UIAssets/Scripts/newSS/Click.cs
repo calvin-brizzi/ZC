@@ -103,27 +103,26 @@ public class Click : MonoBehaviour {
 		}
 		
 	}
-	public void unit(int x){
-		if (x == 0) {
+    //public void unit(int x){
+    //    if (x == 0) {
+    //        Transform point = currentSchool.transform.GetChild(2);
+    //        print ("GRUNT");
+    //    } else if (x == 1) {
+    //        Transform point = currentSchool.transform.GetChild(2);
+    //        print ("GRUNT");
 
-			Transform point = currentSchool.transform.GetChild(2);
-			print ("GRUNT");
-		} else if (x == 1) {
-			Transform point = currentSchool.transform.GetChild(2);
-			print ("GRUNT");
+    //    } else if (x == 2) {
+    //        Transform point = currentSchool.transform.GetChild(2);
+    //        print ("GRUNT");
+    //    }
 
-		} else if (x == 2) {
-			Transform point = currentSchool.transform.GetChild(2);
-			print ("GRUNT");
-		}
-
-	}
+    //}
 
 
 
 	// Update is called once per frame
 	void Update () {
-		Vector3 fwd = transform.TransformDirection (Vector3.forward)*0;
+		//Vector3 fwd = transform.TransformDirection (Vector3.forward)*0;
 		RaycastHit hit;
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
