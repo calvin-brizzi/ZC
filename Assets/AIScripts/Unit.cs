@@ -498,6 +498,9 @@ public class Unit : MonoBehaviour
 
 	void RemoveUnit ()
 	{
+		//GameObject clone = (GameObject) Instantiate(gameObject, transform.position, transform.rotation);
+		//clone.GetComponent<Unit> ().state = State.Dead;
+		//clone.GetComponent<Animator> ().Play (Animator.StringToHash ("Base Layer.Death"));
 		Destroy (this.gameObject);
 	}
 	void OnMouseDown ()
@@ -619,7 +622,7 @@ public class Unit : MonoBehaviour
 				//rigidbody.MovePosition(direction*speed * Time.deltaTime);
 				transform.LookAt (waypoint);
 				yield return null;
-				print (attacking );
+//				print (attacking );
 				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange+2))) && ! notOverrideable) {
 					attacking = false;
 					state = State.Attacking;
