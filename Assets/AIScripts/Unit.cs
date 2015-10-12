@@ -198,7 +198,9 @@ public class Unit : MonoBehaviour
 			}
 
 			CheckState ();//Checks the state of the target
-			int number = CheckForEnemies ();
+			if(state!=State.Attacking){
+				int number = CheckForEnemies ();
+			}
 			int targetHealth = 0;
 
 			//Gets the health of the target
@@ -597,7 +599,7 @@ public class Unit : MonoBehaviour
             state = State.Moving;
             nv.RPC("setState", RPCMode.All, (int)State.Moving);
 			//Play moving animation
-			//path = SmoothPath (path);
+			path = SmoothPath (path);
 			int targetPosition = 0;
 			Vector3 waypoint = path [0];
 			while (true && !TargetReached) {
@@ -617,7 +619,7 @@ public class Unit : MonoBehaviour
 				//rigidbody.MovePosition(direction*speed * Time.deltaTime);
 				transform.LookAt (waypoint);
 				yield return null;
-				//print (attacking );
+				print (attacking );
 				if (target != null && attacking && (Vector3.Distance (target.transform.position, transform.position) <= ((float)attackRange) || (targetType == TargetType.Building && Vector3.Distance (target.transform.Find ("AttackPoint").position, transform.position) <= ((float)attackRange+2))) && ! notOverrideable) {
 					attacking = false;
 					state = State.Attacking;

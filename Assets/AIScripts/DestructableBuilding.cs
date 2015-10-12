@@ -5,10 +5,13 @@ public class DestructableBuilding : MonoBehaviour {
 	public int team;
 	public int health;
 	public Texture[] tex;
+	public bool initial = false;
 	// Update is called once per frame
 	void Start (){
-		Renderer rend = GetComponent<Renderer> ();
-		rend.material.mainTexture = tex [team - 1];
+		if(!initial){
+			Renderer rend = GetComponent<Renderer> ();
+			rend.material.mainTexture = tex [team - 1];
+		}
 	}
 	void Update () {
 		//If health<0 destroy and recreate grid
