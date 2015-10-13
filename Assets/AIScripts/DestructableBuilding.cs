@@ -16,7 +16,8 @@ public class DestructableBuilding : MonoBehaviour {
 	void Update () {
 		//If health<0 destroy and recreate grid
 		if(health<=0){
-			Destroy (this.gameObject);
+			Network.Destroy(this.gameObject);
+			//Destroy (this.gameObject);
 			GameObject a=GameObject.FindGameObjectWithTag("A*");
 			a.GetComponent<Grid>().ReCreateGrid();
 		}
