@@ -30,6 +30,7 @@ GameObject:
   - 114: {fileID: 11458914}
   - 114: {fileID: 11406620}
   - 114: {fileID: 11417240}
+  - 148: {fileID: 14866456}
   m_Layer: 0
   m_Name: Zombie School Prefab
   m_TagString: School
@@ -291,6 +292,20 @@ MonoBehaviour:
   grunt: {fileID: 134804, guid: 829b6a089fd5df043a3c024e80b975b9, type: 2}
   archer: {fileID: 118942, guid: df9d9f6eb4696fb498fb37f2f8b62970, type: 2}
   spawner: {fileID: 135080}
+  lightSpawn: {fileID: 0}
+  light: {fileID: 0}
+--- !u!148 &14866456
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123170}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 423170}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21232086
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -13,6 +13,8 @@ GameObject:
   - 95: {fileID: 9588336}
   - 114: {fileID: 11488336}
   - 114: {fileID: 11450882}
+  - 114: {fileID: 11451188}
+  - 148: {fileID: 14819340}
   m_Layer: 0
   m_Name: Archer TowerPrefab
   m_TagString: Untagged
@@ -88,7 +90,8 @@ MonoBehaviour:
   team: 1
   health: 100
   tex: []
---- !u!114 &11488336
+  initial: 0
+--- !u!114 &11451188
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,11 +99,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 188336}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015551792da671b4eaaff21901cfd326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10000
+  speed: 0
+  attackRange: 8
+  team: 0
+  marker: {fileID: 0}
+  TargetReached: 0
+  textures: []
+  path: []
+  resourceType: 0
+  unitClass: 1
+  targetType: 0
+  state: 0
+  glowSelection: {fileID: 0}
+  selectionConfirmation: {fileID: 0}
+  attackConfirmation: {fileID: 8300000, guid: 1f0e6d5471303644590520489b4373ca, type: 3}
+  moveConfirmation: {fileID: 0}
+  death: {fileID: 0}
+  attackHitSoundBuilding: {fileID: 0}
+  attackHitSoundUnit: {fileID: 0}
+  bowDraw: {fileID: 0}
+  gatherConfirmation: {fileID: 0}
+  StoppingDistance: 0
+--- !u!114 &11488336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188336}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0925c9ebdb9d7b6418b678926fb8cf9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
   currentTarget: {fileID: 0}
+--- !u!148 &14819340
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188336}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 488336}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

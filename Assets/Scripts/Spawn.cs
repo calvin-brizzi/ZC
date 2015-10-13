@@ -8,15 +8,19 @@ public class Spawn : MonoBehaviour {
 	public GameObject grunt;
 	public GameObject archer;
 	public GameObject spawner;
+    public GameObject lightSpawn;
+    public GameObject light;
 	List<int> queue = new List<int>();
 	float start = -1;
 	float spawnTime;
 	Vector3 spawnpoint ;
+    Vector3 lspawn;
 	float delay;
 	int p;
 	// Use this for initialization
 	void Start () {
 		spawnpoint = spawner.transform.position;
+        lspawn = lightSpawn.transform.position;
 		//spawnpoint.z = spawnpoint.z - 50;
 		p = this.GetComponent<DestructableBuilding> ().team;
 		if (p == 1) {
@@ -87,11 +91,18 @@ public class Spawn : MonoBehaviour {
 				int cls = (int)queue[0];
 				queue.RemoveAt(0);
 				if(cls == 0){
-					Network.Instantiate (grunt, spawnpoint, Quaternion.identity,0);
+					GameObject unit = Network.Instantiate (grunt, spawnpoint, Quaternion.identity,0) as GameObject;
+                    GameObject unitLight = Instantiate(light, lspawn, Quaternion.identity) as GameObject;
+                    unitLight.transform.parent = unit.transform;
+
 				}else if(cls ==1){
-					Network.Instantiate (brute, spawnpoint, Quaternion.identity,0);
+                    GameObject unit = Network.Instantiate(brute, spawnpoint, Quaternion.identity, 0) as GameObject;
+                    GameObject unitLight = Instantiate(light, lspawn, Quaternion.identity) as GameObject;
+                    unitLight.transform.parent = unit.transform;
 				}else{
-					Network.Instantiate (archer, spawnpoint, Quaternion.identity,0);
+                    GameObject unit = Network.Instantiate(archer, spawnpoint, Quaternion.identity, 0) as GameObject;
+                    GameObject unitLight = Instantiate(light, lspawn, Quaternion.identity) as GameObject;
+                    unitLight.transform.parent = unit.transform;
 				}
 				if(queue.Count>0){
 					cls = (int)queue[0];

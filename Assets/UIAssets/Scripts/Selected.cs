@@ -58,10 +58,13 @@ public class Selected : MonoBehaviour {
 				Vector3 pos = this.transform.position;
 				pos.y = 1.0f;
 				Network.Instantiate (buildings[current],pos,Quaternion.identity,0);
-				Destroy (this.gameObject);
+
 				////////////Recalls the create grid to make the grid after building///////////////
 				GameObject a=GameObject.FindGameObjectWithTag("A*");
 				a.GetComponent<Grid>().ReCreateGrid();
+
+                Destroy(this.gameObject);
+
 			}else{
 				print (objects.Count);
 			}

@@ -19,6 +19,13 @@ public class build : MonoBehaviour {
 			gm.y = 0.08f;
 			GameObject x = (GameObject)Network.Instantiate (prefab,gm,Quaternion.identity,0);
 			x.GetComponent<DestructableBuilding>().team = t;
+            try
+            {
+                x.transform.GetComponent<Unit>().team = VarMan.Instance.pNum;
+            }
+            catch {
+                Debug.Log("Not a tower");
+            }
 			print (gameObject.transform.position);
 			Destroy (daddy.gameObject);
 			print ("runs");

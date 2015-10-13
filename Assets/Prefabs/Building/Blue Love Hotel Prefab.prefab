@@ -64,6 +64,7 @@ GameObject:
   - 114: {fileID: 11472984}
   - 114: {fileID: 11472982}
   - 114: {fileID: 11472986}
+  - 148: {fileID: 14852706}
   m_Layer: 0
   m_Name: Blue Love Hotel Prefab
   m_TagString: Home Base
@@ -283,6 +284,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   daddy: {fileID: 172984}
+--- !u!148 &14852706
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172984}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 472984}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21272986
 SpriteRenderer:
   m_ObjectHideFlags: 1

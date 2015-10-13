@@ -45,6 +45,7 @@ GameObject:
   - 114: {fileID: 11426278}
   - 114: {fileID: 11406638}
   - 114: {fileID: 11414054}
+  - 148: {fileID: 14870288}
   m_Layer: 0
   m_Name: Love Hotel Prefab
   m_TagString: Home Base
@@ -270,6 +271,18 @@ MonoBehaviour:
   tex:
   - {fileID: 21300000, guid: 2524e30f29cb9c34fb6d1b0a9dfd6ec1, type: 3}
   - {fileID: 21300000, guid: 9a2078d3a4650c441bbf309ebecac66f, type: 3}
+--- !u!148 &14870288
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181998}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 481998}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21294508
 SpriteRenderer:
   m_ObjectHideFlags: 1
