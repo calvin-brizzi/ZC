@@ -10,6 +10,7 @@ public class Click : MonoBehaviour {
 	public GameObject obj;
 	GameObject currentSchool;
 	int p = 0;
+
 	// Use this for initialization
 	void Start () {
 		p = this.GetComponent<AICamera> ().team;
@@ -129,7 +130,8 @@ public class Click : MonoBehaviour {
 			Debug.DrawRay (ray.origin,ray.direction*100,Color.yellow);
 			if(Physics.Raycast (ray,out hit,1700)){
 				//print("AHH");
-				if(hit.transform.tag == "Unit"){
+
+				if(hit.transform.tag == "Unit"&&hit.transform.GetComponent<Unit>().team==p){
 ;
 					for(int i = 0;i<grunt.Length;i++){
 						grunt[i].SetActive (false);
@@ -146,7 +148,7 @@ public class Click : MonoBehaviour {
 					}
 
 				}
-				if(hit.transform.tag == "School"){
+				if(hit.transform.tag == "School"&&hit.transform.GetComponent<DestructableBuilding>().team==p){
 					currentSchool = hit.transform.gameObject;
 					//print ("CURRENT SCHOOL");
 					for(int i = 0;i<units.Length;i++){
@@ -163,7 +165,7 @@ public class Click : MonoBehaviour {
 					}
 
 				}
-				if(hit.transform.tag == "Grunt"){
+				if(hit.transform.tag == "Grunt"&&hit.transform.GetComponent<Unit>().team==p){
 					//print ("THIS WORKS THO");
 					for(int i = 0;i<units.Length;i++){
 						units[i].SetActive (false);

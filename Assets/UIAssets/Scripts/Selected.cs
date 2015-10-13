@@ -57,7 +57,7 @@ public class Selected : MonoBehaviour {
 				sel = false;
 				Vector3 pos = this.transform.position;
 				pos.y = 1.0f;
-				Instantiate (buildings[current],pos,Quaternion.identity);
+				Network.Instantiate (buildings[current],pos,Quaternion.identity,0);
 				Destroy (this.gameObject);
 				////////////Recalls the create grid to make the grid after building///////////////
 				GameObject a=GameObject.FindGameObjectWithTag("A*");

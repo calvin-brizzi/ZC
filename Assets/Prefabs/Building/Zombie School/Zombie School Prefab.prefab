@@ -47,6 +47,7 @@ GameObject:
   - 4: {fileID: 432086}
   - 212: {fileID: 21232086}
   - 114: {fileID: 11432086}
+  - 114: {fileID: 11401156}
   m_Layer: 5
   m_Name: Blue
   m_TagString: Untagged
@@ -103,8 +104,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123170}
-  m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 15.8099976, y: -8, z: -3.36000061}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: -95, y: 0, z: -143.800003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432086}
@@ -132,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 135080}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: -1.73099995, y: .180000007, z: .0199999996}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: .0614181794, y: .0755575225, z: .0374906994}
   m_Children: []
   m_Father: {fileID: 423170}
@@ -215,6 +216,18 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11401156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5217180732aa57648a35eab09876c3b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  daddy: {fileID: 123170}
 --- !u!114 &11406620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,12 +239,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dbf4a3a7efba7b4fb76d9a2d99fcd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 2
+  team: 1
   health: 100
   tex:
   - {fileID: 2800000, guid: 32a8e9605a6100445a9417bcc3b4a98e, type: 3}
   - {fileID: 2800000, guid: 564ee74ae523da843b8a3eaab1fab5e4, type: 3}
-  initial: 0
+  initial: 1
 --- !u!114 &11417240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,9 +283,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cafb2314472c1545871710317877865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brute: {fileID: 169622, guid: 661597c58462c584098fcda37a2f0e42, type: 2}
-  grunt: {fileID: 116254, guid: ea14fedfda5dcfb4a8d63b2965d39664, type: 2}
-  archer: {fileID: 124576, guid: b5cf6cfd35a23c642b12e58bdf956b2f, type: 2}
+  options:
+  - {fileID: 169622, guid: 661597c58462c584098fcda37a2f0e42, type: 2}
+  - {fileID: 116254, guid: ea14fedfda5dcfb4a8d63b2965d39664, type: 2}
+  - {fileID: 124576, guid: b5cf6cfd35a23c642b12e58bdf956b2f, type: 2}
+  brute: {fileID: 179678, guid: 01116ddc02249364c8f50b15418a7a78, type: 2}
+  grunt: {fileID: 134804, guid: 829b6a089fd5df043a3c024e80b975b9, type: 2}
+  archer: {fileID: 118942, guid: df9d9f6eb4696fb498fb37f2f8b62970, type: 2}
   spawner: {fileID: 135080}
 --- !u!212 &21232086
 SpriteRenderer:

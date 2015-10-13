@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 472978}
   - 212: {fileID: 21272986}
   - 114: {fileID: 11472980}
+  - 114: {fileID: 11437056}
   m_Layer: 5
   m_Name: Blue
   m_TagString: Untagged
@@ -128,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.97000027}
+  m_LocalPosition: {x: 0, y: 0, z: -1.47000003}
   m_LocalScale: {x: 1.14983904, y: 1, z: 1.23210096}
   m_Children:
   - {fileID: 472980}
@@ -215,6 +216,18 @@ Animator:
   m_ApplyRootMotion: 1
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11437056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 172978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5217180732aa57648a35eab09876c3b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  daddy: {fileID: 172984}
 --- !u!114 &11472980
 MonoBehaviour:
   m_ObjectHideFlags: 1

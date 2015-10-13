@@ -21,39 +21,39 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         p = VarMan.Instance.pNum ;
-		lavaUI.GetComponent<Text> ().text = lava[p-1]+"";
-		humansUI.GetComponent<Text> ().text = humans[p-1]+"";
-		houseUI.GetComponent<Text> ().text = housing[p-1]+"";
+		lavaUI.GetComponent<Text> ().text = VarMan.Instance.lava+"";
+		humansUI.GetComponent<Text> ().text = VarMan.Instance.humans+"";
+		houseUI.GetComponent<Text> ().text = VarMan.Instance.housing+"";
 	}
 
 	public int getHousing(int y){
-		return housing [y];
+		return VarMan.Instance.housing;
 	}
 
 	public void addHousing(int x,int y){
-		housing [y] += x;
+		VarMan.Instance.housing +=10;
 	}
 
 	public void allocateHousing(int x,int y){
-		housing [y] -= x;
+		VarMan.Instance.housing -= x;
 	}
 	public int getLava(int y){
-		return lava [y];
+		return VarMan.Instance.lava;
 	}
 	public int getHumans(int y){
-		return humans [y];
+		return VarMan.Instance.humans;
 	}
 	public void takeLava(int x,int y){
-		lava [y] = lava [y] - x;
+		VarMan.Instance.lava = VarMan.Instance.lava - x;
 	}
 	public void takeHumans(int x,int y){
-		humans[y] = humans [y] - x;
+		VarMan.Instance.humans = VarMan.Instance.humans - x;
 	}
 	public void placeLava(int x,int y){
-		lava [y] = lava [y] + x;
+		VarMan.Instance.lava = VarMan.Instance.lava + x;
 	}
 	public void placeHumans(int x,int y){
-		humans[y] = humans [y] + x;
+		VarMan.Instance.humans = VarMan.Instance.humans + x;
 	}
 
 

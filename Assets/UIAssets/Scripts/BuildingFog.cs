@@ -18,7 +18,7 @@ public class BuildingFog : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 15f);
+		Collider[] hitColliders = Physics.OverlapSphere (this.transform.position, 45f);
 		int i = 0;
 		int count = 0;
 		int check=0;

@@ -147,7 +147,13 @@ public class Unit : MonoBehaviour
 		currentLoad = 0;
 		gatherSpeed = 1;
 		glow = null;
-		mainBuilding = GameObject.FindGameObjectWithTag ("Home Base");
+		GameObject[] temp = GameObject.FindGameObjectsWithTag ("Home Base");
+
+		foreach (GameObject house in temp) {
+			if(house.GetComponent<DestructableBuilding>().team == team){
+				mainBuilding = house;
+			}
+		}
 		gathering = false;
 		state = State.Idle;
 		wasSelected = false;
@@ -550,7 +556,7 @@ public class Unit : MonoBehaviour
 	void AddResources ()
 	{
 		//Increase lava resource by x amount
-		Camera.main.GetComponent<Player> ().lava [team - 1] += collectedAmount;
+		VarMan.Instance.lava += 100;
 	}
 
 	//Starts an attack on a specific unit

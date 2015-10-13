@@ -7,6 +7,7 @@ public class TowerShoot : MonoBehaviour {
 	float shoot;
 	// Use this for initialization
 	void Start () {
+		team = VarMan.Instance.pNum;
 		shoot = Time.time;
 	}
 	

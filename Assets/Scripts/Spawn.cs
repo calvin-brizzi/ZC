@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Spawn : MonoBehaviour {
+	public GameObject[] options;
 	public GameObject brute;
 	public GameObject grunt;
 	public GameObject archer;
@@ -18,14 +19,21 @@ public class Spawn : MonoBehaviour {
 		spawnpoint = spawner.transform.position;
 		//spawnpoint.z = spawnpoint.z - 50;
 		p = this.GetComponent<DestructableBuilding> ().team;
+		if (p == 1) {
+			brute = options [0];
+			grunt = options [1];
+			archer = options [2];
+		}
 	}
 
 	public void spawnBrute(){
 		print ("Spawning Brute");
 
-		int resource = Camera.main.GetComponent<Player> ().getHumans (p -1);
-		if (resource >= 5) {
-			Camera.main.GetComponent<Player> ().takeHumans (5, p - 1);
+		int resource = VarMan.Instance.humans;
+		int housing = VarMan.Instance.housing;
+		if (resource >= 5&&housing>=2) {
+			VarMan.Instance.humans-=5;
+			VarMan.Instance.housing-=2;
 			queue.Add (1);
 			if (start == -1) {
 				start = Time.time;
@@ -39,9 +47,11 @@ public class Spawn : MonoBehaviour {
 		print ("Spawning Archer");
 
 
-		int resource = Camera.main.GetComponent<Player> ().getHumans (p -1);
-		if (resource >= 5) {
-			Camera.main.GetComponent<Player> ().takeHumans (5, p - 1);
+		int resource = VarMan.Instance.humans;
+		int housing = VarMan.Instance.housing;
+		if (resource >= 5&&housing>=2) {
+			VarMan.Instance.humans-=5;
+			VarMan.Instance.housing-=2;
 			queue.Add (2);
 			if (start == -1) {
 				start = Time.time;
@@ -55,9 +65,11 @@ public class Spawn : MonoBehaviour {
 		print ("Spawning Grunt");
 
 
-		int resource = Camera.main.GetComponent<Player> ().getHumans (p -1);
-		if (resource >= 2) {
-			Camera.main.GetComponent<Player> ().takeHumans (2, p - 1);
+		int resource = VarMan.Instance.humans;
+		int housing = VarMan.Instance.housing;
+		if (resource >= 2&&housing>=2) {
+			VarMan.Instance.humans-=2;
+			VarMan.Instance.housing-=2;
 			queue.Add (0);
 			if (start == -1) {
 				start = Time.time;

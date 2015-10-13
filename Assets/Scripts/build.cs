@@ -17,7 +17,7 @@ public class build : MonoBehaviour {
 		if (percentage >= 100) {
 			Vector3 gm = daddy.gameObject.transform.position;
 			gm.y = 0.08f;
-			GameObject x = (GameObject)Instantiate (prefab,gm,Quaternion.identity);
+			GameObject x = (GameObject)Network.Instantiate (prefab,gm,Quaternion.identity,0);
 			x.GetComponent<DestructableBuilding>().team = t;
 			print (gameObject.transform.position);
 			Destroy (daddy.gameObject);

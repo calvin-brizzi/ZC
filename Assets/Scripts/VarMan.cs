@@ -6,7 +6,9 @@ public class VarMan : Singleton<VarMan> {
 
     public int pNum;
     public int humans = 0;
-     
+	public int lava = 1000;
+
+	public int housing=20;
     
 
 }
